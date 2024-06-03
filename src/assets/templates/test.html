@@ -1,0 +1,84 @@
+<html>
+
+<head>
+    <style>
+        #bowlerList {
+            width: 100%;
+        }
+    </style>
+
+    <script src="https://lntproctorqa.lntedutech.com/sdk/test.js"></script>
+
+
+    <script>
+        //   require(['Supervisor'], function(Supervisor) {
+            var supervisor = new Supervisor({
+            url: 'https://lntproctorqa.lntedutech.com'
+        });
+        // log in and initialize the session
+
+        supervisor.init({
+            provider: 'jwt',
+            // get JWT string from our server
+            token: window.sessionStorage.getItem('videotoken') //'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuaWNrbmFtZSI6ImNhbmRpZGF0ZS1lbWFpbDEzIiwiaWQiOiI0NzBiZTc4Ni03YzhlLTQ0ZWItYTQzNS00ZjIwZjljNjUxZWIiLCJ0YWdzIjpbImNhbmRpZGF0ZS1lbWFpbDEzIixudWxsLG51bGxdLCJ1c2VybmFtZSI6ImNhbmRpZGF0ZS1lbWFpbDEzIiwidGVtcGxhdGUiOiJkZWZhdWx0Iiwic3ViamVjdCI6IlRlc3QxMyBBcHRpdHVkZSBBc3Nlc3NtZW50IiwidGltZW91dCI6OTAsImlhdCI6MTYzNDY0NDE2NCwiZXhwIjoxNjQwMDQ0MTY0fQ.Ndmb0CFRBWXoKkvUMzr9T5lBcLscAWZtN-G_9TKavrc'
+        }).then(function () {
+            // start proctoring session
+            return supervisor.start();
+        }).catch(function (err) {
+            // show alert with an error
+            // alert();
+            // console.log(err.toString())
+            // redirect to home page
+            location.href = '/';
+        });
+
+        // });
+    </script>
+    <style>
+        .loader {
+            border: 16px solid #f3f3f3;
+            border-radius: 50%;
+            border-top: 16px solid #3498db;
+            width: 120px;
+            height: 120px;
+            -webkit-animation: spin 2s linear infinite;
+            /* Safari */
+            animation: spin 2s linear infinite;
+        }
+
+        /* Safari */
+
+        @-webkit-keyframes spin {
+            0% {
+                -webkit-transform: rotate(0deg);
+            }
+
+            100% {
+                -webkit-transform: rotate(360deg);
+            }
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+
+</head>
+
+<body style="margin: 0px !important;">
+    <!-- <div class="loader"></div> -->
+    <div id="bowlerList">
+
+
+    </div>
+
+
+</body>
+
+</html>

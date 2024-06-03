@@ -1,0 +1,963 @@
+<app-navbar></app-navbar>
+<div style="background-color: #fff">
+  <div class="candidate-alert">
+    <mat-icon class="info">info</mat-icon>Note: Please complete the profile to take the assessment. In case of any queries, please contact helpdesk number available at&nbsp;<span><a target="_blank" href = "https://info.lntedutech.com/">https://info.lntedutech.com</a></span>&nbsp;site.
+  </div>
+  <div *ngIf="displayFormField !=undefined && this.samplecandidateJson != undefined" class="candidate-form">
+    <form [formGroup]="candidateUapForm" style="display: contents">
+
+      <div class="B-details">
+        <div class="left-candidatelabels" style="top: -4px;">
+          <span>Basic Details</span>
+        </div>
+        <div class="right-full">
+          <div class="right-candidateinputs">
+            <div *ngIf="displayFormField?.name">
+            <span>{{displayFormField?.name?.diplayName}}
+              <div class="error" *ngIf="displayFormField?.name?.mandatory==true">*</div>
+            </span>
+            <mat-form-field appearance="outline">
+              <input matInput  placeholder="Enter your name" [readOnly]="false" type="text"  formControlName="name" />
+              <mat-error *ngIf="this.displayFormField['name']?.mandatory && candidateUapForm?.controls['name']?.invalid">
+                <div class="form-error" *ngIf="candidateUapForm?.controls['name'].errors?.required">
+                  Name is required
+                </div>
+                <div class="form-error" *ngIf="candidateUapForm.controls['name'].errors?.pattern">
+                  Name should be in letters only
+                </div>
+              </mat-error>
+            </mat-form-field>
+          </div>
+          </div>
+          <div class="right-candidateinputs-full">
+            <div class="right-candidateinputs-half">
+              <div *ngIf="displayFormField['gender']">
+                <span>{{displayFormField['gender'].diplayName}}<div class="error" *ngIf="displayFormField['gender']?.mandatory==true">*</div></span>
+                <mat-form-field appearance="outline">
+                  <mat-select formControlName="gender" placeholder="<--select-->">
+                    <mat-option value="Male">Male</mat-option>
+                    <mat-option value="Female">Female</mat-option>
+                    <mat-option value="Others">Others</mat-option>
+                  </mat-select>
+                  <mat-error *ngIf="this.displayFormField['gender']?.mandatory &&candidateUapForm.controls['gender'].invalid">
+                    <div class="form-error" *ngIf="candidateUapForm.controls['gender'].errors?.required">
+                      Gender is required
+                    </div>
+                  </mat-error>
+                </mat-form-field>
+              </div>
+
+
+            </div>
+
+            <div class="right-candidateinputs-half">
+              <div *ngIf="displayFormField?.emailId">
+              <span>{{displayFormField?.emailId?.diplayName}}
+                <div class="error" *ngIf="displayFormField?.emailId?.mandatory==true">*</div>
+              </span>
+              <mat-form-field appearance="outline">
+                <input matInput placeholder="Enter your email id" formControlName="emailId" />
+                <mat-error *ngIf="this.displayFormField['emailId']?.mandatory && candidateUapForm.controls['emailId'].invalid">
+                  <div class="form-error" *ngIf="candidateUapForm.controls['emailId'].errors?.required">
+                    Email id is required
+                  </div>
+                  <div class="form-error" *ngIf="candidateUapForm.controls['emailId'].errors?.pattern">
+                    Please enter a valid email id
+                  </div>
+                </mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+          </div>
+          <div class="right-candidateinputs-full">
+            <div class="right-candidateinputs-half">
+              <div *ngIf="displayFormField?.alternateEmailId">
+                <span>{{displayFormField?.alternateEmailId?.diplayName}}
+                  <div class="error" *ngIf="displayFormField?.alternateEmailId?.mandatory==true">*</div>
+                </span>
+              <mat-form-field appearance="outline">
+                <input matInput placeholder="Enter your alternate email Id" (ngModelChange)="onAlternateEmailChange()"  formControlName="alternateEmailId" />
+                <mat-error *ngIf="candidateUapForm.controls['alternateEmailId'].invalid">
+                  <div class="form-error" *ngIf="candidateUapForm.controls['alternateEmailId'].errors?.required">
+                    Alternate email id is required
+                  </div>
+                  <div class="form-error" *ngIf="candidateUapForm.controls['alternateEmailId'].errors?.pattern">
+                    Please enter a valid alternate email id
+                  </div>
+                </mat-error>
+              </mat-form-field>
+            </div>
+            </div>
+
+
+            <div class="right-candidateinputs-half">
+              <div *ngIf="displayFormField?.phonenumber">
+                <span>{{displayFormField?.phonenumber?.diplayName}}
+                  <div class="error" *ngIf="displayFormField?.phonenumber?.mandatory==true">*</div>
+                </span>
+              <mat-form-field appearance="outline">
+                <input matInput [type]="number" (ngModelChange)="phoneValueChange()" (keydown.enter)="verifybtn && candidateUapForm.controls['phonenumber'].valid && candidateUapForm.controls['phonenumber']?.value?.length == 10 ?verifyOtp('phonenumber'):''" [minlength]="10" [maxlength]="10" placeholder="Enter your mobile number" formControlName="phonenumber" />
+                <button type="button" matSuffix class="insideverificationcode"  *ngIf="verifybtn && candidateUapForm.controls['phonenumber'].valid && candidateUapForm.controls['phonenumber']?.value?.length == 10"   (click)="verifyOtp('phonenumber')">
+                  <p><u>Verify Number</u></p>
+                </button>
+                <button type="button" [disabled] ="verifyimgic"  matSuffix class="verifysuccess" *ngIf="verifyimgic">
+                  <img src="../../../assets/veryfication-success.svg" alt="success">
+                </button>
+                <mat-error *ngIf=" this.displayFormField['phonenumber']?.mandatory && candidateUapForm.controls['phonenumber'].invalid">
+                  <div class="form-errorNumber" *ngIf="candidateUapForm.controls['phonenumber'].errors?.required">
+                    Mobile number is required
+                  </div>
+                  <div class="form-errorNumber" *ngIf="candidateUapForm.controls['phonenumber'].errors?.pattern">
+                    Please enter a valid 10 digit mobile number
+                  </div>
+                </mat-error>
+
+              </mat-form-field>
+            </div>
+            </div>
+
+            <!-- <div class="right-candidateinputs-small-semi-half" style="width: 50%">
+              <div *ngIf="displayFormField?.phonenumber">
+                <span>{{displayFormField?.phonenumber?.diplayName}}
+                  <div class="error" *ngIf="displayFormField?.phonenumber?.mandatory==true">*</div>
+                </span>
+              <div class="cutomized-right-inputfile">
+                <div class="alignment">
+                  <input class="inputcls" [type]="number" [minlength]="10" [maxlength]="10"  [disabled] = "verifyimgic"
+                    [readonly]="candidateUapForm && candidateUapForm.phonenumber"
+                    placeholder="Enter your contact number" formControlName="phonenumber" type="text" />
+                  <button class="insideverificationcode"  *ngIf="verifybtn && candidateUapForm.controls['phonenumber']?.value?.length == 10"   (click)="verifyOtp('phonenumber')">
+                    <p><u>Verify Number</u></p>
+                  </button>
+
+                  <mat-error *ngIf=" this.displayFormField['phonenumber']?.mandatory && candidateUapForm.controls['phonenumber'].valid">
+                    <div class="form-errorNumber" *ngIf="candidateUapForm.controls['phonenumber'].errors?.required">
+                      Contact number is required
+                    </div>
+                    <div class="form-errorNumber" *ngIf="candidateUapForm.controls['phonenumber'].errors?.pattern">
+                      Please enter a valid 10 digit mobile number
+                    </div>
+                  </mat-error>
+                  <div class="verifysuccess" *ngIf="verifyimgic">
+                    <img src="../../../assets/veryfication-success.svg" alt="success">
+                  </div>
+                </div>
+              </div>
+            </div>
+            </div> -->
+
+          </div>
+        </div>
+      </div>
+
+<!-- ----------------------education details----------------------------- -->
+
+      <div *ngIf="displayFormField?.educationDetails">
+      <div class="B-details">
+        <div class="left-candidatelabels">
+          <span>{{displayFormField?.educationDetails?.diplayName}}</span>
+        </div>
+        <div class="right-full">
+          <div class="right-candidateinputs-full">
+            <div class="right-candidateinputs-half">
+              <span>Degree
+                <div class="error" *ngIf="displayFormField?.educationDetails?.mandatory==true">*</div>
+              </span>
+              <mat-form-field appearance="outline">
+
+                <mat-select  formControlName="degree" (ngModelChange)="onDegreeSelect($event)" placeholder="<--select-->">
+                  <!-- <mat-option [value]="samplecandidateJson.degree">{{samplecandidateJson.degree}}</mat-option> -->
+                  <mat-option *ngFor="let degree of degreeArray"  [value]="degree">{{degree}}</mat-option>
+                </mat-select>
+                <mat-error *ngIf="this.displayFormField['educationDetails']?.mandatory && candidateUapForm.controls['degree'].invalid">
+                  <div class="form-error" *ngIf="candidateUapForm.controls['degree'].errors?.required">
+                    Degree is required
+                  </div>
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <div class="right-candidateinputs-half">
+              <span>Specialization
+                <div class="error" *ngIf="displayFormField?.educationDetails?.mandatory==true">*</div>
+              </span>
+              <mat-form-field appearance="outline">
+                <mat-select formControlName="specialization" placeholder="<--select-->">
+                  <!-- <mat-option [value]="samplecandidateJson.specialization">{{samplecandidateJson.specialization}}</mat-option> -->
+                  <mat-option *ngFor="let specialization of specializationArray"  [value]="specialization">{{specialization}}</mat-option>
+                </mat-select>
+                <mat-error *ngIf="this.displayFormField['educationDetails']?.mandatory && candidateUapForm.controls['specialization'].invalid">
+                  <div class="form-error" *ngIf="candidateUapForm.controls['specialization'].errors?.required">
+                    Specialization is required
+                  </div>
+                </mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+      </div>
+      </div>
+
+
+
+<!-- -----------------------college details --------------------------- -->
+
+
+      <div *ngIf="displayFormField?.collegeDetails">
+      <div class="B-details">
+        <div class="left-candidatelabels">
+          <span>{{displayFormField?.collegeDetails?.diplayName}}</span>
+        </div>
+        <div class="right-full">
+          <div class="right-candidateinputs-full">
+            <div class="right-candidateinputs-small-semi-half">
+              <span>State
+                <div class="error" *ngIf="displayFormField?.collegeDetails?.mandatory==true">*</div>
+              </span>
+              <mat-form-field appearance="outline">
+                <mat-select formControlName="state" (ngModelChange)="onDistrictChange($event)" placeholder="<--select-->">
+                  <mat-option *ngFor="let indiastates of states"  [value]="indiastates.id">{{indiastates?.name}}</mat-option>
+                </mat-select>
+
+                <mat-error *ngIf="this.displayFormField['collegeDetails']?.mandatory && candidateUapForm.controls['state'].errors?.required==true">
+                  <div class="form-error">
+                    State is required
+                  </div>
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <div class="right-candidateinputs-small-semi-half">
+              <span>District
+                <div class="error" *ngIf="displayFormField?.collegeDetails?.mandatory==true">*</div>
+              </span>
+              <mat-form-field appearance="outline">
+                <mat-select formControlName="district" (ngModelChange)="onCollegeChange($event)" placeholder="<--select-->">
+                  <mat-option *ngFor="let indiadistricts of districts"  [value]="indiadistricts.id">{{indiadistricts?.name}}</mat-option>
+                </mat-select>
+                <mat-error *ngIf="this.displayFormField['collegeDetails']?.mandatory && candidateUapForm.controls['district'].invalid">
+                  <div class="form-error" *ngIf="candidateUapForm.controls['district'].errors?.required">
+                    District is required
+                  </div>
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <div class="right-candidateinputs-semi-half" style="width: 50%">
+              <span>College Name
+                <div class="error" *ngIf="displayFormField?.collegeDetails?.mandatory==true">*</div>
+              </span>
+              <mat-form-field appearance="outline">
+                <mat-select formControlName="collegename" placeholder="<--select-->">
+                  <mat-option *ngFor="let indiacolleges of colleges"  [value]="indiacolleges.college_id">{{indiacolleges?.college_name}}</mat-option>
+                </mat-select>
+                <mat-error *ngIf="this.displayFormField['collegeDetails']?.mandatory && candidateUapForm.controls['collegename'].invalid">
+                  <div class="form-error" *ngIf="candidateUapForm.controls['collegename'].errors?.required">
+                    College name is required
+                  </div>
+                </mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+<!-- ----------------------sslc details----------------------- -->
+
+     <div *ngIf="displayFormField['SSLC']">
+      <div class="B-details">
+        <div class="left-candidatelabels">
+          <span>{{displayFormField['SSLC']?.diplayName}}</span>
+        </div>
+        <div class="right-full">
+          <div class="right-candidateinputs-full">
+            <div class="right-candidateinputs-small-semi-half">
+              <span>Grading System 
+                <div class="error" *ngIf="displayFormField['SSLC']?.mandatory==true">*</div>
+              </span>
+              <mat-form-field appearance="outline">
+                <mat-select formControlName="SSLCGrading" (ngModelChange)="onGradingChange($event,'SSLC')" placeholder="<--select-->">
+                  <mat-option value="percentage">Percentage</mat-option>
+                  <mat-option value="cgpa">Grade points</mat-option>
+                </mat-select>
+                <mat-error *ngIf="this.displayFormField['SSLC']?.mandatory && candidateUapForm.controls['SSLCGrading'].invalid">
+                  <div class="form-error" *ngIf="candidateUapForm.controls['SSLCGrading'].errors?.required">
+                    SSLC Grading System is required
+                  </div>
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <div class="right-candidateinputs-small-semi-halfdegree">
+              <span>10th {{this.candidateUapForm.get('SSLCGrading')?.value == 'percentage'?'Percentage':this.candidateUapForm.get('SSLCGrading')?.value == 'cgpa'?'CGPA':'Percentage/CGPA'}}
+                <div class="error" *ngIf="displayFormField['SSLC']?.mandatory==true">*</div>
+              </span>
+              <mat-form-field appearance="outline">
+                <input matInput [disabled]="false"  type="number" minlength="0" maxlength="100" [placeholder]="this.candidateUapForm.get('SSLCGrading')?.value == 'percentage'?'Enter Percentage':this.candidateUapForm.get('SSLCGrading')?.value == 'cgpa'?'Enter CGPA':'Enter Percentage/CGPA'" formControlName="SSLC" />
+                <mat-error *ngIf="this.displayFormField['SSLC']?.mandatory && candidateUapForm.controls['SSLC'].invalid">
+                  <div class="form-error" *ngIf="candidateUapForm.controls['SSLC'].errors?.required">
+                    10th {{this.candidateUapForm.get('SSLCGrading')?.value == 'percentage'?'Percentage':this.candidateUapForm.get('SSLCGrading')?.value == 'cgpa'?'CGPA':'Percentage/CGPA'}} is required
+                  </div>  
+                  <div class="form-error" *ngIf="candidateUapForm.controls['SSLC'].errors?.min && candidateUapForm.controls['SSLC'].errors?.min.min ==0">
+                    10th {{this.candidateUapForm.get('SSLCGrading')?.value == 'percentage'?'Percentage':this.candidateUapForm.get('SSLCGrading')?.value == 'cgpa'?'CGPA':'Percentage/CGPA'}} shoud be greater than or equal to 0
+                  </div>
+                  <div class="form-error" *ngIf="candidateUapForm.controls['SSLC'].errors?.max && candidateUapForm.controls['SSLC'].errors?.max.max ==10">
+                    10th {{this.candidateUapForm.get('SSLCGrading')?.value == 'percentage'?'Percentage':this.candidateUapForm.get('SSLCGrading')?.value == 'cgpa'?'CGPA':'Percentage/CGPA'}} shoud be lesser than or equal to 10
+                  </div>
+                  <div class="form-error" *ngIf="candidateUapForm.controls['SSLC'].errors?.min && candidateUapForm.controls['SSLC'].errors?.min.min ==11">
+                    10th {{this.candidateUapForm.get('SSLCGrading')?.value == 'percentage'?'Percentage':this.candidateUapForm.get('SSLCGrading')?.value == 'cgpa'?'CGPA':'Percentage/CGPA'}} shoud be greater than or equal to 11
+                  </div>
+                  <div class="form-error" *ngIf="candidateUapForm.controls['SSLC'].errors?.max && candidateUapForm.controls['SSLC'].errors?.max.max ==100">
+                    10th {{this.candidateUapForm.get('SSLCGrading')?.value == 'percentage'?'Percentage':this.candidateUapForm.get('SSLCGrading')?.value == 'cgpa'?'CGPA':'Percentage/CGPA'}} shoud be lesser than or equal to 100
+                  </div>
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <div class="right-candidateinputs-small-semi-halfdegree">
+              <span>Year of Passing
+                <div class="error" *ngIf="displayFormField['SSLC']?.mandatory==true">*</div>
+              </span>
+              <mat-form-field color="primary" appearance="outline">
+                <input matInput  [matDatepicker]="sslcyear" placeholder="Choose year" formControlName="yearOfPassingSSLC" readonly/>
+                <mat-datepicker-toggle matSuffix [for]="sslcyear"></mat-datepicker-toggle>
+                <mat-datepicker #sslcyear (yearSelected)="chosenYearHandler($event, sslcyear,'SSLC')"  panelClass="jp-year-picker"  startView="multi-year" color="primary"></mat-datepicker>
+
+
+                <mat-error *ngIf="this.displayFormField['SSLC']?.mandatory && candidateUapForm.controls['yearOfPassingSSLC'].invalid">
+                  <div class="form-error" *ngIf="candidateUapForm.controls['yearOfPassingSSLC'].errors?.matDatepickerParse != '' || candidateUapForm.controls['yearOfPassingSSLC'].errors?.required ">
+                    Year is required
+                  </div>
+                </mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+<!-- ----------------------hsc details------------------ -->
+<div *ngIf="displayFormField['HSC']">
+      <div class="B-details">
+        <div class="left-candidatelabels">
+          <span>{{displayFormField['HSC']?.diplayName}}</span>
+        </div>
+        <div class="right-full">
+          <div class="right-candidateinputs-full">
+            <div class="right-candidateinputs-small-semi-half">
+              <span>Grading System 
+                <div class="error" *ngIf="displayFormField['HSC']?.mandatory==true">*</div>
+              </span>
+              <mat-form-field appearance="outline">
+                <mat-select formControlName="HSCGrading" (ngModelChange)="onGradingChange($event,'HSC')" placeholder="<--select-->">
+                  <mat-option value="percentage">Percentage</mat-option>
+                  <mat-option value="cgpa">Grade points</mat-option>
+                </mat-select>
+                <mat-error *ngIf="this.displayFormField['HSC']?.mandatory && candidateUapForm.controls['HSCGrading'].invalid">
+                  <div class="form-error" *ngIf="candidateUapForm.controls['HSCGrading'].errors?.required">
+                    HSC Grading System is required
+                  </div>
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <div class="right-candidateinputs-small-semi-halfdegree">
+              <span>12th {{this.candidateUapForm.get('HSCGrading')?.value == 'percentage'?'Percentage':this.candidateUapForm.get('HSCGrading')?.value == 'cgpa'?'CGPA':'Percentage/CGPA'}}
+                <div class="error" *ngIf="displayFormField['HSC']?.mandatory==true">*</div>
+              </span>
+              <mat-form-field appearance="outline">
+                <input matInput  type="number" [placeholder]="this.candidateUapForm.get('HSCGrading')?.value == 'percentage'?'Enter Percentage':this.candidateUapForm.get('HSCGrading')?.value == 'cgpa'?'Enter CGPA':'Enter Percentage/CGPA'" formControlName="HSC" />
+                <mat-error *ngIf="this.displayFormField['HSC']?.mandatory && candidateUapForm.controls['HSC'].invalid">
+                  <div class="form-error" *ngIf="candidateUapForm.controls['HSC'].errors?.required">
+                    12th {{this.candidateUapForm.get('HSCGrading')?.value == 'percentage'?'Percentage':this.candidateUapForm.get('HSCGrading')?.value == 'cgpa'?'CGPA':'Percentage/CGPA'}} is required
+                  </div>
+                  <div class="form-error" *ngIf="candidateUapForm.controls['HSC'].errors?.min && candidateUapForm.controls['HSC'].errors?.min.min ==0">
+                    12th {{this.candidateUapForm.get('HSCGrading')?.value == 'percentage'?'Percentage':this.candidateUapForm.get('HSCGrading')?.value == 'cgpa'?'CGPA':'Percentage/CGPA'}} shoud be greater than or equal to 0
+                  </div>
+                  <div class="form-error" *ngIf="candidateUapForm.controls['HSC'].errors?.max && candidateUapForm.controls['HSC'].errors?.max.max ==10">
+                    12th {{this.candidateUapForm.get('HSCGrading')?.value == 'percentage'?'Percentage':this.candidateUapForm.get('HSCGrading')?.value == 'cgpa'?'CGPA':'Percentage/CGPA'}} shoud be lesser than or equal to 10
+                  </div>
+                  <div class="form-error" *ngIf="candidateUapForm.controls['HSC'].errors?.min && candidateUapForm.controls['HSC'].errors?.min.min ==11">
+                    12th {{this.candidateUapForm.get('HSCGrading')?.value == 'percentage'?'Percentage':this.candidateUapForm.get('HSCGrading')?.value == 'cgpa'?'CGPA':'Percentage/CGPA'}} shoud be greater than or equal to 11
+                  </div>
+                  <div class="form-error" *ngIf="candidateUapForm.controls['HSC'].errors?.max && candidateUapForm.controls['HSC'].errors?.max.max ==100">
+                    12th {{this.candidateUapForm.get('HSCGrading')?.value == 'percentage'?'Percentage':this.candidateUapForm.get('HSCGrading')?.value == 'cgpa'?'CGPA':'Percentage/CGPA'}} shoud be lesser than or equal to 100
+                  </div>
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <div class="right-candidateinputs-small-semi-halfdegree">
+              <span>Year of Passing
+                <div class="error" *ngIf="displayFormField['HSC']?.mandatory==true">*</div>
+              </span>
+              <mat-form-field color="primary" appearance="outline">
+                <input matInput [matDatepicker]="hscyear" (ngModelChange)="onYearSelect($event,'SSLC','HSC')" placeholder="Choose year" formControlName="yearOfPassingHSC" readonly/>
+                <mat-datepicker-toggle matSuffix [for]="hscyear"></mat-datepicker-toggle>
+                <mat-datepicker #hscyear (yearSelected)="chosenYearHandler($event, hscyear,'HSC')"  panelClass="jp-year-picker"  startView="multi-year" color="primary"></mat-datepicker>
+                <mat-error *ngIf="this.displayFormField['HSC']?.mandatory && candidateUapForm.controls['yearOfPassingHSC'].invalid">
+                  <div class="form-error" *ngIf="candidateUapForm.controls['yearOfPassingHSC'].errors?.matDatepickerParse != '' || candidateUapForm.controls['yearOfPassingHSC'].errors?.required ">
+                    Year is required
+                  </div>
+                </mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+<!--  ug-->
+   <div *ngIf="displayFormField['UG']">
+      <div class="B-details">
+        <div class="left-candidatelabels">
+          <span>{{displayFormField['UG']?.diplayName}}</span>
+        </div>
+        <div class="right-full">
+          <div class="right-candidateinputs-full">
+            <div class="right-candidateinputs-small-semi-half">
+              <span>Grading System 
+                <div class="error" *ngIf="displayFormField['UG']?.mandatory==true">*</div>
+              </span>
+              <mat-form-field appearance="outline">
+                <mat-select (ngModelChange)="onGradingChange($event,'UG')" formControlName="UGGrading" placeholder="<--select-->">
+                  <mat-option value="percentage">Percentage</mat-option>
+                  <mat-option value="cgpa">Grade points</mat-option>
+                </mat-select>
+                <mat-error *ngIf="this.displayFormField['UG']?.mandatory && candidateUapForm.controls['UGGrading'].invalid">
+                  <div class="form-error" *ngIf="candidateUapForm.controls['UGGrading'].errors?.required">
+                    UG Grading System is required
+                  </div>
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <div class="right-candidateinputs-small-semi-halfdegree">
+              <span>UG {{this.candidateUapForm.get('UGGrading')?.value == 'percentage'?'Percentage':this.candidateUapForm.get('UGGrading')?.value == 'cgpa'?'CGPA':'Percentage/CGPA'}}
+                <div class="error" *ngIf="displayFormField['UG']?.mandatory==true">*</div>
+              </span>
+              <mat-form-field appearance="outline">
+                <input matInput type="number"  [placeholder]="this.candidateUapForm.get('UGGrading')?.value == 'percentage'?'Enter Percentage':this.candidateUapForm.get('UGGrading')?.value == 'cgpa'?'Enter CGPA':'Enter Percentage/CGPA'" formControlName="UG" />
+                <mat-error *ngIf="this.displayFormField['UG']?.mandatory && candidateUapForm.controls['UG'].invalid">
+                  <div class="form-error" *ngIf="candidateUapForm.controls['UG'].errors?.required">
+                    UG {{this.candidateUapForm.get('UGGrading')?.value == 'percentage'?'Percentage':this.candidateUapForm.get('UGGrading')?.value == 'cgpa'?'CGPA':'Percentage/CGPA'}} is required
+                  </div>
+                  <div class="form-error" *ngIf="candidateUapForm.controls['UG'].errors?.min && candidateUapForm.controls['UG'].errors?.min.min ==0">
+                    UG {{this.candidateUapForm.get('UGGrading')?.value == 'percentage'?'Percentage':this.candidateUapForm.get('UGGrading')?.value == 'cgpa'?'CGPA':'Percentage/CGPA'}} shoud be greater than or equal to 0
+                  </div>
+                  <div class="form-error" *ngIf="candidateUapForm.controls['UG'].errors?.max && candidateUapForm.controls['UG'].errors?.max.max ==10">
+                    UG {{this.candidateUapForm.get('UGGrading')?.value == 'percentage'?'Percentage':this.candidateUapForm.get('UGGrading')?.value == 'cgpa'?'CGPA':'Percentage/CGPA'}} shoud be lesser than or equal to 10
+                  </div>
+                  <div class="form-error" *ngIf="candidateUapForm.controls['UG'].errors?.min && candidateUapForm.controls['UG'].errors?.min.min ==11">
+                    UG {{this.candidateUapForm.get('UGGrading')?.value == 'percentage'?'Percentage':this.candidateUapForm.get('UGGrading')?.value == 'cgpa'?'CGPA':'Percentage/CGPA'}} shoud be greater than or equal to 11
+                  </div>
+                  <div class="form-error" *ngIf="candidateUapForm.controls['UG'].errors?.max && candidateUapForm.controls['UG'].errors?.max.max ==100">
+                    UG {{this.candidateUapForm.get('UGGrading')?.value == 'percentage'?'Percentage':this.candidateUapForm.get('UGGrading')?.value == 'cgpa'?'CGPA':'Percentage/CGPA'}} shoud be lesser than or equal to 100
+                  </div>
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <div class="right-candidateinputs-small-semi-halfdegree">
+              <span>Year of Passing
+                <div class="error"  *ngIf="displayFormField['UG']?.mandatory==true">*</div>
+              </span>
+              <mat-form-field color="primary" appearance="outline">
+                <input matInput [matDatepicker]="ugyear" (ngModelChange)="onYearSelect($event,'HSC','UG')" placeholder="Choose year" formControlName="yearOfPassingUG" readonly/>
+                <mat-datepicker-toggle matSuffix [for]="ugyear"></mat-datepicker-toggle>
+                <mat-datepicker #ugyear (yearSelected)="chosenYearHandler($event, ugyear,'UG')"  panelClass="jp-year-picker"  startView="multi-year" color="primary"></mat-datepicker>
+                <mat-error *ngIf="this.displayFormField['UG']?.mandatory && candidateUapForm.controls['yearOfPassingUG'].invalid">
+                  <div class="form-error" *ngIf="candidateUapForm.controls['yearOfPassingUG'].errors?.matDatepickerParse != '' || candidateUapForm.controls['yearOfPassingUG'].errors?.required">
+                    Year is required
+                  </div>
+                </mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+<!-- pg -->
+    <div *ngIf="displayFormField['PG']">
+      <div class="B-details">
+        <div class="left-candidatelabels">
+          <span>{{displayFormField['PG']?.diplayName}}</span>
+        </div>
+        <div class="right-full">
+          <div class="right-candidateinputs-full">
+            <div class="right-candidateinputs-small-semi-half">
+              <span>Grading System 
+                <div class="error" *ngIf="displayFormField['PG']?.mandatory==true">*</div>
+              </span>
+              <mat-form-field appearance="outline">
+                <mat-select formControlName="PGGrading" (ngModelChange)="onGradingChange($event,'PG')" placeholder="<--select-->">
+                  <mat-option value="percentage">Percentage</mat-option>
+                  <mat-option value="cgpa">Grade points</mat-option>
+                </mat-select>
+                <mat-error *ngIf="this.displayFormField['PG']?.mandatory && candidateUapForm.controls['PGGrading'].invalid">
+                  <div class="form-error" *ngIf="candidateUapForm.controls['PGGrading'].errors?.required">
+                    PG Grading System is required
+                  </div>
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <div class="right-candidateinputs-small-semi-halfdegree">
+              <span>PG {{this.candidateUapForm.get('PGGrading')?.value == 'percentage'?'Percentage':this.candidateUapForm.get('PGGrading')?.value == 'cgpa'?'CGPA':'Percentage/CGPA'}}
+                <div class="error"  *ngIf="displayFormField['PG']?.mandatory==true">*</div>
+              </span>
+              <mat-form-field appearance="outline">
+                <input matInput [placeholder]="this.candidateUapForm.get('PGGrading')?.value == 'percentage'?'Enter Percentage':this.candidateUapForm.get('PGGrading')?.value == 'cgpa'?'Enter CGPA':'Enter Percentage/CGPA'" type="number" formControlName="PG" />
+                <mat-error *ngIf="this.displayFormField['PG']?.mandatory && candidateUapForm.controls['PG'].invalid">
+                  <div class="form-error" *ngIf="candidateUapForm.controls['PG'].errors?.required">
+                    PG {{this.candidateUapForm.get('PGGrading')?.value == 'percentage'?'Percentage':this.candidateUapForm.get('PGGrading')?.value == 'cgpa'?'CGPA':'Percentage/CGPA'}} is required
+                  </div>
+                  <div class="form-error" *ngIf="candidateUapForm.controls['PG'].errors?.min && candidateUapForm.controls['PG'].errors?.min.min ==0">
+                    PG {{this.candidateUapForm.get('PGGrading')?.value == 'percentage'?'Percentage':this.candidateUapForm.get('PGGrading')?.value == 'cgpa'?'CGPA':'Percentage/CGPA'}} shoud be greater than or equal to 0
+                  </div>
+                  <div class="form-error" *ngIf="candidateUapForm.controls['PG'].errors?.max && candidateUapForm.controls['PG'].errors?.max.max ==10">
+                    PG {{this.candidateUapForm.get('PGGrading')?.value == 'percentage'?'Percentage':this.candidateUapForm.get('PGGrading')?.value == 'cgpa'?'CGPA':'Percentage/CGPA'}} shoud be lesser than or equal to 10
+                  </div>
+                  <div class="form-error" *ngIf="candidateUapForm.controls['PG'].errors?.min && candidateUapForm.controls['PG'].errors?.min.min ==11">
+                    PG {{this.candidateUapForm.get('PGGrading')?.value == 'percentage'?'Percentage':this.candidateUapForm.get('PGGrading')?.value == 'cgpa'?'CGPA':'Percentage/CGPA'}} shoud be greater than or equal to 11
+                  </div>
+                  <div class="form-error" *ngIf="candidateUapForm.controls['PG'].errors?.max && candidateUapForm.controls['PG'].errors?.max.max ==100">
+                    PG {{this.candidateUapForm.get('PGGrading')?.value == 'percentage'?'Percentage':this.candidateUapForm.get('PGGrading')?.value == 'cgpa'?'CGPA':'Percentage/CGPA'}} shoud be lesser than or equal to 100
+                  </div>
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <div class="right-candidateinputs-small-semi-halfdegree">
+              <span>Year of Passing
+                <div class="error" *ngIf="displayFormField['PG']?.mandatory==true">*</div>
+              </span>
+              <mat-form-field color="primary" appearance="outline">
+                <input matInput [matDatepicker]="pgyear" (ngModelChange)="onYearSelect($event,'UG','PG')" placeholder="Choose year" formControlName="yearOfPassingPG" readonly />
+                <mat-datepicker-toggle matSuffix [for]="pgyear"></mat-datepicker-toggle>
+                <mat-datepicker #pgyear (yearSelected)="chosenYearHandler($event, pgyear,'PG')"  panelClass="jp-year-picker"  startView="multi-year" color="primary"></mat-datepicker>
+                <mat-error *ngIf="this.displayFormField['PG']?.mandatory && candidateUapForm.controls['yearOfPassingPG'].invalid">
+                  <div class="form-error" *ngIf="candidateUapForm.controls['yearOfPassingPG'].errors?.required">
+                    Year is required
+                  </div>
+                </mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- phd -->
+
+    <div *ngIf="displayFormField['PhD']">
+      <div class="B-details">
+        <div class="left-candidatelabels">
+          <span>{{displayFormField['PhD']?.diplayName}}</span>
+        </div>
+        <div class="right-full">
+          <div class="right-candidateinputs-full">
+              <div class="right-candidateinputs-small-semi-half">
+                <span>Grading System 
+                  <div class="error" *ngIf="displayFormField['PhD']?.mandatory==true">*</div>
+                </span>
+                <mat-form-field appearance="outline">
+                  <mat-select formControlName="PhDGrading" (ngModelChange)="onGradingChange($event,'PhD')" placeholder="<--select-->">
+                    <mat-option value="percentage">Percentage</mat-option>
+                    <mat-option value="cgpa">Grade points</mat-option>
+                  </mat-select>
+                  <mat-error *ngIf="this.displayFormField['PhD']?.mandatory && candidateUapForm.controls['PhDGrading'].invalid">
+                    <div class="form-error" *ngIf="candidateUapForm.controls['PhDGrading'].errors?.required">
+                      Ph.D. Grading System is required
+                    </div>
+                  </mat-error>
+                </mat-form-field>
+              </div>
+            <div class="right-candidateinputs-small-semi-halfdegree">
+              <span>Ph.D. {{this.candidateUapForm.get('PhDGrading')?.value == 'percentage'?'Percentage':this.candidateUapForm.get('PhDGrading')?.value == 'cgpa'?'CGPA':'Percentage/CGPA'}}
+                <div class="error" *ngIf="displayFormField['PhD']?.mandatory==true">*</div>
+              </span>
+              <mat-form-field appearance="outline">
+                <input matInput [placeholder]="this.candidateUapForm.get('PhDGrading')?.value == 'percentage'?'Enter Percentage':this.candidateUapForm.get('PhDGrading')?.value == 'cgpa'?'Enter CGPA':'Enter Percentage/CGPA'" type="number" formControlName="PhD" />
+                <mat-error *ngIf="this.displayFormField['PhD']?.mandatory && candidateUapForm.controls['PhD'].invalid">
+                  <div class="form-error" *ngIf="candidateUapForm.controls['PhD'].errors?.required">
+                    Ph.D. {{this.candidateUapForm.get('PhDGrading')?.value == 'percentage'?'Percentage':this.candidateUapForm.get('PhDGrading')?.value == 'cgpa'?'CGPA':'Percentage/CGPA'}} is required
+                  </div>
+                  <div class="form-error" *ngIf="candidateUapForm.controls['PhD'].errors?.min && candidateUapForm.controls['PhD'].errors?.min.min ==0">
+                    Ph.D. {{this.candidateUapForm.get('PhDGrading')?.value == 'percentage'?'Percentage':this.candidateUapForm.get('PhDGrading')?.value == 'cgpa'?'CGPA':'Percentage/CGPA'}} shoud be greater than or equal to 0
+                  </div>
+                  <div class="form-error" *ngIf="candidateUapForm.controls['PhD'].errors?.max && candidateUapForm.controls['PhD'].errors?.max.max ==10">
+                    Ph.D. {{this.candidateUapForm.get('PhDGrading')?.value == 'percentage'?'Percentage':this.candidateUapForm.get('PhDGrading')?.value == 'cgpa'?'CGPA':'Percentage/CGPA'}} shoud be lesser than or equal to 10
+                  </div>
+                  <div class="form-error" *ngIf="candidateUapForm.controls['PhD'].errors?.min && candidateUapForm.controls['PhD'].errors?.min.min ==11">
+                    Ph.D. {{this.candidateUapForm.get('PhDGrading')?.value == 'percentage'?'Percentage':this.candidateUapForm.get('PhDGrading')?.value == 'cgpa'?'CGPA':'Percentage/CGPA'}} shoud be greater than or equal to 11
+                  </div>
+                  <div class="form-error" *ngIf="candidateUapForm.controls['PhD'].errors?.max && candidateUapForm.controls['PhD'].errors?.max.max ==100">
+                    Ph.D. {{this.candidateUapForm.get('PhDGrading')?.value == 'percentage'?'Percentage':this.candidateUapForm.get('PhDGrading')?.value == 'cgpa'?'CGPA':'Percentage/CGPA'}} shoud be lesser than or equal to 100
+                  </div>
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <div class="right-candidateinputs-small-semi-halfdegree">
+              <span>Year of Passing
+                <div class="error" *ngIf="displayFormField['PhD']?.mandatory==true">*</div>
+              </span>
+              <mat-form-field color="primary" appearance="outline">
+                <input matInput [matDatepicker]="phdyear" placeholder="Choose year" (ngModelChange)="onYearSelect($event,'PG','PhD')" formControlName="yearOfPassingPhD" readonly/>
+                <mat-datepicker-toggle matSuffix [for]="phdyear"></mat-datepicker-toggle>
+                <mat-datepicker (yearSelected)="chosenYearHandler($event, phdyear,'PhD')"  panelClass="jp-year-picker"  startView="multi-year" #phdyear color="primary"></mat-datepicker>
+                <mat-error *ngIf="this.displayFormField['PhD']?.mandatory && candidateUapForm.controls['yearOfPassingPhD'].invalid">
+                  <div class="form-error" *ngIf="candidateUapForm.controls['yearOfPassingPhD'].errors?.required">
+                    Year is required
+                  </div>
+                </mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+      </div>
+
+</div>
+      <div class="B-details">
+        <div class="left-candidatelabels">
+          <span>Other Details</span>
+        </div>
+        <div class="right-full">
+          <div class="right-candidateinputs-full">
+            <div class="right-candidateinputs-small-semi-half">
+            <div *ngIf="displayFormField?.backlogActiveandDead">
+              <span>{{displayFormField?.backlogActiveandDead?.diplayName}}
+                <div class="error" *ngIf="displayFormField?.backlogActiveandDead?.mandatory == true">*</div>
+              </span>
+              <div class="right-candidateradibtns">
+                <mat-radio-group aria-label="Select an option" class="alignment" formControlName="backlogActiveandDead">
+                  <mat-radio-button [value]="true">Yes</mat-radio-button>
+                  <mat-radio-button [value]="false">No</mat-radio-button>
+                  <mat-error *ngIf="this.displayFormField['backlogActiveandDead']?.mandatory && candidateUapForm.controls['backlogActiveandDead'].invalid">
+                    <div class="form-error" *ngIf="candidateUapForm.controls['backlogActiveandDead'].errors?.required">
+                      Backlog is required
+                    </div>
+                  </mat-error>
+                </mat-radio-group>
+              </div>
+            </div>
+
+            </div>
+          </div>
+          <br />
+          <div class="right-candidateinputs-full">
+            <div class="right-candidateinputs-small-semi-half">
+              <div *ngIf="displayFormField?.diplomaBeforeBEorBTech">
+              <span>{{displayFormField?.diplomaBeforeBEorBTech?.diplayName}}
+                <div class="error" *ngIf="displayFormField?.diplomaBeforeBEorBTech?.mandatory == true">*</div>
+              </span>
+
+              <div class="right-candidateradibtns">
+                <mat-radio-group aria-label="Select an option" class="alignment" formControlName="diplomaBeforeBEorBTech">
+                  <mat-radio-button [value]="true">Yes</mat-radio-button>
+                  <mat-radio-button [value]="false">No</mat-radio-button>
+                </mat-radio-group>
+              </div>
+              </div>
+            </div>
+          </div>
+          <br />
+          <div class="right-candidateinputs-full">
+            <div class="right-candidateinputs-small-semi-half">
+              <div *ngIf="displayFormField?.internAtBALorCTL">
+              <span>{{displayFormField?.internAtBALorCTL?.diplayName}}
+                <div class="error" *ngIf="displayFormField?.internAtBALorCTL?.mandatory == true">*</div>
+              </span>
+
+              <div class="right-candidateradibtns">
+                <mat-radio-group (change)="anyGap($event)" aria-label="Select an option" class="alignment"
+                  formControlName="internAtBALorCTL">
+                  <mat-radio-button [value]="true">Yes</mat-radio-button>
+                  <mat-radio-button [value]="false">No</mat-radio-button>
+                </mat-radio-group>
+              </div>
+            </div>
+            </div>
+          </div>
+          <br />
+          <div>
+
+          </div>
+          <div class="right-candidateinputs-full" *ngIf="internship">
+            <div class="right-candidateinputs-small-semi-half" style="width: 50%">
+              <span>If Yes, How many months ?
+                <div class="error">*</div>
+              </span>
+              <div class="right-candidateradibtns">
+                <mat-form-field appearance="outline">
+                  <input matInput placeholder="Enter here" type="text" formControlName="experience" />
+                  <mat-error *ngIf="candidateUapForm.controls['experience'].invalid">
+                    <div class="form-error" *ngIf="candidateUapForm.controls['experience'].errors?.required">
+                      Experience is required
+                    </div>
+                    <div class="form-error" *ngIf="candidateUapForm.controls['experience'].errors?.pattern">
+                      Alphabets and Special characters are not allowed
+                    </div>
+                    <div class="form-error" *ngIf="candidateUapForm.controls['experience'].errors?.pattern == undefined && candidateUapForm.controls['experience'].errors?.min">
+                      Experience month shoud be greater than 0
+                    </div>
+                    <div class="form-error" *ngIf="candidateUapForm.controls['experience'].errors?.pattern == undefined && candidateUapForm.controls['experience'].errors?.max">
+                      Experience month shoud be lesser than 100
+                    </div>
+                  </mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+
+
+
+<!-- resumeUrl -->
+
+       <div *ngIf="displayFormField?.resume">
+          <div class="right-candidateinputs-full">
+            <div class="right-candidateinputs-small-semi-half" style="width: 49.2%">
+              <span>Resume
+                <div class="error" *ngIf="displayFormField?.resume?.mandatory == true">*</div>
+              </span>
+              <div class="right-inputfile">
+                <div class="image-upload" *ngIf="!fileName">
+                  <label for="file-input" class="upload-res">
+                    <mat-icon class="cont-icon">upload</mat-icon>
+                    <span class="content">
+                      Upload your resume</span>
+                  </label>
+                  <input id="file-input" #file style="display:none" matTooltipPostion="after"
+                    [matTooltip]="url ? '' : 'No File Chosen'" (change)="onFileChange($event)" type="file"
+                    formControlName="resume" accept=".pdf" />
+                </div>
+                <div *ngIf="fileName" class="cancel-sec">
+                  {{fileName}}
+                  <mat-icon *ngIf="!this.samplecandidateJson?.updatedJson" class="close-icon" matSuffix (click)="cancelFile()">close</mat-icon>
+                </div>
+              </div>
+              <div class="resumealign">
+              <h6 class="file-extension">
+                <h1 class="ext-span"></h1>(File extension allowed .pdf)
+              </h6>
+                <mat-error *ngIf="this.displayFormField['resume']?.mandatory && candidateUapForm.controls['resume'].errors?.required && resumeCount != 0">
+                  <div class="form-errorresume" >
+                    Resume is required
+                  </div>
+                </mat-error>
+            </div>
+            </div>
+          </div>
+        </div>
+        <br>
+        <div *ngIf="profileSync != 'candidateMyProfile'" class="right-candidateinputs-full">
+          <div class="right-candidateinputs-small-semi-half">
+            <div *ngIf="displayFormField?.validateDocument">
+              <span>{{displayFormField?.validateDocument?.diplayName}}
+                <div class="error" *ngIf="displayFormField?.validateDocument?.mandatory == true">*</div>
+              </span>
+        
+              <div class="right-candidateradibtns">
+                <mat-radio-group (change)="updateValidateDocument($event)" aria-label="Select an option" class="alignment"
+                  formControlName="validateDocument">
+                  <mat-radio-button [value]="true">Yes</mat-radio-button>
+                  <mat-radio-button [value]="false">No</mat-radio-button>
+                </mat-radio-group>
+                <mat-error *ngIf="candidateUapForm.controls['validateDocument'].invalid">
+                  <div class="form-errorCheckbox" *ngIf="candidateUapForm.controls['validateDocument'].errors?.required">
+                    {{displayFormField?.validateDocument?.errorMsg}}
+                  </div>
+                </mat-error>
+              </div>
+            </div>
+          </div>
+        </div>
+        <br>
+        <div class="right-candidateinputs-full" *ngIf="!validDocument && profileSync != 'candidateMyProfile'">
+          <div class="right-candidateinputs-small-semi-half" style="width: 50%">
+            <span>Please provide information on details incorrect
+              <div class="error">*</div>
+            </span>
+            <div class="right-candidateradibtns">
+              <mat-form-field appearance="outline">
+                <input matInput placeholder="Enter here" type="text" formControlName="remarks" />
+                <mat-error *ngIf="candidateUapForm.controls['remarks'].invalid">
+                  <div class="form-error" *ngIf="candidateUapForm.controls['remarks'].errors?.required">
+                     Required
+                  </div>
+                  <div class="form-error" *ngIf="candidateUapForm.controls['remarks'].errors?.pattern">
+                    White-space not allowed
+                  </div>
+                </mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+        </div>
+      </div>
+      <br>
+      <div *ngIf="!this.samplecandidateJson?.updatedJson" class="B-details">
+        <div class="right-full">
+          <div class="right-candidateinputs-full">
+            <section class="example-section">
+
+             <mat-checkbox (change)="open($event)" class="example-margin" formControlName="verified">
+                <span>
+                  I hereby confirm that I have verified the
+                  given information.
+                </span> </mat-checkbox>
+            </section>
+          </div>
+        </div>
+      </div>
+      <br>
+      <div *ngIf="!this.samplecandidateJson?.updatedJson" class="B-details">
+        <div class="right-full center">
+          <button type="button" mat-raised-button  [ngStyle]="{'opacity': !verified ? '0.5' :'1.0'}" [disabled]="!verified" (click)="confirmationCandidateData()">Confirm and
+            Submit</button>
+        </div>
+      </div>
+      <div *ngIf="this.samplecandidateJson?.updatedJson" class="B-details">
+        <div class="right-full center">
+          <button type="button" mat-raised-button class="submitDisable">Confirm and
+            Submit</button>
+        </div>
+      </div>
+    </form>
+
+  </div>
+</div>
+
+
+<ng-template #confirm>
+  <div class="confirmbox">
+
+    <img class="img" src="../../../assets/i-icon.svg">
+    <div class="paragraph">
+      <span *ngIf="this.candidateUapForm.get('validateDocument').value && this.profileSync != 'candidateMyProfile'">
+         <span>Do you wish to submit the form and proceed to the assessment?</span><br>
+         <span>Please note details cannot be changed, once submitted.</span>
+      </span>
+
+      <span class="withpadding" *ngIf="!this.candidateUapForm.get('validateDocument').value && this.profileSync != 'candidateMyProfile'">
+      <span>Proceed to Assessment</span><br>
+      <span>After completion of assessment, please make sure to update the details from "My Profile" link.</span>
+      </span>
+
+      <span *ngIf="this.profileSync == 'candidateMyProfile'">
+      <span>Do you wish to submit the form?</span><br>
+      <span>Please note details cannot be changed, once submitted.</span>
+      </span>
+      <!-- <span>Do you wish to submit the form and proceed to the assessment?</span>
+      <span *ngIf="this.candidateUapForm.get('validateDocument').value || this.profileSync == 'candidateMyProfile'">Please note details cannot be changed, once submitted.</span> -->
+    </div>
+    <div class="buttons-alignment">
+      <button type="button" class="common-btn" (click)="closepopup()">CANCEL</button>
+      <button class="common-btn-yes" type="submit" (click)="onFormdataSubmit()">YES, CONFIRM</button>
+    </div>
+
+  </div>
+
+
+  <!--******************* Assessment submitted successfully Popup *************************** -->
+
+
+
+  <!--******************* Unfortunately you are not qualified for the next round of assessments. **********************-->
+  <!-- <div class="Unfortunately-popup-sec">
+    <img src="/assets/i-icon.svg" alt="">
+  </div>
+  <div class="Unfortunately-popup-msg">
+    <span>Unfortunately you are not qualified for the next round of<br> assessments. Thank you for appearing for the
+      process</span>
+  </div>
+  <div class="Unfortunately-ok">
+    <button>Ok</button>
+  </div>
+  <div class="next-round">
+    <a href="url">Click here for Next round (** Only for Prototyping purpose)</a>
+  </div> -->
+  <!--******************* Unfortunately you are not qualified for the next round of assessments. **********************-->
+
+
+  <!-- ******************* Text will start after 30mins popup**************************** -->
+
+  <!-- <div class="after-startPopup">
+    <div class="after-startPopup-img">
+      <img src="/assets/greentick.svg" alt="">
+    </div>
+
+    <div class="after-startPopup-text">
+      <span>You have successfully cleared the Aptitude test. <br> Your next test will start in 30 minutes</span>
+    </div>
+    <div class="after-startPopup-btn">
+      <button>Ok</button>
+    </div>
+  </div> -->
+  <!-- ******************* Text will start after 30mins popup**************************** -->
+
+
+  <!-- ******************* HR Processed your Final result Popup ************************* -->
+  <!-- <div class="hr-procccessed">
+    <div class="hr-image">
+      <img src="/assets/greentick.svg" alt="">
+    </div>
+    <div class="hr-text">
+      <span>Thanks for taking the test, your result has been processed, HR <br> team will contact you accordingly. Now
+        you can close this <br> window.</span>
+    </div>
+    <div class="hr-okay">
+      <button>OK</button>
+    </div>
+  </div> -->
+
+  <!-- ******************* HR Processed your Final result Popup ************************* -->
+</ng-template>
+
+
+<ng-template #mobilepopup>
+  <div class="popupbox">
+    <div class="header-popup">
+      <div class="left">
+        <span>Contact Number Verification</span>
+      </div>
+      <div class="right">
+        <span><mat-icon matDialogClose="close">clear</mat-icon></span>
+      </div>
+    </div>
+    <div class="content">
+      <p>
+        We have sent a verification code to the given mobile number
+        "{{this.candidateUapForm.get('phonenumber').value}}"
+        Please enter the code
+        here to verify.
+      </p>
+    </div>
+    <form [formGroup]="otpForm">
+      <div class="verifyinput">
+        <div class="right-candidateinputs-half">
+          <span>Verification Code
+            <div class="error">*</div>
+          </span>
+          <mat-form-field appearance="outline">
+            <input class="enterverifycode" matInput formControlName="verify" placeholder="Enter here" />
+            <mat-error *ngIf="otpForm.controls['verify'].invalid">
+              <div *ngIf="otpForm.controls['verify'].errors.required">
+                Verification code is required
+              </div>
+              <div *ngIf="otpForm.controls['verify'].errors.minlength">
+                Please enter a valid verification code
+              </div>
+            </mat-error>
+
+
+
+          </mat-form-field>
+          <div class="resend">
+            <div class="resend-verify" *ngIf="timeLeft != 0">Resend verification code in {{timeLeft}} seconds</div>
+            <div class="cusor" *ngIf="timeLeft == 0">
+              <div (click)="resendOTP(verificationVal)">Resend
+                verification code</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="footer-popup">
+        <button type="button" (click)="ValidateOTP(verificationVal)"  [disabled]="!otpForm.valid"type="submit">VERIFY</button>
+      </div>
+    </form>
+  </div>
+</ng-template>

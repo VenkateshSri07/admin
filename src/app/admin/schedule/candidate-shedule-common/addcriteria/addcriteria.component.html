@@ -1,0 +1,182 @@
+<div class="subparent-instruction">
+    <div class="parent-left">
+        <span class="heading">Add Criteria</span>
+        <mat-icon class="mat-close" mat-dialog-close>close</mat-icon>
+    </div>
+</div>
+
+<div class="parent-instruction">
+    <div class="instruction-note">
+        <div class="bg-instruction">
+            <mat-icon class="icon-color">error</mat-icon>
+            Note : Added criteria will only be applicable for the particular test.
+        </div>
+    </div>
+</div>
+
+<!-- ************* Test Details section ************** -->
+<div class="test-details-section">
+    <span class="test-details-head"> Test Details</span>
+    <div class="test-details-data">
+        <div class="lt-box">
+            <span *ngIf="data.key == '0'">{{ testDetails?.name| slice:0:2 }}</span>
+            <span *ngIf="data.key == '1'">{{ data?.dataKey?.taskName| slice:0:2}}</span>
+            <!-- <span *ngIf="data.key == '2'">{{ data?.dataKey?.name| slice:0:2}}</span> -->
+        </div>
+
+        <div class="test-details-sec">
+            <span *ngIf="data.key == '0'">{{testDetails?.name}}</span>
+            <span *ngIf="data.key == '1'">{{data?.dataKey?.taskName}}</span>
+            <!-- <span *ngIf="data.key == '2'">{{ data?.dataKey?.name}}</span> -->
+            <span *ngIf="data.key == '1'" class="text-name">{{data?.dataKey?.type}}</span>
+            <span *ngIf="data.key == '0'" class="text-name">{{testDetails?.type}}</span>
+            <!-- <span *ngIf="data.key == '2'" class="text-name">{{ data?.dataKey?.type}}</span> -->
+        </div>
+
+        <div class="test-details-sec">
+            <span>Sequential</span>
+            <span class="text-name">Assessment Flow</span>
+        </div>
+        <div class="test-details-sec">
+
+            <span *ngIf="data.key == '0'">{{testDetails?.startTime | date : 'dd MMM YYYY | hh:mm a'}}</span>
+            <span *ngIf="data.key == '1'">{{data?.dataKey?.startTime | date : 'dd MMM YYYY | hh:mm a'}}</span>
+            <span class="text-name">Assessment Start Date</span>
+        </div>
+    </div>
+    <!-- <span class="test-details-head"> Test Details</span> -->
+</div>
+<!-- *******************Criteria Details section ********************* -->
+<mat-dialog-content class="mat-typography">
+    <form [formGroup]="CriteriaDetailsForm">
+        <div class="test-Criteria-head"> Criteria Details</div>
+        <ng-container *ngIf="getcerteriaArr && getcerteriaArr.controls" [formArrayName]="'criteriaDet'">
+            <ng-container *ngFor="let item of getcerteriaArr.controls; let i = index;" [formGroupName]="i">
+                <div class="Criteria-Details-section">
+                    <div class="criteria-details">
+                        <div>
+                            <label>Criteria Name <span class="common-res"> *</span></label>
+                            <mat-form-field appearance="outline" class="select">
+                                <mat-select (ngModelChange)="onInputChange($event)" placeholder="<——Select——>"
+                                    [formControlName]="criteria" [disabled]="data.status =='InProgress'">
+                                    <mat-option
+                                        (onSelectionChange)="changecriteria(criteriaListnames,getcerteriaArr.controls[i])"
+                                        *ngFor="let criteriaListnames of criteriaList"
+                                        [value]="criteriaListnames.criteriaName">{{criteriaListnames.criteriaName}}</mat-option>
+                                </mat-select>
+                                <mat-error class="form-error"
+                                    *ngIf="getcerteriaArr.controls[i].get(criteria).invalid && getcerteriaArr.controls[i].get(criteria).touched">
+                                    <div *ngIf="getcerteriaArr.controls[i].get(criteria).errors?.required">
+                                        Criteria Name is Required</div>
+                                </mat-error>
+                            </mat-form-field>
+
+                        </div>
+                        <div>
+                            <label>Condition <span class="common-res"> *</span></label>
+                            <mat-form-field appearance="outline" class="select">
+                                <mat-select (ngModelChange)="onInputChange($event)" placeholder="<——Select——>"
+                                    [formControlName]="condtiton" [disabled]="data.status =='InProgress'">
+                                    <mat-option value="Greater than or Equal to">Greater than or Equal to</mat-option>
+                                    <mat-option value="Less than or Equal to">Less than or Equal to</mat-option>
+                                    <mat-option value="Equals to">Equals to</mat-option>
+                                </mat-select>
+                                <mat-error class="form-error"
+                                    *ngIf="getcerteriaArr.controls[i].get(condtiton).invalid && getcerteriaArr.controls[i].get(condtiton).touched">
+                                    <mat-error *ngIf="getcerteriaArr.controls[i].get(condtiton).errors?.required">
+                                        Condition is Required</mat-error>
+                                </mat-error>
+                            </mat-form-field>
+
+                        </div>
+                        <div>
+
+                            <label>Minimum Percentage % <span class="common-res"> *</span></label>
+                            <mat-form-field class="select" appearance="outline">
+                                <input (ngModelChange)="onInputChange($event)" matInput placeholder="Enter Percentage"
+                                    type="number" onkeydown="return event.keyCode !== 69"
+                                    [formControlName]="percentage">
+                                <mat-error
+                                    *ngIf="getcerteriaArr.controls[i].get(percentage).invalid && getcerteriaArr.controls[i].get(percentage).touched">
+                                    <mat-error class="form-error"
+                                        *ngIf="getcerteriaArr.controls[i].get(percentage).errors?.required">
+                                        Minimum Percentage is Required</mat-error>
+                                    <!-- <div  class="form-error" *ngIf="getcerteriaArr.controls[i].get('percentage').errors?.numberOnly"> Only Numerics Allowed</div> -->
+                                    <div class="form-error"
+                                        *ngIf="getcerteriaArr.controls[i].get('percentage').errors?.percentage">
+                                        Percentage should be in the range of 1 to 100
+                                    </div>
+
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div class="delete-image" (click)="criteriaremoveDependentArray(i,getcerteriaArr.controls)"
+                            *ngIf="i >=0 && (data.status =='YetToStart' || data.key == '0')">
+                            <img matTooltip="Remove" src="/assets/images/delete (2).svg" alt="">
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- ********** Prompt Messages ********** -->
+                <!-- <ng-container *ngIf="getCriteria && getCriteria.controls" [formArrayName]="form_criteriaArray">
+            <ng-container *ngFor="let item of getCriteria.controls; let i = index;" [formGroupName]="i"> -->
+            </ng-container>
+        </ng-container>
+
+
+        <div class="Criteria-Details-section" *ngIf="data.status =='YetToStart' || data.key == '0'">
+            <div
+                *ngIf="getcerteriaArr && getcerteriaArr.controls && getcerteriaArr.controls.length < (criteriaList && criteriaList.length)">
+                <div class="add-criteria-btn-sec">
+                    <button type="button" (click)="addToCriteriaArray(getcerteriaArr.controls)"
+                        class="add-criteria-btn">
+                        + Add Criteria
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="Prompt-Messages-sec">
+            <span class="test-details-head">Prompt Messages</span>
+            <div class="lable-msg">
+                <label>Success Message<span> *</span></label>
+            </div>
+            <div>
+                <input placeholder="Enter the Success message" matInput [formControlName]="successMsg"
+                    [readonly]="isreadonly" class="text-area">
+                <div *ngIf="data.status != 'InProgress'">
+                    <div class="form-errormsg" *ngIf="successmsg?.invalid && successmsg?.touched">
+                        <div *ngIf="successmsg.errors?.required">
+                            Success Message is Required</div>
+                        <div *ngIf="CriteriaDetailsForm.controls['successMsg'].errors?.maxlength">
+                            Maximum of 255 characters only allowed
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="lable-msg" *ngIf="FailureMessageflag">
+                <label>Failure Message<span> *</span></label>
+            </div>
+            <div *ngIf="FailureMessageflag">
+                <input [formControlName]="failureMsg" matInput placeholder="Enter the failure message"
+                    [readonly]="isreadonly" class="text-area">
+                <div *ngIf="data.status != 'InProgress'">
+                    <div class="form-errormsg" *ngIf="failuremsg.invalid && failuremsg.touched">
+                        <div *ngIf="failuremsg.errors?.required">
+                            Failure Message is Required</div>
+                        <div *ngIf="CriteriaDetailsForm.controls['failureMsg'].errors?.maxlength">
+                            Maximum of 255 characters only allowed
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</mat-dialog-content>
+
+
+<mat-dialog-actions align="end">
+    <button class="cancel" mat-raised-button mat-dialog-close type="submit">Cancel</button>
+    <button class="submit" mat-raised-button type="button"
+        [disabled]="!CriteriaDetailsForm.valid || data.status =='InProgress'" (click)="formSubmit()">Submit</button>
+</mat-dialog-actions>

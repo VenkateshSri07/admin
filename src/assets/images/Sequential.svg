@@ -1,0 +1,12 @@
+<svg id="Component_120_2" data-name="Component 120 – 2" xmlns="http://www.w3.org/2000/svg" width="40.371" height="20" viewBox="0 0 40.371 20">
+  <path id="Rectangle_7729" data-name="Rectangle 7729" d="M0,0H37.371a3,3,0,0,1,3,3V20a0,0,0,0,1,0,0H15A15,15,0,0,1,0,5V0A0,0,0,0,1,0,0Z" fill="#5d7e8e"/>
+  <g id="Group_1" data-name="Group 1" transform="translate(-529.545 -226.518)">
+    <path id="Ellipse_1" data-name="Ellipse 1" d="M1.738,1.159a.579.579,0,1,0,.579.579.58.58,0,0,0-.579-.579M1.738,0A1.738,1.738,0,1,1,0,1.738,1.738,1.738,0,0,1,1.738,0Z" transform="translate(550.793 237.793)" fill="#fff"/>
+    <path id="Ellipse_4" data-name="Ellipse 4" d="M1.738,1.159a.579.579,0,1,0,.579.579.58.58,0,0,0-.579-.579M1.738,0A1.738,1.738,0,1,1,0,1.738,1.738,1.738,0,0,1,1.738,0Z" transform="translate(550.793 232)" fill="#fff"/>
+    <path id="Ellipse_2" data-name="Ellipse 2" d="M1.738,1.159a.579.579,0,1,0,.579.579.58.58,0,0,0-.579-.579M1.738,0A1.738,1.738,0,1,1,0,1.738,1.738,1.738,0,0,1,1.738,0Z" transform="translate(545 237.793)" fill="#fff"/>
+    <path id="Ellipse_3" data-name="Ellipse 3" d="M1.738,1.159a.579.579,0,1,0,.579.579.58.58,0,0,0-.579-.579M1.738,0A1.738,1.738,0,1,1,0,1.738,1.738,1.738,0,0,1,1.738,0Z" transform="translate(545 232)" fill="#fff"/>
+    <path id="Rectangle_1" data-name="Rectangle 1" d="M.579.579v0M0,0H1.159V6.372H0Z" transform="translate(551.483 233.965) rotate(45)" fill="#fff"/>
+    <path id="Rectangle_2" data-name="Rectangle 2" d="M.579.579v0M0,0H1.159V4.055H0Z" transform="translate(551.957 234.601)" fill="#fff"/>
+    <path id="Rectangle_3" data-name="Rectangle 3" d="M.579.579v0M0,0H1.159V4.055H0Z" transform="translate(551.667 233.153) rotate(90)" fill="#fff"/>
+  </g>
+</svg>

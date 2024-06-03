@@ -1,0 +1,234 @@
+.general-container {
+    display: flex;
+    font-size: 14px;
+    font-weight: 400;
+    position: relative;
+    top: 60px;
+    padding: 16px;
+
+    .left-general {
+        background-color: #F5FCFF;
+        color: #333333;
+        width: 70%;
+        height: 540px;
+        align-items: center;
+        border-radius: 3px;
+        box-shadow: 0px 0px 6px #00000052;
+        .left-container{
+            position: relative;
+            text-align: center;
+            .title{
+                text-align: center;
+                font-size: 26px;
+                font-weight: 500;
+                letter-spacing: 0px;
+                color: #333333;
+                opacity: 1;
+                position: relative;
+                top: 35px;
+            }
+            img{
+                position: relative;
+                top: 40px;
+            }
+        }
+        .top-left {
+            position: absolute;
+            top: 110px;
+            left: 61px;
+            width: 62%;
+            li {
+                    list-style-type: none;
+                    margin: 8px;
+                    position: relative;
+                    right: 10px;
+                    font-size: 14px;
+                    font-weight: 400;
+                }
+            .htmlTemplateBody{
+                font-size: 16px;
+                font-weight: 500;
+                color: #333333;
+                display: block;
+                height: 378px;
+                overflow: auto;
+                .htmlbodyadjusting{
+                    padding: 30px;
+                }
+            }
+          }
+          .centered {
+            position: absolute;
+            left: 32%;
+            margin-top: 60px;
+            button{
+                background-color: #255488;
+                border: none;
+                font-size: 14px;
+                color: #fff;
+                font-weight: 400;
+                width: 100px;
+                padding: 5px;
+                border-radius: 5px;
+            }
+          }
+    }
+    .right-general{
+        display: grid;
+        width: 25%;
+        position: relative;
+        left: 25px;
+        .box{
+            width: 351px;
+            height: 173px;
+            border-radius: 8px;
+            box-shadow: 0px 0px 3px #00000026;
+            .box-inside{
+                display: grid;
+                justify-items: start;
+                padding: 20px;
+                .smalltitle{
+                    color: #515151;
+                    font-weight: 500;
+                    font-size: 17px;
+                }
+                .semismall{
+                    color: #515151;
+                    font-weight: normal;;
+                    font-size: 14px;
+                    position: relative;
+                    top: 6px;
+                }
+                .btn-ic{
+                    display: flex;
+                    position: relative;
+                    top: 30px;
+                    width: 300px;
+                    justify-content: space-between;
+                    align-items: center;
+                    .left{
+                        float: left;
+                        .firstbtn{
+                            background-color: #EBF8FE;
+                            border: 2px solid #58BBEB;
+                            padding: 5px;
+                             border-radius: 5px;
+                             display: flex;
+                            align-items: center;
+                            font-size: 14px;
+                            color: #58BBEB;
+                            opacity: 1;
+                            font-weight: 500;
+                        }
+                        .secondbtn{
+                           border: 2px solid #6FB75F;
+                            // background-color: #6FB75F;
+                            color: #6FB75F;
+                            padding: 5px;
+                            // width: 100px;
+                            align-items: center;
+                            border-radius: 5px;
+                            display: flex;
+                           align-items: center;
+                           font-weight: 500;
+                           cursor: pointer;
+                        }
+                        .error{
+                            color: #BE2020;
+                            font-size: 14px;
+                            font-weight: 500;
+                        }
+                    }
+                    .right{
+                        float: right;
+                    }
+                }
+            }
+        }
+        .firstbox{
+            background-color: #72B9E621;
+            border: 1px solid #58BBEB;
+        }
+        .secondbox{
+            background-color: #EFFEE8;
+            border: 1px solid #6FB75F;
+        }
+        .thirdbox{
+            background-color: #FFFDD6;
+            border: 1px solid #FAE5A0;
+        }
+
+    }
+}
+
+@media only screen and (max-width: 600px){
+    .general-container{
+        display: block !important;
+        overflow-x: hidden !important;
+    }
+
+    .left-general{
+        width: 100% !important;
+    }
+
+    .top-left{
+        left: 17px !important;
+        width: 85% !important;
+    }
+}
+
+@media only screen and (min-width: 600px){
+    .general-container{
+        display: block !important;
+        overflow-x: hidden !important;
+    }
+
+    .left-general{
+        width: 100% !important;
+    }
+
+    .top-left{
+        left: 17px !important;
+        width: 85% !important;
+    }
+}
+
+
+// Landscape
+
+  /* Extra small devices (phones, 600px and down) */
+  @media only screen and (max-width: 600px) and (orientation: landscape)  {
+    .general-container{
+        display: block !important;
+        overflow-x: hidden !important;
+    }
+
+    .left-general{
+        width: 100% !important;
+    }
+
+    .top-left{
+        left: 17px !important;
+        width: 85% !important;
+    }
+    }
+    
+    /* Small devices (portrait tablets and large phones, 600px and up) */
+    @media only screen and (min-width: 600px) and (orientation: landscape)  {
+        .general-container{
+            display: block !important;
+            overflow-x: hidden !important;
+        }
+    
+        .left-general{
+            width: 100% !important;
+        }
+    
+        .top-left{
+            left: 17px !important;
+            width: 85% !important;
+        }
+    }
+
+
+

@@ -1,0 +1,61 @@
+<div class="create-form__overflow">
+    <div class="headlingSection">
+        <span class="heading">View Status</span>
+
+        <span class="heading back-btn" (click)="backtolistpage()">
+            <mat-icon class="left-arrow">arrow_left_alt</mat-icon> Back to Schedule Assessment</span>
+    </div>
+    <div class="schedule-assessment-block">
+        <div class="schedule-assessment-block__align">
+            <div class="candidate-information">
+                <div class="schedule-name">
+                    <h2>Schedule Name : <span>{{snaming?.attributes?.batchName}}</span>
+                        <span></span>
+                    </h2>
+                </div>
+                <div class="schedule-name">
+                    <h2 *ngIf="totalemaildate"> Total Candidates :
+                        <span class="totalcount">{{totalcount}}</span>
+                    </h2>
+                    <div *ngIf="totalemaildate" class="center-border"></div>
+                    <h2 *ngIf="totalemaildate">Delivered :
+                        <span class="deliverycount">{{deliveredCount}}</span>
+                    </h2>
+                    <div *ngIf="totalemaildate" class="center-border"></div>
+                    <h2 *ngIf="totalemaildate">Bounced :
+                        <span class="bouncecount">{{bouncedCount}}</span>
+                    </h2>
+                    <div *ngIf="totalemaildate" class="center-border"></div>
+                    <h2> Yet To start :
+                        <span class="yettostartt">{{yetToSatartCount}}</span>
+                    </h2>
+                    <div class="center-border"></div>
+                    <h2>In Progress :
+                        <span class="inprogresss">{{inProgressCount}}</span>
+                    </h2>
+                    <div class="center-border"></div>
+                    <h2>Completed :
+                        <span class="deliverycount">{{completedCount}}</span>
+                    </h2>
+                </div>
+            </div>
+            <div class="candidate-filter">
+                <div class="candidate-detail-name">
+                    <span>Candidate Details</span>
+                </div>
+                <div class="bulk-btn">
+                    <button nz-button nzType="primary" (click)="isEmailSync()"
+                        *ngIf="totalemaildate && isBulkButton">Bulk
+                        Resend</button>
+                    <ng-template #suffixIconSearch>
+                        <span nz-icon nzType="search"></span>
+                    </ng-template>
+                </div>
+            </div>
+            <ag-grid-angular style="width: 100%;height: calc(100vh - 160px);     margin-top: 24px;"
+                class="ag-theme-alpine" [animateRows]="true" [rowData]="candidateInfo" [defaultColDef]="defaultColDef"
+                [columnDefs]="columnDefs" (cellClicked)="onCellClicked($event , '')" [animateRows]="true"
+                headerHeight="40" rowHeight="40" [pagination]="true" [paginationPageSize]="500"></ag-grid-angular>
+        </div>
+    </div>
+</div>

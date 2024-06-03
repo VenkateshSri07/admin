@@ -1,0 +1,26 @@
+<div class="search-section">
+    <div class="seachBox">
+        <p class="mt4 bb-title">Enter Assessment Code Here</p>
+        <span>Please key in the Assessment Code provided in the invite mail for the scheduled exam to proceed
+            further</span>
+        <div class="input">
+            <input type="text" class="search-input" [(ngModel)]="assessmentCode"
+                placeholder="Please enter assessment code">
+        </div>
+        <div class="btnsearchcode">
+            <button type="submit" [ngStyle]="{'opacity': assessmentCode ? '1.0':'0.9'}" [disabled]="true"
+                (click)=" getCode()" [disabled]="assessmentCode ? false :true" class="code-search">Submit
+            </button>
+        </div>
+    </div>
+</div>
+    <ng-template #multiLogin>
+        <div class="activityContainerModel">
+        <p class="multiLoginDiv">An active test session has been detected on your login. Please terminate/close the session to be able to re-login into your test. Close the browser or Restart system in case terminating active session is not possible</p>
+        <div class="buttonDiv">
+            <button class="popUpButton" mat-raised-button color="primary" (click)="clearPopUp()">Cancel</button>
+            <button class="popUpButton" mat-raised-button color="primary" (click)="clearUserSession()">Okay</button>
+        </div>
+    </div>
+
+    </ng-template>

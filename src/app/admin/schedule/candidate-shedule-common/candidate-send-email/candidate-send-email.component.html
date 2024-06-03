@@ -1,0 +1,77 @@
+<div class="candidate-send-email">
+  <span
+    *ngIf="data?.attributes?.send_Notification == '1'|| data?.attributes?.resendnotification == 1 || (data.attributes.resendnotification == '0' && data.attributes.sendnotification=='1')">Confirm
+    and Resend Email</span>
+  <span *ngIf="data?.attributes?.send_Notification == '0'">Confirm and Send Email</span>
+  <div class="material-icons ic-cursor" mat-button mat-dialog-close>close</div>
+</div>
+<div class="center">
+  <div class="i-icon">
+    <img src="../../../../../assets/i-icon.svg" />
+    <div class="total">
+      <div class="bg">Total Candidates &nbsp;&nbsp;
+        {{ data.email !=undefined && data.email !=0 ? data.email.length:data?.attributes?.numberOfInvites ?
+        data.attributes.numberOfInvites:0}}
+      </div>
+    </div>
+  </div>
+</div>
+<div class="firstalign">
+  <table>
+    <thead>
+      <th style="width: 50%;">Schedule Name</th>
+      <th>Assessment</th>
+    </thead>
+    <tbody>
+      <td>{{ data.attributes.batchName }}</td>
+      <td>{{ data.attributes.packageTemplateName }}</td>
+    </tbody>
+  </table>
+</div>
+<br />
+<br />
+<div class="firstalign">
+  <table>
+    <thead>
+      <th style="width: 50%;">Scheduled On</th>
+      <th>Duration</th>
+    </thead>
+    <tbody>
+      <td style="display: grid;"> <span class="font"> {{ getScheduledOn(data.attributes.startDateTime)
+          }} &nbsp;-&nbsp;</span>
+        <span> {{ getScheduledOn(data.attributes.endDateTime) }}</span>
+      </td>
+      <td>{{ getDuration(data.attributes.duration) }}</td>
+    </tbody>
+  </table>
+</div>
+
+<div>
+  <div class="reasonemail" *ngIf="data.attributes.send_Notification == '1' && data.attributes.reSendNotification=='0'"
+    style="position: relative;top: 85px;
+    left: 50px;">
+    <span>Reason for Resend Email <span class="redLable">*</span></span>
+    <form [formGroup]="reasonmail" #form="ngForm">
+      <mat-form-field appearance="outline" style="width: 70%">
+        <input matInput formControlName="reason" class="feild" />
+        <mat-error *ngIf="reasonmail.controls['reason'].invalid" class="mat-error">
+          <div *ngIf="reasonmail.controls['reason'].errors?.required">Reason is required</div>
+          <div *ngIf="reasonmail.controls['reason'].errors?.maxlength">
+            Reason should not be more than 200 characters
+          </div>
+          <div *ngIf="reasonmail.controls['reason'].errors?.pattern">
+            Reason must contain only alphabet and must contain alteast 2 characters
+          </div>
+        </mat-error>
+      </mat-form-field>
+    </form>
+  </div>
+</div>
+<div class="candidate-send-email-last">
+  <span mat-button mat-dialog-close>Cancel</span>
+  <span *ngIf="data.attributes.send_Notification == '0'" (click)="notificationSend(data)">Send Email</span>
+  <span [ngClass]=" data.attributes.send_Notification != '0'?'': 'disbledBtn'"
+    *ngIf="data.attributes.send_Notification != '0'"
+    (click)="data.attributes.send_Notification != '0'? notificationSend(data):''">Resend
+    Email</span>
+</div>

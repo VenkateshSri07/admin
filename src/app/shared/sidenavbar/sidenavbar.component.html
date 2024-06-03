@@ -1,0 +1,17 @@
+<app-navbar></app-navbar>
+<mat-sidenav-container class="sidenavbar-container-block" fullscreen>
+  <mat-sidenav mode="side" opened class="side-nav-wrap">
+    <div class="sidenavbar-content__align">
+      <ng-container *ngFor="let navbarContent of navbarContents">
+        <div [matTooltip]="navbarContent.matTooltip" class="sidenavbar-menu-item__align"
+          routerLink="{{ navbarContent.routePath }}" [routerLinkActive]="['is-active']">
+          <img *ngIf="isExpanded" [src]="navbarContent.iconPath" width="20" height="20" alt="">
+          <span *ngIf="!isExpanded" class="sidenavbar-menu-item__aligntext"> {{ navbarContent.option }}</span>
+        </div>
+      </ng-container>
+    </div>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <ng-content></ng-content>
+  </mat-sidenav-content>
+</mat-sidenav-container>

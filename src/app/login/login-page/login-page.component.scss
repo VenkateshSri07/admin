@@ -1,0 +1,566 @@
+@import 'colors';
+
+.headerShadow {
+    box-shadow: 0 3px 3px rgba(0, 0, 0, .2) !important;
+}
+
+.hearder-logo {
+    height: 36px;
+}
+
+.limiter {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background-image: url("https://assets.lntedutech.com/EntryBackground.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    padding: 1em;
+
+    @media only screen and (min-width: 568px) {
+        padding: 2em;
+    }
+
+    @media only screen and (min-width: 720px) {
+        padding: 3em;
+    }
+
+    @media only screen and (min-width: 768px) {
+        padding: 1em;
+
+    }
+
+    @media only screen and (min-width: 1140px) {
+        padding: 4em;
+        height: auto;
+    }
+    @media only screen and (max-width: 1439px) and (min-width:1130px)  {
+        padding: 4em;
+        height: 100vh;
+    }
+    @media only screen and (min-width: 1440px) {
+        padding: 4em;
+        height: 100vh;
+    }
+}
+
+.container-reg200 {
+    height: 100%;
+}
+
+:host ::ng-deep .container-reg200 {
+    padding-top: 0;
+    margin: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    background-color: $uap-white;
+    flex-direction: column;
+
+    @media only screen and (min-width: 767px) {
+        flex-direction: row;
+    }
+
+    @media only screen and (min-width: 1440px) {
+        margin: 0 auto;
+    }
+}
+
+.igniteLogo {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 0 2%;
+    order: 1;
+    @media only screen and (min-width: 767px) {
+        width: 62%;
+    }
+}
+
+.border-right {
+    border-right: 1px solid #ececec;
+}
+
+.main-logo {
+    width: 100%;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
+
+    .beforeloginimg {
+        height: auto;
+        padding: 0;
+        width: 74%;
+    }
+}
+
+.loginWrapper {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    order: 2;
+    @media only screen and (min-width: 767px) {
+        width: 38%;
+        .loginWrapper{
+            form{
+                padding: 1em 1em !important;
+            }
+        }
+    }
+
+    .signIn {
+        font-weight: 400;
+        font-size: 24px;
+        line-height: 42px;
+        color: $uap-grey;
+        text-align: center;
+        margin-bottom: 6%;
+    }
+
+    form {
+        width: 100%;
+        padding: 1em 4em;
+    }
+}
+
+.space-20 {
+    margin-top: 15px;
+}
+
+.center {
+    text-align: center;
+}
+
+.btn {
+    font-size: 16px;
+    background: #00b0ed;
+    background: -moz-linear-gradient(left, #27bbee 0%, #88ba2f 100%);
+    background: -webkit-linear-gradient(left, #27bbee 0%, #88ba2f 100%);
+    background: linear-gradient(to right, #27bbee 0%, #88ba2f 100%);
+    /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    // filter: progid: DXImageTransform.Microsoft.gradient( startColorstr='#27bbee', endColorstr='#88ba2f', GradientType=1);
+    color: $uap-white !important;
+    border-radius: 50px !important;
+    width: 54%;
+    height: 45px;
+    margin-left: 23%;
+    margin-right: 23%;
+    margin-top: 10%;
+}
+
+:host ::ng-deep .btn.disabled,
+.btn:disabled {
+    opacity: .35 !important;
+    background-color: gray !important;
+    pointer-events: none;
+    color: $uap-white !important;
+    border-radius: .25rem;
+    font-size: 16px;
+}
+
+#footer {
+    font-size: 13px;
+    width: 100%;
+    position: relative;
+    right: 0;
+    top: 8px;
+    display: flex;
+    order: 3;
+    justify-content: space-between;
+    padding: 0 1em;
+
+    @media only screen and (min-width: 568px) {
+        padding: 0 2em;
+    }
+
+    @media only screen and (min-width: 720px) {
+        padding: 0 3em;
+    }
+
+    @media only screen and (min-width: 1140px) {
+        padding: 0 4.5em;
+    }
+
+    .forgot1 {
+        color: $uap-button-grey;
+    }
+
+    .message {
+        color: #1b4e9b;
+    }
+}
+
+.mat-toolbar {
+    background: linear-gradient(90deg, #fff 15%, #fc0 25%) !important;
+    color: $uap-black;
+    position: absolute;
+    z-index: 4;
+    height: 60px !important;
+}
+
+
+:host ::ng-deep {
+    mat-form-field {
+        width: 100%;
+    }
+
+    .mat-mdc-form-field-has-icon-prefix .mat-mdc-text-field-wrapper {
+        padding: 6px !important;
+    }
+
+    .mat-mdc-form-field-icon-prefix>.mat-icon {
+        font-size: 22px;
+        margin-top: 4px;
+        padding: 2px 6px;
+    }
+
+    .mat-mdc-form-field-subscript-wrapper {
+        margin: -5px 0px;
+    }
+
+    mat-error {
+        font-size: 0.9em;
+        margin-top: -9px;
+    margin-bottom: 9px;
+    }
+}
+
+    .mat-mdc-raised-button[disabled]:not([class*=mat-elevation-z]) {
+        font-size: 14px;
+        color: #d2d1d1;
+        // background: #C02222 !important;
+        background: #00b0ed;
+        /* Old browsers */
+        background: -moz-linear-gradient(left, #27bbee 0%, #88ba2f 100%);
+        /* FF3.6-15 */
+        background: -webkit-linear-gradient(left, #27bbee 0%, #88ba2f 100%);
+        /* Chrome10-25,Safari5.1-6 */
+        background: linear-gradient(to right, #27bbee 0%, #88ba2f 100%);
+        /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+        // filter: progid: DXImageTransform.Microsoft.gradient( startColorstr='#27bbee', endColorstr='#88ba2f', GradientType=1);
+        box-shadow: 0px 3px 1px -2px rgb(0 0 0 / 20%) !important;
+    }
+
+    mat-label,
+    mat-icon {
+        color: $uap-grey;
+    }
+
+    .tacbox {
+        display: block;
+        padding: 1em;
+        border: 2px solid rgba(0, 0, 0, 0.05);
+        background-color: rgba(0, 0, 0, 0.03);
+        width: 100%;
+        margin-top: 30px;
+
+        label {
+            font-size: 12px;
+            font-weight: 400;
+            color: #333333;
+            line-height: normal;
+
+            a {
+                color: #00b0ed;
+            }
+        }
+    }
+
+
+    .container,
+    .container-fluid,
+    .container-lg,
+    .container-md,
+    .container-sm,
+    .container-xl,
+    .container-xxl {
+        width: 100%;
+        margin-right: auto;
+
+        .align-items-stretch {
+            align-items: stretch !important;
+        }
+
+        .mr {
+            margin-right: 5%;
+        }
+
+        .d-flex {
+            display: flex !important;
+        }
+
+        .icon_bg {
+            font-size: 41px;
+            padding: 0;
+            margin-right: 15px;
+            border-radius: 50px;
+            width: 35px;
+            height: 35px;
+            text-align: center;
+            margin-top: 4px;
+        }
+
+        .description {
+            margin: 14px 0 8px 0;
+            font-size: 12px;
+            display: contents;
+        }
+
+        .btn-get-started {
+            font-family: "Roboto", sans-serif;
+            text-transform: uppercase;
+            font-weight: 500;
+            font-size: 10px;
+            white-space: nowrap;
+            letter-spacing: 1px;
+            display: inline-block;
+            padding: 5px 16px;
+            border-radius: 4px;
+            transition: 0.5s;
+            color: #fff;
+            background: #1b4e9b;
+            margin-top: 10px;
+            text-decoration: none;
+        }
+
+        .mail {
+            text-decoration: none;
+            font-size: 12px;
+            font-weight: 500;
+            color: #1b4e9b;
+            white-space: nowrap;
+        }
+
+        .mb-lg-0 {
+            margin-bottom: 0 !important;
+        }
+
+        .m-all {
+            margin: 10px;
+        }
+    }
+
+    .box-border {
+        border: 1px solid #ccc;
+        border-style: dotted;
+        margin-right: 0px;
+        padding: 0px;
+        background: #16bef012;
+    }
+
+    .box {
+        width: 65%;
+        height: auto;
+        position: relative;
+    }
+
+    .link {
+        color: #1b4e9b !important;
+        text-decoration: none;
+    }
+
+    .m-t-7 {
+        margin-top: 7%;
+        width: 100%;
+    }
+
+    .space-between {
+        justify-content: space-between;
+    }
+
+    .icon-color-visible {
+        cursor: pointer;
+        font-size: 22px;
+        margin-top: 5px;
+    }
+
+    #username {
+        font-size: 14px;
+    }
+
+    .label-color {
+        font-size: 14px;
+        position: relative;
+        bottom: 3px;
+    }
+
+
+.buttonDiv {
+    display: flex;
+    justify-content: space-evenly;
+    .popUpButton{
+        font-size: 12px;
+        height: 32px;  
+        background-color: #1b4e9b !important;
+        letter-spacing: 0.5px;
+        padding: 0px 35px;
+    }
+}
+
+.multiLoginDiv {
+    font-size: 16px;
+    font-weight: 500;
+    padding: 26px;
+    text-align: center;
+    margin-top: 14px;
+}
+
+
+@media (max-width:1600px) and (min-width:900px) {
+    .responsivelogin {
+        display: flex;
+        justify-content: space-between;
+
+        .eachitemresponsive {
+            display: flex;
+            align-items: stretch;
+        }
+    }
+}
+@media (max-width:899px) and (min-width:749px){
+    .loginWrapper {
+        order: 1;
+         form {
+             padding: 1em 1em;
+             position: relative;
+             top: 0% !important;
+         }
+     }
+     .igniteLogo{
+        width: 31%;
+
+     }
+     .border-right{
+        border-right: hidden
+     }
+     .box-borderhide{
+        visibility: hidden;
+     }
+     .beforeloginimg{
+        visibility: hidden
+     }
+
+}
+
+@media (max-width:768px) and (min-width:300px) and (orientation: landscape){
+    .loginWrapper {
+        order: 1;
+         form {
+             padding: 1em 1em;
+             position: relative;
+             top: 0% !important;
+         }
+         .signIn{
+            margin-bottom: 8% !important;
+         }
+     }
+     .box-borderhide{
+        visibility: hidden;
+     }
+
+     .responsivelogin{
+        display: flex;
+    justify-items: stretch;
+    // visibility: hidden;
+     }
+     .responsivetext{
+        bottom: 0px !important;
+     }
+     .btn{
+        margin-top: 1%;
+     }
+     .loginWrapper{
+        .signIn{
+            margin-bottom: 0%;
+        }
+     }
+     .tacbox{
+        margin-top: 10px;
+     }
+}
+
+
+@media (max-width:750px) and (min-width:300px) {
+    .container-reg200{
+        overflow: hidden;
+    }
+    .responsivetext{
+        position: relative;
+        // bottom: 50px;
+    }
+    .igniteLogo {
+        order: 2;
+        position: relative;
+        // top: 123px;
+        background: #fff;
+        visibility: hidden;
+        height: 150px;
+    }
+
+
+    .main-logo {
+        .beforeloginimg {
+            height: auto;
+            padding: 0;
+            width: 100%;
+            margin-bottom: 10px;
+        }
+    }
+
+     .loginWrapper {
+        order: 1;
+        .signIn{
+            margin-bottom: 25%;
+        }
+         form {
+             padding: 1em 1em;
+             position: relative;
+             top: 20%;
+         }
+     }
+
+     .responsivelogin {
+        display: grid;
+        justify-items: center;
+        text-align: center;
+
+        .eachitemresponsive {
+            display: grid;
+            justify-items: center;
+            text-align: center;
+        }
+    }
+
+    .limiter {
+        height: auto;
+        overflow-y: hidden;
+    }
+
+    .m-t-7 {
+        margin-top: 0%;
+    }
+
+    #footer {
+        font-size: 13px;
+        width: 100%;
+        position: absolute;
+        right: 0;
+        // bottom: -17px;
+        visibility: hidden;
+        display: flex;
+        order: 3;
+        justify-content: space-around;
+    }
+
+    .icon_bg {
+        height: 40px;
+    }
+}

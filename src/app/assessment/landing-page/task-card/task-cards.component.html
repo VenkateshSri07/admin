@@ -1,0 +1,197 @@
+<div class="nextTest-time"
+    *ngIf="timeCardValidation && showTaskStartsOn[currentTaskIndex] && taskStartTime[currentTaskIndex].showCountdown">
+    <mat-icon class="clock-time">access_alarms</mat-icon>
+    <span>Your next test will starts in <countdown [config]="taskStartTime[currentTaskIndex].countdown"></countdown>
+    </span>
+</div>
+<!-- <button (click)="progressbarPopUp()">open popup</button> -->
+
+<ng-template #progressbar>
+    <div class="Assessment-submitted-sec">
+        <img src="/assets/popup-success.svg" alt="">
+        <div class="Assessment-submitted-para">
+            <span>Assessment submitted successfully</span>
+        </div>
+        <div class="Assessment-suc-progressBar">
+            <progress max="100" [value]="progressbarvalue" class="popprogresbar"></progress>
+        </div>
+        <div class="Assessment-war">
+            <span>
+                Your results is getting processed kindly wait, <br> do not close any window.
+            </span>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #popup>
+    <div class="Unfortunately-popup-sec">
+        <img src="/assets/i-icon.svg" alt="">
+    </div>
+    <div class="Unfortunately-popup-msg">
+        <!-- <span>Unfortunately you are not qualified for the next round of<br> assessments. Thank you for appearing for the
+            process</span> -->
+        <span>{{checkCriteriaMessage}}</span>
+    </div>
+    <div class="Unfortunately-ok">
+        <button (click)="closePopup()">Ok</button>
+    </div>
+    <!-- <div class="next-round">
+        <a href="url"><u>Click here for Next round (** Only for Prototyping purpose)</u></a>
+    </div> -->
+</ng-template>
+<ng-template #popupsucces>
+    <div class="Unfortunately-popup-sec">
+        <img src="/assets/popup-success.svg" alt="">
+    </div>
+    <div class="Unfortunately-popup-msg">
+        <!-- <span>Unfortunately you are not qualified for the next round of<br> assessments. Thank you for appearing for the
+            process</span> -->
+        <span>{{checkCriteriaMessage}}</span>
+    </div>
+    <div class="Unfortunately-ok">
+        <button (click)="closePopupSuccess()">Ok</button>
+    </div>
+    <!-- <div class="next-round">
+        <a href="url"><u>Click here for Next round (** Only for Prototyping purpose)</u></a>
+    </div> -->
+</ng-template>
+
+
+<ng-template #hrprocccessed>
+    <div class="hr-procccessed">
+        <div class="hr-image">
+            <img src="/assets/greentick.svg" alt="">
+        </div>
+        <div class="hr-text">
+            <span>{{checkSuccessMessage}}</span>
+        </div>
+        <div class="hr-okay">
+            <button (click)="closePopup()">OK</button>
+        </div>
+    </div>
+</ng-template>
+
+<div class="assessments" *ngIf="assessmentTaskArray">
+    <div *ngFor="let task of assessmentTaskArray; let i = index">
+        <div *ngIf="timeCardValidation" class="assessment-list" [ngClass]="taskStatus[i]">
+            <div *ngIf="taskStatus[i] == 'completed'" class="tickMark">&#160;</div>
+            <div class="leftborder">
+
+                <div class="assessment-list__number"
+                    [ngClass]="{ 'apicon' : task.taskType == 'Aptitude',  'video' : task.taskType == 'Video Assessment' ,'cdicon' : task.taskType == 'Coding', 'english' : task.taskType == 'English', 'psych' : task.taskType.includes('Behaviour')}">
+                    <!-- <span *ngIf="task.status !== 'completed'; else notCompleted">{{ i + 1 }}</span> -->
+                    <ng-template #notCompleted><span class="material-icons">done</span></ng-template>
+                </div>
+            </div>
+
+            <div class="assessment-list__card">
+                <div class="assessment">
+                    <h3 [matTooltip]="task.taskName && task.taskName.length > 43 ? task.taskName : ''"
+                        matTooltipClass="tooltip" class="assessment__name">{{ isEclipsisNeeded(task.taskName) }}</h3>
+                    <div class="assessment__duration" >
+                        <div class="dura" *ngIf="task.taskType != 'Aptitude'">
+                            <img src="../../../../assets/test.svg" />
+                            {{ task.taskType.includes('Behaviour')? 'Behavioural Assessment' :
+                            task.taskType.includes('Video Assessment')? "Video AI Assessment": task.taskType }}
+                        </div>
+                        <div *ngIf="false">
+                            <span *ngIf="!task.taskType.includes('Behaviour')" class="dura"> <img
+                                src="../../../../assets/watch.svg" /> {{ taskDuration[i] }} </span>
+                        </div>
+                    </div>
+
+
+
+                    <div class="durationhead">
+                        <span class="Assessmenthead">Assessment Start Time:</span>
+                        <div class="durationsub">
+                            <img src="../../../../assets/watch.svg">
+                            <div class="durationTime">
+                                <!-- <span class="startOn">From:</span> -->
+                                <div>
+                                    <span>{{getTime (assessmentTaskDic[task.id].testStartTime )}}</span>
+                                </div>
+                            </div>
+                            <div>
+                                <!-- <span class="startOn">To:</span> -->
+                                <div>
+                                    <!-- <span>{{getTime (assessmentTaskDic[task.id].testEndTime ) }}</span> -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div *ngIf="task.status == 'YetToStart'" class="assessment_test">
+                    </div>
+
+                    <div *ngIf="task.status != 'YetToStart'">
+                        <div class="durationhead">
+                            <span class="Assessmenthead">Test Taken Detail:</span>
+                            <div class="durationsub">
+                                <img src="../../../../assets/watch.svg">
+                                <div class="durationTime">
+                                    <span class="startOn">Started Time:</span>
+                                    <div>
+                                        <span>{{getTime (assessmentTaskDic[task.id].startTime )}}</span>
+                                    </div>
+                                </div>
+                                <div
+                                    [ngClass]="assessmentTaskDic[task.id].testCompletedTime == '-'? 'completedEmpty':''">
+                                    <span class="startOn">Completed Time:</span>
+                                    <div>
+
+                                        <span> {{assessmentTaskDic[task.id].testCompletedTime == "-"?
+                                            assessmentTaskDic[task.id].testCompletedTime : getTime
+                                            (assessmentTaskDic[task.id].testCompletedTime )}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                        <!-- <div>
+                        <span>{{getTime (assessmentTaskDic[task.id].startTime )}} to</span>
+                        <span class="endTime"> {{assessmentTaskDic[task.id].testCompletedTime == "-"?
+                            assessmentTaskDic[task.id].testCompletedTime : getTime
+                            (assessmentTaskDic[task.id].testCompletedTime )}}</span>
+                    </div> -->
+                    </div>
+                </div>
+
+                <div class="assessment-actions">
+                    <!-- [matTooltip]="getTooltipMessage(task)" -->
+                    <ng-template #show>
+                        <button matTooltipClass="tooltip" mat-flat-button
+                            [disabled]="isTaskStarted[i] || !canTakeAssessment"
+                            [ngClass]="getIsTimeOutStatus(task, taskStatus[i]) ? 'disableButton' : ''"
+                            (click)="getIsTimeOutStatus(task, taskStatus[i]) ? '' : navigateToTask(task.id,task.taskType,taskStatus[i],task)">
+                            <div class="action_start" *ngIf="taskStatus[i] === 'yettostart'">
+                                <span *ngIf="!showTaskStartsOn[i]">{{getIsTimeOutStatus(task, taskStatus[i]) ? 'Time Expired' : 'Start'}}</span>
+                                <div *ngIf="showTaskStartsOn[i] && !taskStartTime[i].showCountdown"
+                                    class="action_start">
+                                    <span>Starts on</span>
+                                    <span>{{ taskStartTime[i].startOn }}</span>
+                                </div>
+                            </div>
+                            <span *ngIf="taskStatus[i] === 'inprogress' && taskStatusAutoComplete[i] != 'activityTimeHold'">{{getIsTimeOutStatus(task, taskStatus[i]) ?
+                                'Time Expired' : 'Resume'}}</span>
+                            <span *ngIf="taskStatus[i] === 'completed' && taskStatusAutoComplete[i] != null">Auto Completed</span>
+                            <span *ngIf="taskStatus[i] === 'completed' && taskStatusAutoComplete[i] == null">Completed</span>
+                            <span *ngIf="taskStatus[i] === 'inprogress' && taskStatusAutoComplete[i] == 'activityTimeHold'">Locked <i class="material-icons">lock</i></span>
+
+                        </button>
+                    </ng-template>
+
+                    <div *ngIf="showTaskStartsOn[i] && taskStartTime[i].showCountdown else show" class="action_start">
+                        <div class="timer-counter">
+                            <span>Starts in </span>
+                            <countdown [config]="taskStartTime[i].countdown" (event)="countdownchange($event, i)">
+                            </countdown>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="clr_"></div>
+</div>

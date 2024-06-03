@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: uapui
+  namespace: presale-uap
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: uapui
+  template:
+    metadata:
+      labels:
+        app: uapui
+    spec:
+      containers:
+        - name: uapui
+          image: uapprod.azurecr.io/uapui:$tag
+          imagePullPolicy: Always
+          ports:
+          - containerPort: 80
+      imagePullSecrets:
+        - name: mysecret
+      nodeSelector:
+        agentpool: uapuat

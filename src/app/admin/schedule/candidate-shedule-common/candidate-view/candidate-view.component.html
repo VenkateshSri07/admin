@@ -1,0 +1,89 @@
+<div class="candidate-view-flex">
+  <span>View Scheduled Assessment</span>
+  <div class="material-icons ic-cursor" mat-button mat-dialog-close>close</div>
+</div>
+<div class="candidate-view-full">
+  <div class="candidate-shedule-status">
+    <div class="left">
+      <div class="box">
+        <span>{{ viewDetils.attributes.batchName | slice:0:2 }}</span>
+      </div>
+      <div class="shedule-name">
+        <span>Schedule Name</span>
+        <span>{{ viewDetils.attributes.batchName }}</span>
+      </div>
+    </div>
+    <div class="right">
+      <div class="status" *ngIf="viewDetils.attributes.send_Notification == 1">
+        <span></span>
+        <span>Email Sent</span>
+      </div>
+      <div class="status-btn">
+        <span *ngIf="viewDetils.attributes.status =='YetToStart'">Yet to Start</span>
+        <span *ngIf="viewDetils.attributes.status =='InProgress'">In Progress</span>
+        <span *ngIf="viewDetils.attributes.status =='Completed'">Completed</span>
+      </div>
+    </div>
+  </div>
+  <div class="tablealign">
+    <table>
+      <tr>
+        <th style="width: 45%">Organisation Name</th>
+        <th style="width: 35%">Assessment</th>
+        <th style="width: 17%">Assessment Code</th>
+      </tr>
+      <tr>
+        <td>{{ viewDetils.attributes.orgName }}</td>
+        <td>{{ viewDetils.attributes.packageTemplateName }}</td>
+        <td>{{ viewDetils.attributes.assessmentCode }}</td>
+      </tr>
+    </table>
+  </div>
+
+  <div class="tablealign2">
+    <div class="tablealignment">
+      <div class="top-header-tableHead">Schedule Details</div>
+      <div class="top-header-table">Duration</div>
+      <div class="top-header-table">No.of Candidates</div>
+      <div class="top-header-table">Email Status</div>
+    </div>
+    <div class="tablebottomalignment">
+      <div class="bottom-table1 bottom-table">
+        {{ scheduleUtil.getScheduledOn(viewDetils.attributes.startDateTime) }}&nbsp;-&nbsp;
+        {{ scheduleUtil.getScheduledOn(viewDetils.attributes.endDateTime) }}
+      </div>
+      <div class="bottom-table2 bottom-table">
+        {{ assesmentsUtil.getDuration(viewDetils.attributes.duration) }}
+      </div>
+      <div class="bottom-table3 bottom-table">
+        {{ viewDetils.attributes.numberOfInvites }}
+      </div>
+      <div class="bottom-table4 bottom-table">
+        <div class="align">
+          <span class="success"> {{Tdelivered}} - Delivered</span>
+          <span class="danger">{{Tbounce}} - Bounced</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <!-- <div class="tablealign2">
+        <table>
+            <tr>
+              <th>Schedule Details</th>
+              <th>Duration</th>
+              <th>No.of Candidates</th>
+              <th>Emails Delivered</th>
+            </tr>
+            <tr>
+              <td  style="width: 165px;">
+                <div>
+                  {{scheduleUtil.getScheduledOn(viewDetils.attributes.startDateTime)}}-
+                  {{scheduleUtil.getScheduledOn(viewDetils.attributes.endDateTime)}}
+                </div></td>
+              <td>{{assesmentsUtil.getDuration(viewDetils.attributes.duration)}}</td>
+              <td>Germany</td>
+            </tr>
+          </table>
+    </div> -->
+</div>

@@ -1,0 +1,70 @@
+.popupbox{
+    .header-popup{
+        display: flex;
+        justify-content: space-between;
+        padding: 8px;
+        border-bottom: 1px solid #AAAAAA;
+
+        .left{
+            span{
+                color: black;
+                font-weight: 500;
+                font-size: 16px;
+            }
+        }
+        .right{
+            cursor: pointer;
+            color: black;
+        }
+    }
+    .content{
+        padding: 11px 31px 0px 30px;
+    text-align: center;
+    font-size: 16px;
+    margin-top: 5%;
+    color: #707070;
+    }
+    .verifyinput{
+        width: 100%;
+        margin-top: 5%;
+        margin-bottom: 10%;
+        .right-candidateinputs-half{
+            width: 94%;
+            margin: 0px 20px 0px 20px;
+              span {
+                  font-size: 14px;
+                  font-weight: 400;
+                  color: #000;
+                  display: flex;
+                  .error {
+                    color: #c20000;
+                    position: relative;
+                    left: 4px;
+                  }
+                }
+                small{
+                    position: relative;
+                    top: -15px;
+                    float: right;
+                    color: #707070;
+                    font-size: 13px;
+                  }
+            }
+    }
+    .footer-popup{
+        border-top: 1px solid #AAAAAA ;
+        button{
+            cursor: pointer;
+    background-color: #004684;
+    color: #fff;
+    font-size: 14px;
+    float: right;
+    right: 15px;
+    top: 15px;
+    border-radius: 5px;
+    position: relative;
+    padding: 10px;
+    border: 1px solid #004684;
+        }
+    }
+}

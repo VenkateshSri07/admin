@@ -1,0 +1,203 @@
+@import 'index';
+
+.container {
+  display: flex;
+  width: 100%;
+  top: -22px;
+  position: relative;
+  background-color: #ebebeb;
+}
+
+.orgName {
+  width: 269px !important;
+}
+
+.custom-width {
+  width: 150px !important;
+}
+
+main {
+  padding-right: 10px;
+  padding-bottom: 10px;
+  padding-left: 10px;
+  width: 100%;
+
+  h2 {
+    font: bold 26px/1 $uap-roboto-condensed;
+  }
+}
+
+.sheduletable-table {
+  background: #fff;
+  margin: 0px 0px;
+  padding: 18px;
+  position: relative;
+  // top: 17px;
+}
+
+.main-actions {
+  display: flex;
+  justify-content: center;
+}
+
+.right {
+  position: relative;
+  top: 20px;
+
+  .search-field {
+    // width: 33.3%;
+    text-align: left;
+
+    .mat-mdc-form-field {
+      width: 213px;
+    }
+  }
+}
+
+.filter-field {
+  display: flex;
+  justify-content: flex-start;
+  align-items: stretch;
+
+  .org-name {
+    display: flex;
+    flex-direction: column;
+    margin-right: 14px;
+
+    span {
+      color: #808080;
+      font-size: 13px;
+    }
+
+    .mergePlaceHolder {
+      ::ng-deep .mat-date-range-input-separator {
+        display: none !important;
+      }
+    }
+
+  }
+}
+
+button {
+  color: $uap-white;
+  border-radius: 0;
+  height: 40px;
+  width: 150px;
+  font-weight: 600;
+  font: bold 18px/1 $uap-roboto-condensed;
+}
+
+button.mat-mdc-menu-item {
+  color: $uap-cod-gray;
+}
+
+.create-action {
+  width: 33.3%;
+  text-align: right;
+
+  button {
+    background-color: $uap-la-palma;
+    width: 180px;
+    cursor: pointer;
+    outline: none;
+    border: none;
+    font: normal 20px/1 $uap-roboto-condensed;
+    border-radius: 4px;
+  }
+}
+
+.candidates-content {
+  background-color: $uap-pampas1;
+}
+
+.top-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 35px;
+
+  .left {
+    width: 69%;
+    left: 18px;
+
+    .title {
+      text-align: left;
+      font-size: 22px;
+      font-family: Roboto;
+      font-weight: bold;
+      letter-spacing: 0px;
+      color: #205081;
+      opacity: 1;
+    }
+  }
+
+  .right {
+    // width: 40%;
+    display: flex;
+    align-items: center;
+    right: 15px;
+    display: contents;
+
+    .schedulebth {
+      background-color: #255488;
+      text-align: left;
+      font-weight: 400;
+      font-size: 13px;
+      letter-spacing: 0px;
+      color: #ffffff;
+      text-transform: capitalize;
+      opacity: 1;
+      text-align: center;
+      border: none;
+      cursor: pointer;
+      border-radius: 4px;
+
+      .align-both {
+        display: flex;
+        justify-content: center;
+
+        .align {
+          position: relative;
+          top: 5px;
+          font-size: 15px;
+        }
+      }
+    }
+  }
+
+
+
+
+}
+
+.mainactions {
+  display: flex;
+  justify-content: space-between;
+
+  .left {
+    display: flex;
+  }
+
+  .org-name {
+    display: flex;
+    flex-direction: column;
+    margin-right: 14px;
+
+    span {
+      color: #808080;
+      font-size: 13px;
+    }
+  }
+}
+
+.mat-mdc-option.mdc-list-item {
+  font-size: 14px !important;
+}
+
+.closeIcons {
+  position: absolute !important;
+  z-index: 1 !important;
+  bottom: 12px;
+  right: 12px;
+
+}

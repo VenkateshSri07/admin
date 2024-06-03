@@ -1,0 +1,56 @@
+@import 'index';
+
+.sidenavbar-container-block {
+    position: fixed;
+    max-width: 100%;
+    margin: auto;
+}
+
+.sidenavbar-content__align {
+    // width: 250px;
+    position: relative;
+    top: 72px;
+    cursor: pointer;
+}
+
+.sidenavbar-menu-item {
+    &__align {
+        padding-top: 40px;
+        outline: none;
+        font: bold 16px/1 $uap-roboto-condensed;
+        display: flex;
+        align-items: center;
+        color: $uap-nav-grey;
+        height: auto;
+        padding: 10px 12px;
+        margin-bottom: 10px;
+    }
+
+    &__aligntext {
+        line-height: 1.5;
+        // height: 33px;
+        padding-left: 15px;
+    }
+}
+
+.is-active {
+    background-color: #fff;
+    border-left: 4px solid;
+    border-image: linear-gradient(to bottom, #41b865, #00bcef) 1 100%;
+}
+
+.side-nav-wrap {
+    background-color: #F1F2F1;
+    // max-width: 200px;
+    overflow: hidden !important;
+}
+
+mat-sidenav-content::-webkit-scrollbar {
+    overflow: auto;
+    overflow-x: hidden;
+    display: none;
+}
+
+::ng-deep .mat-mdc-tooltip {
+    font-size: 12px;
+}

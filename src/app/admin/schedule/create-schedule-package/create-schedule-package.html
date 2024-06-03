@@ -1,0 +1,891 @@
+<nz-modal></nz-modal>
+<form [formGroup]="schedulePackageForm">
+  <div class="create-form__overflow">
+    <div class="headlingSection">
+      <span class="heading">Create New Schedule</span>
+    </div>
+    <div class="schedule-assessment-block">
+      <div class="schedule-assessment-block__align">
+        <div class="row-wrapper">
+          <div class="overall-input-wrapper width-45">
+            <label>Organisation Name <span> *</span></label>
+            <nz-select nzSize="large" formControlName="orgId" (ngModelChange)="orgChange($event)" class="input select"
+              nzAllowClear nzShowSearch nzPlaceHolder="<--Select-->">
+              <nz-option *ngFor="let org of listOfOrg" [nzLabel]="org?.name ? org?.name : org?.orgName "
+                [nzValue]="org"></nz-option>
+            </nz-select>
+            <div class="form-error" *ngIf="orgid?.invalid && orgid?.touched">
+              <div *ngIf="orgid?.errors?.required">Organisation Name is Required</div>
+            </div>
+          </div>
+
+          <div class="overall-input-wrapper width-45">
+            <label>Schedule / Assessment Code </label>
+            <input matInput class="input" formControlName="assessmentcode" type="text" />
+          </div>
+          <!-- <div class="overall-input-wrapper width-17">
+            <label>Browser Tolerance Count <span> *</span></label>
+            <input matInput class="input" formControlName="browserTolerance" type="text"
+              placeholder="Enter the browser tolerance" />
+            <div class="form-error" *ngIf="BrowserTolerance?.invalid && BrowserTolerance?.touched">
+              <div *ngIf="BrowserTolerance?.errors?.numberOnly">Numericals only allowed
+              </div>
+              <div *ngIf="BrowserTolerance?.errors?.required">Browser Tolerance is Required</div>
+              <div *ngIf="BrowserTolerance?.errors?.twoDigit">Enter between 1 to 99
+              </div>
+
+            </div>
+          </div> -->
+          <div class="overall-input-wrapper width-45">
+            <label>Schedule Name <span> *</span></label>
+            <input matInput class="input" formControlName="scheduleName" type="text"
+              placeholder="Enter the schedule name" />
+            <div class="form-error" *ngIf="batchname?.invalid && batchname?.touched">
+              <div *ngIf="batchname?.errors?.required">Schedule Name is Required</div>
+              <div *ngIf="batchname?.errors?.schedulepattern">Alphanumeric and special characters ( _ () - \ @ ) only
+                allowed
+              </div>
+            </div>
+          </div>
+
+          <!-- <div class="overall-input-wrapper width-17">
+            <label>Ideal Time Capture (Mins)<span> *</span></label>
+            <input matInput class="input" formControlName="idealTimeCapture" type="text"
+              placeholder="Enter the ideal time capture" />
+            <div class="form-error" *ngIf="IdealTimeCapture?.invalid && IdealTimeCapture?.touched">
+              <div *ngIf="IdealTimeCapture?.errors?.required">Ideal Time Capture is Required</div>
+              <div *ngIf="IdealTimeCapture?.errors?.numberOnly">Numericals only allowed
+              </div>
+              <div *ngIf="IdealTimeCapture?.errors?.twoDigit">Enter between 1 to 99
+              </div>
+            </div>
+          </div> -->
+
+          <!-- <div class="overall-input-wrapper width-17">
+            <label>Popup Duration (Sec)<span> *</span></label>
+            <input matInput class="input" formControlName="idealTimePopupDuration" type="text"
+              placeholder="Enter the Popup Duration" />
+            <div class="form-error" *ngIf="Popupduratiob?.invalid && Popupduratiob?.touched">
+              <div *ngIf="Popupduratiob?.errors?.required">Popup Duration is Required</div>
+              <div *ngIf="Popupduratiob?.errors?.numberOnly">Numericals only allowed
+              </div>
+              <div *ngIf="Popupduratiob?.errors?.threeDigit">Enter between 1 to 999
+              </div>
+            </div>
+          </div> -->
+        </div>
+        <!-- ************************ Description ***************************** -->
+
+        <div class="row-wrapper">
+          <div class="overall-input-wrapper width-100">
+            <label>Description <span>*</span></label>
+            <input matInput class="input" formControlName="scheduleDescription" placeholder="Enter the description">
+            <div class="form-error" *ngIf="scheduledescription?.invalid && scheduledescription?.touched">
+              <div *ngIf="scheduledescription?.errors?.required">Description is Required</div>
+              <div *ngIf="scheduledescription?.errors?.schedulepattern">Alphanumeric and special characters ( _ () - \ @
+                )
+                only
+                allowed</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ********************* Display General Instructions ************************* -->
+
+        <div class="row-wrapper">
+          <div class="overall-input-wrapper width-100">
+            <label>Display General Instructions <span> *</span></label>
+            <div class="radio-btn-alignment">
+              <mat-radio-group class="radiogroup" aria-label="Select an option" formControlName="displaygeneral"
+                (change)="displayGeneral($event)">
+                <mat-radio-button value="1">Yes</mat-radio-button>
+                <mat-radio-button class="radioLeft" value="0">No</mat-radio-button>
+              </mat-radio-group>
+
+              <button *ngIf="!isBtnDisbaled" [disableRipple]="true" type="button" mat-button
+                (click)="addDisplayInstructions()" [disabled]="displaygeneralinstructionbutton"
+                [ngClass]="{'yesbutton': displaygeneralinstructionbutton, 'nobutton': !displaygeneralinstructionbutton}">
+                <span> Add Instructions </span> <mat-icon class="visibility-icon-view">assignment</mat-icon> </button>
+
+              <button *ngIf="isBtnDisbaled" type="button"
+                [disabled]="schedulePackageForm.get('displaygeneral')?.value == '0' ? true : false"
+                (click)="addDisplayInstructionsvisible()" class="visibility-btn">
+                <mat-icon class="visibility-icon-visible">visibility</mat-icon>
+                <span> View Instructions</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- ********************* Profile / Form to use *************************** -->
+        <div class="row-wrapper">
+          <div class="overall-input-wrapper width-45">
+            <label>Profile / Form to use<span> *</span></label>
+            <nz-select nzSize="large" [id]="'profile'" formControlName="formTemplateId" class="input select"
+              nzAllowClear nzShowSearch nzPlaceHolder="<--Select-->">
+              <nz-option *ngFor="let profile of profileToUse" [nzLabel]="profile.formTemplateName"
+                [nzValue]="profile.formTemplateId"></nz-option>
+            </nz-select>
+            <div class="form-error" *ngIf="profileform?.invalid && profileform?.touched">
+              <div *ngIf="profileform?.errors?.required">Profile form is required</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ***************** Assessment Flow (parallel and Sequential Flow) *********************** -->
+
+        <div class="row-wrapper">
+          <div class="overall-input-wrapper width-100">
+            <label>Assessment Flow<span> *</span></label>
+            <div class="radio-btn-alignment marginTop-1">
+              <mat-radio-group class="radiogroup" formControlName="assessmentFlow" aria-label="Select an option"
+                (change)="flowChange($event)">
+                <mat-radio-button value="parallel">Parallel Flow</mat-radio-button>
+                <mat-radio-button class="radioLeft" value="sequential">Sequential Flow</mat-radio-button>
+              </mat-radio-group>
+            </div>
+            <div class="form-error" *ngIf="assessmentflow?.invalid && assessmentflow?.touched">
+              <div *ngIf="assessmentflow?.errors?.required">Assessment Flow is Required</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ***************************** Select Assessment Name ****************************** -->
+        <div *ngIf="assessmentflow?.valid">
+          <div class="row-wrapper">
+            <div class="overall-input-wrapper width-100">
+              <label>Select Assessment Name <span> *</span></label>
+              <!-- <input class="input" type="text" placeholder="Search and select assessment name" aria-label="Number"
+                matInput (input)="onSearchChange($event)" formControlName="assessmentName" [matAutocomplete]="auto" />
+              <mat-autocomplete #auto="matAutocomplete">
+                <mat-option *ngFor="let option of filteredOptions | async" [value]="option.attributes.name"
+                  (onSelectionChange)="getOptionSelectedData(option)">
+                  {{option.attributes.name}}
+                  <span class="level"
+                    *ngIf="option.attributes.hasOwnProperty('level') && option.attributes.level.length">[{{option.attributes.level}}]</span>
+                </mat-option>
+              </mat-autocomplete> -->
+
+              <input class="input" placeholder="Search and select assessment name" nz-input
+                formControlName="assessmentName" (input)="onSearchChange($event)" [nzAutocomplete]="auto" />
+
+              <nz-autocomplete #auto [nzBackfill]="true">
+                <nz-auto-option (selectionChange)="getOptionSelectedData($event,packages)"
+                  [nzValue]="packages.attributes.name"
+                  *ngFor="let packages of filteredOptions1">{{packages.attributes.name}}</nz-auto-option>
+              </nz-autocomplete>
+              <div class="form-error" *ngIf="validateFormField('assessmentName')"> Assessment name is Required</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ************************** Test Details Table Parallel ******************************** -->
+        <div *ngIf="isAssessmentDetailsShow">
+          <div class="row-wrapper" *ngIf="flowchange">
+            <div class="overall-input-wrapper width-100" *ngIf="packageDetails?.attributes?.tasks?.length > 0 ">
+              <div class="align">
+                <div class="testdetails">Test Details</div>
+                <div class="duration">
+                  <span>Total Duration &nbsp;</span>
+                  <span>:&nbsp;{{getDuration(packageDetails.attributes.duration)}}</span>
+                </div>
+              </div>
+
+              <table class="schedule-table">
+                <tr class="schedule-table-tr">
+                  <th>S.No</th>
+                  <th class="schedule-table-th">Test Name</th>
+                  <th class="schedule-table-duration">Duration</th>
+                  <th class="schedule-table-duration">Schedule Starts On</th>
+                  <th class="schedule-table-duration">Schedule Ends On</th>
+                </tr>
+                <ng-container *ngFor="let item of packageDetails.attributes.tasks; let i = index">
+                  <tr class="schedule-table-body">
+                    <td class="width-5">{{i+1}}</td>
+                    <td>{{item.name}}
+                      <div class="type">{{item.type}}</div>
+                    </td>
+                    <td>{{getDuration(item.duration)}}</td>
+                    <td *ngIf="i==0">
+                      <nz-date-picker [nzDisabledDate]="disabledDate" [nzShowTime]="{ nzFormat: 'HH:mm'}"
+                        nzFormat="dd-MM-yyyy HH:mm" formControlName="scheduleDate" nzPlaceHolder="Select date & time"
+                        (ngModelChange)="onDateChanged($event,schedulePackageForm.get('scheduleEndDate')?.value)"
+                        (nzOnOk)="onOkStartDate($event)">
+                      </nz-date-picker>
+                    </td>
+
+                    <td *ngIf="i > 0"> <nz-date-picker [nzDisabled]="i > 0" [nzShowTime]="{ nzFormat: 'HH:mm'}"
+                        nzFormat="dd-MM-yyyy HH:mm" [(ngModel)]="patchStartDate" nzPlaceHolder="Select date & time"
+                        [ngModelOptions]="{standalone: true}">
+                      </nz-date-picker></td>
+
+
+                    <td *ngIf="i==0">
+                      <nz-date-picker [nzDisabledDate]="disabledDate" [nzShowTime]="{ nzFormat: 'HH:mm'}"
+                        nzFormat="dd-MM-yyyy HH:mm" nzPlaceHolder="Select date & time" formControlName="scheduleEndDate"
+                        (ngModelChange)="onEndDateChanged($event,schedulePackageForm.get('scheduleDate')?.value)"
+                        (nzOnOk)="onOkEndDate($event)">
+                      </nz-date-picker>
+                    </td>
+
+                    <td *ngIf="i > 0">
+                      <nz-date-picker [nzDisabled]="i > 0" [nzShowTime]="{ nzFormat: 'HH:mm'}"
+                        nzFormat="dd-MM-yyyy HH:mm" nzPlaceHolder="Select date & time" [(ngModel)]="patchEndDate"
+                        [ngModelOptions]="{standalone: true}">
+                      </nz-date-picker>
+                    </td>
+
+                  </tr>
+                </ng-container>
+              </table>
+            </div>
+          </div>
+
+          <!-- ******************* Sequention Flow Test Details Table ****************************** -->
+
+          <div class="row-wrapper" *ngIf="!flowchange">
+            <div class="overall-input-wrapper width-100" *ngIf="packageDetails.attributes.tasks.length > 0 ">
+              <div class="align">
+                <div class="testdetails">Test Details</div>
+                <div class="duration">
+                  <span>Total Duration &nbsp;</span>
+                  <span>:&nbsp;{{getDuration(packageDetails.attributes.duration)}}</span>
+                </div>
+              </div>
+
+              <table class="schedule-table">
+                <tr class="schedule-table-tr">
+                  <th class="width-5">S.No</th>
+                  <th class="schedule-table-th">Test Name</th>
+                  <th class="schedule-table-duration">Duration</th>
+                  <th class="schedule-table-duration width-24">Schedule Starts On</th>
+                  <th class="schedule-table-duration">Start Duration</th>
+                  <th class="schedule-table-duration">Break Time After Test</th>
+                  <th class="width-10">Action</th>
+
+                </tr>
+                <ng-container *ngIf="getsequentialArr" [formArrayName]="'testDetails'">
+                  <ng-container *ngFor="let item of getsequentialArr.controls; let i = index" [formGroupName]="i">
+                    <tr class="schedule-table-body">
+                      <td class="width-5">{{i+1}}</td>
+                      <td>{{item.value.name}}
+                        <div class="type">{{item.value.type}}</div>
+                      </td>
+                      <td>{{getDuration(item.value.duration)}}</td>
+
+                      <td>
+
+                        <!-- Schedule Starts On -->
+                        <!-- [nzDisabledTime]="disabledDateTime" -->
+                        <nz-date-picker [nzDisabledDate]="disabledDate" [nzDisabled]="!testTimeCheck"
+                          [nzDisabled]="i==0 ? false : getsequentialArr?.controls[i - 1]?.get('breakTime').value"
+                          [nzShowTime]="{ nzFormat: 'HH:mm'}" nzPlaceHolder="Select date & time"
+                          (ngModelChange)="onSequentialStartDateChange($event,i)" formControlName="startTime"
+                          nzFormat="dd-MM-yyyy HH:mm"
+                          [ngClass]="i!=0 && getsequentialArr?.controls[i - 1]?.get('breakTime').value ? 'clearvalue' : '' "></nz-date-picker>
+                        <div class="error-align" *ngIf="i==0">
+                          <div class="form-error"
+                            *ngIf="getsequentialArr?.controls[i]?.get('startTime')?.invalid && getsequentialArr?.controls[i]?.get('startTime')?.touched">
+                            <div *ngIf="getsequentialArr?.controls[i]?.get('startTime')?.errors?.required">Schedule
+                              Starts on is required</div>
+                          </div>
+                        </div>
+                      </td>
+
+                      <!-- Start Duration -->
+                      <td class="minsBtn">
+                        <nz-input-group nzSearch [nzAddOnAfter]="suffixButton">
+                          <input [ngClass]="!testTimeCheck ? 'disabledMins' : ''" [disabled]="!testTimeCheck"
+                            [readOnly]="!testTimeCheck" type="text"
+                            (keyup)="startDuration($event,i,getsequentialArr?.controls?.length,!testTimeCheck)"
+                            formControlName="startDuration" nz-input placeholder="Enter duration" />
+                        </nz-input-group>
+                        <ng-template #suffixButton>
+                          <button nz-button>Mins</button>
+                        </ng-template>
+                        <div class="error-align">
+                          <div class="form-error"
+                            *ngIf="getsequentialArr?.controls[i]?.get('startDuration')?.invalid && getsequentialArr?.controls[i]?.get('startDuration')?.touched">
+                            <div *ngIf="getsequentialArr?.controls[i]?.get('startDuration')?.errors?.required">Start
+                              Duration is required</div>
+                            <div *ngIf="getsequentialArr.controls[i].get('startDuration').errors?.numberOnly">
+                              Numericals only allowed</div>
+                            <div *ngIf="getsequentialArr.controls[i].get('startDuration').errors?.maxlength">
+                              Maximum 6 digits values allowed</div>
+                          </div>
+                        </div>
+                      </td>
+                      <!-- Break Time After Test -->
+                      <td class="minsBtn">
+                        <nz-input-group nzSearch [nzAddOnAfter]="suffixButton">
+                          <input [ngClass]="!testTimeCheck ? 'disabledMins' : ''" [disabled]="!testTimeCheck"
+                            [readOnly]="!testTimeCheck" type="text" (keyup)="breakTime($event,i,!testTimeCheck)"
+                            formControlName="breakTime" nz-input placeholder="Enter duration" />
+                        </nz-input-group>
+                        <ng-template #suffixButton>
+                          <button nz-button>Mins</button>
+                        </ng-template>
+                        <div class="error-align">
+                          <div class="form-error" *ngIf="getsequentialArr?.controls[i]?.get('breakTime')?.invalid">
+                            <div *ngIf="getsequentialArr.controls[i].get('breakTime').errors?.numberOnly">
+                              Numericals only allowed</div>
+                            <div *ngIf="getsequentialArr.controls[i].get('breakTime').errors?.maxlength">
+                              Maximum 3 digits values allowed</div>
+                          </div>
+                        </div>
+                      </td>
+
+                      <td>
+                        <span
+                          *ngIf="!getsequentialArr?.controls[i]?.value?.criteriaDet[getsequentialArr?.controls[i]?.value?.criteriaDet?.length - 1]?.criteriaDet?.length > 0"
+                          class="addcriteria" (click)="addcriteria(item,i,getsequentialArr.controls,'add')">
+                          Add Criteria
+                        </span>
+                        <div (click)="addcriteria(item,i,getsequentialArr.controls,'view')"
+                          *ngIf="getsequentialArr?.controls[i]?.value?.criteriaDet[getsequentialArr?.controls[i]?.value?.criteriaDet?.length - 1]?.criteriaDet?.length > 0">
+                          <div>
+                            {{getsequentialArr?.controls[i]?.value?.criteriaDet[getsequentialArr?.controls[i]?.value?.criteriaDet?.length
+                            - 1]?.criteriaDet?.length}} Criteria added
+                          </div>
+                          <div class="viewCriteria">View Criteria</div>
+                        </div>
+                      </td>
+                    </tr>
+                  </ng-container>
+                </ng-container>
+              </table>
+
+              <div class="createandcacelbtn align-right">
+                <div class="test-btns">
+                  <button class="exit-button" (click)="clearScheduleDetails()">
+                    Clear
+                  </button>
+                  <button *ngIf="testTimeCheck" [disabled]="!getsequentialArr.valid" (click)="checkFinalDateTime()"
+                    class="header-block__button width-170">
+                    <span>Check</span>
+                  </button>
+
+                  <button class="header-block__button width-170 successone" *ngIf="!testTimeCheck">
+                    <span>Check Complete</span> <mat-icon class=" checkIcon"
+                      *ngIf="testTimeCheck == false">verified</mat-icon>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ***************** Assessment Feedback Form *************************** -->
+          <div class="row-wrapper margintop2">
+            <div class="overall-input-wrapper width-45">
+              <label>Assessment Feedback Form</label>
+              <nz-select nzSize="large" formControlName="feedback" class="input select" nzAllowClear nzShowSearch
+                nzPlaceHolder="<--Select-->">
+                <nz-option *ngFor="let assessmentForm of assessmentFeedback" [nzLabel]="assessmentForm.feedbackFormName"
+                  [nzValue]="assessmentForm.feedbackFormId"></nz-option>
+              </nz-select>
+            </div>
+          </div>
+
+          <!-- ******************** Campus Drive Name *********************** -->
+
+          <div class="row-wrapper">
+            <div class="overall-input-wrapper width-45">
+              <label>Campus Drive Name<span> *</span></label>
+              <nz-select nzSize="large" [id]="'driveName'" (ngModelChange)="getCampusDriveId($event)"
+                formControlName="campusDrivename" class="input select" nzShowSearch nzPlaceHolder="<--Select-->">
+                <nz-option *ngFor="let drive of driveList" [nzLabel]="drive.drive_name"
+                  [nzValue]="drive.drive_master_id"></nz-option>
+              </nz-select>
+              <div class="form-error" *ngIf="drivename?.invalid && drivename?.touched">
+                <div *ngIf="drivename?.errors?.required">Campus drive name is required</div>
+              </div>
+
+            </div>
+
+            <div class="overall-input-wrapper width-45 margin-10">
+              <label>Campus Drive Id <span></span></label>
+              <input formControlName="driveId" type="text" class="input" />
+            </div>
+          </div>
+
+          <!-- ********************** Upload Candidate Details ************************* -->
+          <div class="row-wrapper margintop2">
+            <div class="overall-input-wrapper width-45">
+              <div class="align">
+                <div class="testdetails">Upload Candidates Details</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ********************* Choose the Template *************************** -->
+          <div class="row-wrapper">
+            <div class="overall-input-wrapper width-100">
+              <div class="d-grid">
+                <div class="width-28">
+                  <label>Choose the Template <span> *</span></label>
+                  <mat-form-field appearance="outline" class="uploadMat">
+                    <mat-select PlaceHolder="<--Select-->" (selectionChange)="changeClient($event)"
+                      formControlName="chooseTemplatename">
+                      <mat-option *ngFor="let template of templates" [value]="template.id">
+                        {{template.name}}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                  <div class="form-error" *ngIf="choosetemplatename?.invalid && choosetemplatename?.touched">
+                    <div *ngIf="choosetemplatename?.errors?.required">Choose the template is required</div>
+                  </div>
+                </div>
+
+                <div class="width-18">
+                  <button type="button" class="Candidate-bulk" (click)="openUploadDialog()">
+                    <img src="/assets/images/Bulk-upload-ic.svg" alt="">
+                    <span *ngIf="!uploadnamechange"> Upload Candidates</span>
+                    <span *ngIf="uploadnamechange" (click)="reupload()">Reupload Candidates</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!--  ************** Candidate Upload Counts  ***********************-->
+          <div>
+            <p class="candidateFount" *ngIf="uploadFileShow">
+              <img src="/assets/images/upload-users.svg" alt="" class="candidatecount-img">
+              {{csvRows.length?csvRows[0].length:0}} Candidates uploaded
+            </p>
+          </div>
+          <!-- ******************* Default Error Tables Section ************************** -->
+          <div class="error-sec" *ngIf="showError">
+            <div class="list-wrapper">
+              <div class="error-title">
+                <span>
+                  The uploaded file contains the following errors. Please fix those errors
+                  and upload the file
+                </span>
+                <div (click)="tableclose()">
+                  <span class="close-table">Close<mat-icon class="close-icon">close</mat-icon></span>
+                </div>
+              </div>
+              <div class="table-wrapperdefault">
+                <div class="mat-elevation-z8">
+                  <div class="table-container-Default">
+                    <table *ngIf="checkinstance">
+                      <thead>
+                        <th mat-header-cell class="table-column-100"> Instance Id </th>
+                        <th mat-header-cell class="table-column-100"> Instance status </th>
+                      </thead>
+                      <tbody *ngFor="let excelcheck of excelvalue">
+                        <td mat-cell class="table-column-100">{{excelcheck.instanceId}}</td>
+                        <td mat-cell class="table-column-100 error-clr">{{excelcheck.status}}</td>
+                      </tbody>
+                    </table>
+                    <table *ngIf="!checkinstance">
+                      <thead>
+                        <th mat-header-cell class="table-column-100"> Row No </th>
+                        <th mat-header-cell class="table-column-100"> Email id </th>
+                        <th mat-header-cell class="table-column-100"> Name </th>
+                        <th mat-header-cell class="table-column-100"> Instance id </th>
+                      </thead>
+                      <tbody *ngFor="let excelcheck of excelvalue; index as i">
+                        <td mat-cell class="table-column-100">{{excelcheck.rowNumber}}</td>
+                        <td class="table-column-100 error-clr">{{excelcheck.emailId}}</td>
+                        <td mat-cell class="table-column-100 error-clr">{{excelcheck.name}}</td>
+                        <td class="table-column-100 error-clr">
+                          {{excelcheck.instanceId}}
+                          {{excelcheck.status}} </td>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- ******************* Bajaj Error Tables Section ************************** -->
+          <div class="error-sec" *ngIf="showBajajError">
+            <div class="list-wrapper">
+              <div class="error-title">
+                <span>
+                  The uploaded file contains the following errors. Please fix those errors
+                  and upload the file
+                </span>
+
+                <div (click)="tableclose()">
+                  <span class="close-table">Close
+                    <mat-icon class="close-icon">close</mat-icon></span>
+                </div>
+              </div>
+              <div class="table-wrapper">
+                <div class="mat-elevation-z8">
+                  <div class="table-container">
+                    <table *ngIf="checkinstance">
+                      <thead>
+                        <th mat-header-cell class="instance-align"> Instance Id </th>
+                        <th mat-header-cell class="instance-alignstatus"> Instance status </th>
+                      </thead>
+                      <tbody *ngFor="let excelcheck of excelvalue">
+                        <td mat-cell class="table-column-100 instance-align">{{excelcheck.instanceId}}</td>
+                        <td mat-cell class="table-column-100 error-clr instance-alignstatus">{{excelcheck.status}}</td>
+                      </tbody>
+                    </table>
+                    <table *ngIf="!checkinstance">
+                      <thead>
+                        <th mat-header-cell class="table-column-100"> Row No </th>
+                        <th mat-header-cell class="table-column-100"> Email Id</th>
+                        <th mat-header-cell class="table-column-100"> Name </th>
+                        <th mat-header-cell class="table-column-100"> Instance Id </th>
+                        <th mat-header-cell class="table-column-100"> Gender </th>
+                        <th mat-header-cell class="table-column-100"> Alternate Email Id</th>
+                        <th mat-header-cell class="table-column-100"> Degree (B.Tech / Dual / M.Tech / Ph.D.) </th>
+                        <th mat-header-cell class="table-column-100"> Specialization </th>
+                        <th mat-header-cell class="table-column-100"> Xth% </th>
+                        <th mat-header-cell class="table-column-100"> Year of Passing - Xth</th>
+                        <th mat-header-cell class="table-column-100"> XIIth</th>
+                        <th mat-header-cell class="table-column-100"> Year of Passing - XIIth</th>
+                        <th mat-header-cell class="table-column-100"> UG% </th>
+                        <th mat-header-cell class="table-column-100"> Year Of Passing - UG</th>
+                        <th mat-header-cell class="table-column-100"> PG% </th>
+                        <th mat-header-cell class="table-column-100"> Year Of Passing - PG </th>
+                        <th mat-header-cell class="table-column-100"> PhD </th>
+                        <th mat-header-cell class="table-column-100"> Year Of Passing - PhD </th>
+                        <th mat-header-cell class="table-column-100">Backlog (Both Active / Dead) - Yes/No</th>
+                        <th mat-header-cell class="table-column-100">Did you do Diploma before B.E/B.Tech - Yes/No</th>
+                        <th mat-header-cell class="table-column-100">Did you intern at BAL/CTL before? - Yes/No</th>
+                      </thead>
+                      <tbody *ngFor="let excelbajaj of excelvalue; index as i">
+                        <td class="table-column-100">{{excelbajaj.rowNumber}}</td>
+                        <td class="table-column-100" class="error-clr">{{excelbajaj.emailId}}</td>
+                        <td class="table-column-100" class="error-clr">{{excelbajaj.name}}</td>
+                        <td class="table-column-100" class="error-clr">{{excelbajaj.instanceId}}</td>
+                        <td class="table-column-100" class="error-clr">{{excelbajaj.gender}} </td>
+                        <td class="table-column-100" class="error-clr">{{excelbajaj.alternateEmailId}}</td>
+                        <td class="table-column-100" class="error-clr"> {{
+                          excelbajaj.degree}} </td>
+                        <td class="table-column-100" class="error-clr"> {{
+                          excelbajaj.specialization}} </td>
+                        <td class="table-column-100" class="error-clr">{{
+                          excelbajaj.SSLC}}</td>
+                        <td class="table-column-100" class="error-clr">{{
+                          excelbajaj.yearOfPassingSSLC}} </td>
+                        <td class="table-column-100" class="error-clr">{{
+                          excelbajaj.HSC}} </td>
+                        <td class="table-column-100" class="error-clr">{{
+                          excelbajaj.yearOfPassingHSC}} </td>
+                        <td class="table-column-100" class="error-clr"> {{excelbajaj.UG}}</td>
+                        <td class="table-column-100" class="error-clr">{{
+                          excelbajaj.yearOfPassingUG}} </td>
+                        <td class="table-column-100" class="error-clr">{{ excelbajaj.PG}}
+                        </td>
+                        <td class="table-column-100" class="error-clr">{{
+                          excelbajaj.yearOfPassingPG}} </td>
+                        <td class="table-column-100" class="error-clr">{{
+                          excelbajaj.PhD}} </td>
+                        <td class="table-column-100" class="error-clr">{{
+                          excelbajaj.yearOfPassingPhD}} </td>
+                        <td class="table-column-100" class="error-clr">{{
+                          excelbajaj.backlogActiveandDead}} </td>
+                        <td class="table-column-100" class="error-clr"> {{ excelbajaj.diplomaBeforeBEorBTech}} </td>
+                        <td class="table-column-100" class="error-clr"> {{
+                          excelbajaj.internAtBALorCTL}} </td>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ***************** Email Notification for Successs ************************* -->
+          <!-- <div class="row-wrapper" *ngIf="!flowchange && showResultEmailNotify">
+            <div class="overall-input-wrapper width-45">
+              <label>Email Notification For Success Candidate<span> *</span></label>
+              <div class="radio-btn-alignment marginTop-1">
+                <mat-radio-group (change)="resultSuccess($event)" formControlName="resultNotifySuccess"
+                  aria-label="Select an option" class="alignment">
+                  <mat-radio-button value="1">Yes</mat-radio-button>
+                  <mat-radio-button class="radioLeft" value="0">No</mat-radio-button>
+                </mat-radio-group>
+              </div>
+            </div>
+            <div class="overall-input-wrapper width-45"
+              *ngIf="schedulePackageForm.get('resultNotifySuccess')?.value == '1'">
+              <label>Choose Template<span> *</span></label>
+              <nz-select formControlName="resultNotifySuccessTemplate" nzSize="large"
+                [id]="'resultNotifySuccessTemplate'" class="input select" nzAllowClear nzShowSearch>
+                <nz-option *ngFor="let successTemp of resultData.successCandidates" [nzLabel]="successTemp.name"
+                  [nzValue]="successTemp.value"></nz-option>
+              </nz-select>
+              <div class="form-error" *ngIf="resultSuccessed?.invalid && resultSuccessed?.touched">
+                <div *ngIf="resultSuccessed?.errors?.required">Choose template is required</div>
+              </div>
+            </div>
+          </div> -->
+
+          <!-- ***************** Email Notification for Failure ************************* -->
+          <div class="row-wrapper" *ngIf="!flowchange && showResultEmailNotify">
+            <div class="overall-input-wrapper width-45">
+              <label>Email Notification For Failure Candidate<span> *</span></label>
+              <div class="radio-btn-alignment marginTop-1">
+                <mat-radio-group (change)="resultFailure($event)" formControlName="resultNotifyFailure"
+                  aria-label="Select an option" class="alignment">
+                  <mat-radio-button value="1">Yes</mat-radio-button>
+                  <mat-radio-button class="radioLeft" value="0">No</mat-radio-button>
+                </mat-radio-group>
+              </div>
+            </div>
+
+            <div class="overall-input-wrapper width-45"
+              *ngIf="schedulePackageForm.get('resultNotifyFailure')?.value == '1'">
+              <label>Choose Template<span> *</span></label>
+              <nz-select formControlName="resultNotifyFailureTemplate" nzSize="large" class="input select" nzAllowClear
+                [id]="'resultNotifyFailureTemplate'" nzShowSearch nzPlaceHolder="<--Select-->">
+                <nz-option *ngFor="let failureTemp of resultData.failureCandidates" [nzLabel]="failureTemp.name"
+                  [nzValue]="failureTemp.value"></nz-option>
+              </nz-select>
+              <div class="form-error" *ngIf="resultFailed?.invalid && resultFailed?.touched">
+                <div *ngIf="resultFailed?.errors?.required">Choose template is required</div>
+              </div>
+            </div>
+
+          </div>
+          <!-- ********************** Proctor Check *************************** -->
+          <div class="row-wrapper">
+            <div class="overall-input-wrapper width-45">
+              <label>Proctor Check <span> *</span></label>
+              <div class="radio-btn-alignment marginTop-1">
+                <mat-radio-group formControlName="is_proctor" aria-label="Select an option"
+                  (change)="proctorcheck($event)">
+                  <mat-radio-button value="1">Yes</mat-radio-button>
+                  <mat-radio-button class="radioLeft" value="0">No</mat-radio-button>
+                </mat-radio-group>
+              </div>
+            </div>
+
+            <div class="overall-input-wrapper width-45" *ngIf="schedulePackageForm.get('is_proctor')?.value == '1'">
+              <label>Choose Template<span> *</span></label>
+              <nz-select nzSize="large" (ngModelChange)="selectTemplate($event)" [id]="'templateId'"
+                formControlName="templateId" class="input select" nzAllowClear nzShowSearch
+                nzPlaceHolder="<--Select-->">
+                <nz-option *ngFor="let template of proctorTemplateList" [nzLabel]="template.tempname"
+                  [nzValue]="template.tempname"></nz-option>
+              </nz-select>
+              <div class="form-error" *ngIf="choosetemplate?.invalid && choosetemplate?.touched">
+                <div *ngIf="choosetemplate?.errors?.required">Choose template is required</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ****************** Publish results *************************** -->
+
+          <div class="row-wrapper">
+            <div class="overall-input-wrapper width-45">
+              <label>Publish Result<span> *</span></label>
+              <div class="radio-btn-alignment marginTop-1">
+                <mat-radio-group (change)="publistResult($event)" formControlName="is_published"
+                  aria-label="Select an option" class="alignment">
+                  <mat-radio-button value="1">Yes</mat-radio-button>
+                  <mat-radio-button class="radioLeft" value="0">No</mat-radio-button>
+                </mat-radio-group>
+              </div>
+            </div>
+            <div class="overall-input-wrapper width-45" *ngIf="schedulePackageForm.get('is_published')?.value == '1'">
+              <label>Publish On<span *ngIf="schedulePackageForm.get('is_published')?.value == '1'"> *</span></label>
+              <div class="date-relative">
+                <nz-date-picker nzSize="large" [nzDisabled]="schedulePackageForm.get('is_published')?.value != '1'"
+                  formControlName="publishDate" [nzShowTime]="{ nzFormat: 'HH:mm'}" nzFormat="dd-MM-yyyy HH:mm"
+                  (nzOnOk)="onpublishDateChanged($event)"></nz-date-picker>
+              </div>
+              <div class="form-error" *ngIf="publishdate?.invalid && publishdate?.touched">
+                <div *ngIf="publishdate?.errors?.required">Publish On is required</div>
+              </div>
+            </div>
+            <!-- <div class="overall-input-wrapper width-45">
+                  <label class="timer"></label>
+                  <nz-time-picker nzSize="large"
+                    (nzOnOk)="onPublishTimeChanged($event,packageDetails.attributes.duration)" nzShowTime
+                    nzFormat="HH:mm a" formControlName="publishTime"></nz-time-picker>
+                </div> -->
+            <!-- </div> -->
+            <!-- </div> -->
+          </div>
+
+          <!-- ******************** Attempt Restrict ********************* -->
+          <!-- <div class="row-wrapper">
+            <div class="overall-input-wrapper width-45">
+              <label>Attempt Restrict<span> *</span></label>
+              <div class="radio-btn-alignment marginTop-1">
+                <mat-radio-group (change)="attempt($event)" formControlName="attemptRestrict"
+                  aria-label="Select an option" class="alignment">
+                  <mat-radio-button value="1">Yes</mat-radio-button>
+                  <mat-radio-button class="radioLeft" value="0">No</mat-radio-button>
+                </mat-radio-group>
+              </div>
+            </div>
+            <div class="overall-input-wrapper width-45"
+              *ngIf="schedulePackageForm.get('attemptRestrict')?.value == '1'">
+              <label>Number of attempt<span *ngIf="schedulePackageForm.get('attemptRestrict')?.value == '1'">
+                  *</span></label>
+              <nz-input-number formControlName="numberOfattempt" class="input" [nzMin]="1"></nz-input-number>
+              <div class="form-error" *ngIf="numberOfattempt?.invalid && numberOfattempt?.touched">
+                <div *ngIf="numberOfattempt?.errors?.required">Number of attempt is required</div>
+                <div *ngIf="numberOfattempt?.errors?.twoDigit">Enter between 1 to 99
+                </div>
+              </div>
+            </div>
+          </div> -->
+          <!-- *********************** Activity Time Restrict ********************* -->
+          <!-- <div class="row-wrapper">
+            <div class="overall-input-wrapper width-45">
+              <label>Activity Time Restrict<span> *</span></label>
+              <div class="radio-btn-alignment marginTop-1">
+                <mat-radio-group (change)="activityAttempt($event)" formControlName="activityTimeRestrict"
+                  aria-label="Select an option" class="alignment">
+                  <mat-radio-button value="1">Yes</mat-radio-button>
+                  <mat-radio-button class="radioLeft" value="0">No</mat-radio-button>
+                </mat-radio-group>
+              </div>
+            </div>
+            <div class="overall-input-wrapper width-45"
+              *ngIf="schedulePackageForm.get('activityTimeRestrict')?.value == '1'">
+              <label>Duration (Mins)<span *ngIf="schedulePackageForm.get('activityTimeRestrict')?.value == '1'">
+                  *</span></label>
+              <nz-input-number formControlName="activityTimeDuration" class="input" [nzMin]="1" [nzStep]="0"
+                [nzMax]=""></nz-input-number>
+              <div class="form-error" *ngIf="activityTimeDuration?.invalid && activityTimeDuration?.touched">
+                <div *ngIf="activityTimeDuration?.errors?.required">Duration is required</div>
+                <div *ngIf="activityTimeDuration?.errors?.twoDigit">Enter between 1 to 99
+                </div>
+              </div>
+            </div>
+          </div> -->
+
+
+          <!-- **************************** Previews Email ********************** -->
+
+          <div class="row-wrapper">
+            <div class="overall-input-wrapper width-100">
+              <div class="schedule-block__align">
+                <!-- formControlName="sendNotification" -->
+                <button type="button" [disabled]="!schedulePackageForm.get('orgId')?.value" class="preview"
+                  (click)="openNoticationTemplate()">
+                  <span class="material-icons ic">mail </span><u>Preview Email</u>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="createandcacelbtn">
+            <div class="align-btns">
+              <button type="button" class="exit-button" routerLink="/admin/schedule/list">
+                Cancel
+              </button>
+              <!--  -->
+              <button type="button" [disabled]="!schedulePackageForm.valid" class="header-block__button disbtn"
+                (click)="createSchedulePackage()">
+                Create Schedule
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+
+<!----------------------------------------------preview template  start------------------------------------------------------->
+
+<ng-template #notifications>
+  <div class="container">
+    <div class="text">Preview Email Template</div>
+    <button class="close-button" type="button" [mat-dialog-close]="true">
+      <mat-icon class="close-icon">close</mat-icon>
+    </button>
+  </div>
+  <mat-dialog-content class="mat-typography">
+    <div class="innerHtml" [innerHTML]="this.emailtemplate"></div>
+  </mat-dialog-content>
+  <mat-dialog-actions align="end" style="margin: 13px">
+    <button class="btn" mat-button [mat-dialog-close]="true" type="button" cdkFocusInitial>ok</button>
+  </mat-dialog-actions>
+</ng-template>
+
+<!----------------------------------------------preview template  end------------------------------------------------------->
+
+<!----------------------------------------------upload files  start------------------------------------------------------->
+<ng-template #uploadfiles>
+  <div class="uploaddialog">
+    <div class="contentdialog">
+      <div class="sideheading">Upload Candidates</div>
+      <mat-icon class="close-icon" (click)="deleteCsvFile()">close</mat-icon>
+    </div>
+    <hr />
+    <div *ngIf="dialogContent==null">
+      <div class="content">
+        <div class="align">
+          <span class="paragraph">
+            <img src="/assets/images/icon-blue-warning.svg" alt="" /> Download the given template
+            and upload your candidate details.</span>
+        </div>
+        <div class="template-name">
+          <span>Template Name : {{uploadText()}}</span>
+        </div>
+        <div>
+
+          <span class="download" (click)="downloadTemplate()">
+            <u> <img class="csv" src="/assets/images/csv-icon.svg" alt="" /> Download Template</u>
+          </span>
+        </div>
+      </div>
+      <div class="uploded-moc">
+        <ngx-file-drop *ngIf="!showCsvFileInformation" dropZoneLabel="Drop files here"
+          (onFileDrop)="fileDropped($event)" accept=".csv" contentClassName="ngx-file-drop" [multiple]="false">
+          <ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector">
+            <div class="common-upload-btn" (click)="openFileSelector()">
+              <img src="/assets/images/icon-cloud-upload.svg" alt="" />
+              <div>Upload the Candidate list</div>
+            </div>
+            <div class="text-war"><span>*</span> (File extension allowed .csv)</div>
+
+          </ng-template>
+        </ngx-file-drop>
+
+        <div *ngIf="showCsvFileInformation">
+          <div class="list">
+            <span class="urlSpan">{{csvFileName}}</span>
+            <span> <img (click)="deleteCsvFile()" src="/assets/images/close-file-name.svg" /></span>
+          </div>
+          <div *ngIf="!validFile" class="text_csv"><span>*</span> (File extension allowed .csv)</div>
+          <div *ngIf="validFile" class="text">Please upload file with correct headers</div>
+
+        </div>
+
+        <div class="upload-btn">
+          <button class="cancel" [ngStyle]="{'opacity': showCsvFileInformation ? '2.0' :'2.5'}"
+            (click)="deleteCsvFile()" mat-button>
+            Cancel
+          </button>
+          <button class="upload" accept=".csv" [ngStyle]="{'opacity': showCsvFileInformation ? '1.0':'0.5'}"
+            [disabled]="showCsvFileInformation ? false :true" (click)="parseCsvFile(selectedCSVFile , $event)"
+            mat-button>
+            Upload
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="Success-sec" *ngIf="dialogContent==true">
+      <div class="template-nameafter">
+        <span>Template Name : {{uploadText()}}</span>
+      </div>
+      <div>
+        <img src="/assets/images/Icon ionic-ios-checkmark-circle-outline.svg" alt="" />
+      </div>
+      <div class="success-msg">
+        <span> File uploaded successfully. Click on Ok to proceed </span>
+      </div>
+      <div (click)="successClose('newFile')" class="success-btn">
+        <span> Ok </span>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+
+<!----------------------------------------------upload files  end------------------------------------------------------->

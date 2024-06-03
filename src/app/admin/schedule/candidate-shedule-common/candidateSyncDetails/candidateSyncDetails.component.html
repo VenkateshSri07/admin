@@ -1,0 +1,131 @@
+<div class="candidate-full">
+  <div class="candidate-flex candidate-title">
+    <div class="title">View Delivery Details</div>
+    <div class="material-icons close-ic" mat-button mat-dialog-close>close</div>
+  </div>
+  <div class="candidate-table">
+    <table>
+      <thead>
+        <tr>
+          <th style="width: 50%;">Schedule Name</th>
+          <th>Total No. Of Deliveries</th>
+          <th>Pending</th>
+          <th>Completed</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>{{data.attributes.batchName}}</td>
+          <td><span class="t-candidate">{{totalPartnerCount}}</span></td>
+          <td><span class="t-Bounced">{{countObj?.pendingCount}}</span></td>
+          <td><span class="t-Delivered">{{countObj?.CompletedCount}}</span></td>
+        </tr>
+      </tbody>
+
+    </table>
+  </div>
+  <div class="btn-error">
+    <span *ngIf="!completedCheck && (this.data.attributes.deliverySyncStatus =='terminated'|| terminatedStatus == true)"
+      style="padding-right: 15px;" (click)="deliverableStatus()">
+      <button class="resync-btn">
+        <mat-icon class="checkerror">refresh</mat-icon>
+        <span class="resync-span"> reSync</span> </button></span>
+    <span
+      *ngIf="!completedCheck && ((this.data.attributes.deliverySyncStatus =='inprogress' || this.data.attributes.deliverySyncStatus == 'failed') && terminatedStatus == false && this.data.attributes.deliverySyncStatus != 'terminated') "
+      style="padding-right: 15px;" (click)="terminateStatus()">
+      <button class="resync-btnterminate">
+        <mat-icon class="checkerror">warning</mat-icon>
+        <span class="resync-span">Terminate</span></button></span>
+  </div>
+  <!-- Candidate Details Table -->
+  <div class="table-align" id="style-3">
+
+    <table mat-table [dataSource]="dataSource" class="scroll tablescroll">
+
+      <ng-container matColumnDef="taskType">
+        <th class="commomheader" *matHeaderCellDef> Task Type </th>
+        <td *matCellDef="let element"> {{element?.taskType}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="instanceId">
+        <th class="commomheader" *matHeaderCellDef> Instance Id </th>
+        <td *matCellDef="let element"> {{element?.instanceId}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="candidateCount">
+        <th class="commomheader" *matHeaderCellDef> No. of Candidates </th>
+        <td *matCellDef="let element"> {{element?.learnerCount}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="status">
+        <th class="commomheader" *matHeaderCellDef> Delivery Status </th>
+        <td *matCellDef="let element">
+          <span [ngClass]="element?.syncStatus ==true?'Completedbox':(element?.syncStatus == false &&
+         (element.errorMsg == undefined || element.errorMsg == '')?'Pendingbox':'Failedbox')">
+            {{element?.syncStatus ==true?'Completed':(element?.syncStatus == false &&
+            (element.errorMsg == undefined || element.errorMsg == '')?'Pending':'Failed')}}
+          </span>
+          <!-- <span>{{element.syncStatus}}</span> -->
+          <!-- {{element?.syncStatus ==true?'Completed':(element?.syncStatus == false &&
+          (element.errorMsg == undefined || element.errorMsg == '')?'Pending':'Failed')}} -->
+        </td>
+      </ng-container>
+
+      <ng-container class="uniq-error" matColumnDef="errorMessage">
+        <th class="commomheader" *matHeaderCellDef> Error Message </th>
+        <td *matCellDef="let element"> {{element?.errorMsg?element?.errorMsg:'-'}} </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      <tr class="mat-row" *matNoDataRow>
+
+        <td class="mat-cell nodata" colspan="8">No Data Found</td>
+
+      </tr>
+    </table>
+
+    <div class="pagination">
+      <mat-paginator [length]="totalPartnerCount" [pageSize]="10" [pageSizeOptions]="[3,5,10,50,100,1000]"
+        aria-label="Select page">
+      </mat-paginator>
+    </div>
+
+  </div>
+
+
+  <div class="exportdataBtn">
+    <button (click)="exportCsv()" type="button">
+      <mat-icon class="save-icon">save_alt</mat-icon>
+      Export Data</button>
+  </div>
+
+</div>
+
+<ng-template #reSyncpopup>
+  <mat-icon class="close-icon" (click)="childPopUpClose()">close</mat-icon>
+  <div class="hr-procccessed">
+    <img src="assets/images/red-warning.svg" style="height: 50px;" alt="">
+    <div class="hr-text">
+      <span>Are you sure, you want to re sync the process</span>
+    </div>
+    <div class="hr-okay">
+      <button class="hr-ok" (click)="childPopUpClose()">Close</button>
+      <button class="hr-cancel" (click)="deliverableStatusSync()">Ok</button>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #terminateSyncpopup>
+  <mat-icon class="close-icon" (click)="childPopUpClose()">close</mat-icon>
+  <div class="hr-procccessed">
+    <img src="assets/images/red-warning.svg" style="height: 50px;" alt="">
+    <div class="hr-text">
+      <span>Are you sure, you want to Terminate the process</span>
+    </div>
+    <div class="hr-okay">
+      <button class="hr-ok" (click)="childPopUpClose()">Close</button>
+      <button class="hr-cancel" (click)="terminateStatusSync()">Ok</button>
+    </div>
+  </div>
+</ng-template>

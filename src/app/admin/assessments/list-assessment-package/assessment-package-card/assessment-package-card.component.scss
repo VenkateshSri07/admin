@@ -1,0 +1,243 @@
+@import 'index';
+
+.package {
+    background-color: #fff;
+    padding-top: 30px;
+    padding-right: 5px;
+    padding-left: 20px;
+    display: flex;
+    margin-bottom: 20px;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+    color: $uap-mine-shaft;
+    border: 1px solid #c9c4c4;
+    border-radius: 5px;
+    box-shadow: 0px 0px 3px #888888;
+
+    &__info {
+        width: 60%;
+
+        &-name {
+            color: $uap-light-black;
+            font: bold 20px/1 $uap-roboto-condensed;
+            padding-bottom: 10px;
+        }
+
+        &-contains {
+            color: $uap-light-black;
+            font: normal 18px/1 $uap-roboto-condensed;
+            max-width: 368px;
+            line-height: 1.5;
+        }
+    }
+
+    &__duration {
+        font: 500 20px/1 $uap-roboto-condensed;
+        padding-right: 20px;
+        margin-right: auto;
+
+        &-level {
+            color: $uap-light-black;
+            display: flex;
+            align-items: center;
+            padding-bottom: 10px;
+
+            span {
+                padding-left: 5px;
+            }
+        }
+
+        &-time {
+            color: $uap-light-black;
+            display: flex;
+            align-items: center;
+            scroll-padding: 10px;
+
+            span {
+                padding-left: 5px;
+            }
+        }
+    }
+
+    &__actions {
+        font: 500 16px/1 $uap-roboto-condensed;
+        width: 190px;
+
+        &-status {
+            color: $uap-la-palma;
+
+            &-published {
+                background-color: #E7FFE2;
+                color: #00BA00;
+                font-size: 14px;
+                padding: 4px 0px;
+                border-radius: 20px;
+                border: 1px solid #1fb72f;
+                text-align: center;
+                width: 60%;
+                position: relative;
+                right: 5px;
+            }
+
+            &-draft {
+                background-color: #D0D0D0;
+                color: #707070;
+                font-size: 14px;
+                padding: 4px 0px;
+                border-radius: 20px;
+                border: 1px solid #808080;
+                text-align: center;
+                width: 60%;
+            }
+        }
+
+        &-buttons {
+            padding-top: 10px;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+
+            button.invite {
+                background-color: $uap-crimson;
+            }
+
+            button.view {
+                font-weight: normal;
+                font-size: 20px;
+                background: $uap-buddha-gold;
+                border-radius: 4px;
+                border: 1px solid $uap-buddha-goldb;
+                text-shadow: 1px 1px 1px $uap-buddha-goldb;
+            }
+        }
+    }
+
+    &__invite-status {
+        background: $uap-malachite;
+        color: $white;
+        font: bold 16px/1 $uap-roboto-condensed;
+        width: 152px;
+        height: 28px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        font-weight: 500;
+        border: 1px solid #1fb72f;
+        border-top-width: 0;
+        border-radius: 0 0 4px 4px;
+        text-shadow: 0 1px 1px #0000006e;
+    }
+}
+
+button {
+    color: $uap-white;
+    border-radius: 0;
+    height: 40px;
+    width: 149px;
+    font-weight: 600;
+    font: bold 18px/1 $uap-roboto-condensed;
+}
+
+.mat-mdc-menu-item {
+    color: $uap-black;
+}
+
+.bigcard {
+    background-color: #fff;
+    padding-top: 10px;
+    padding-right: 10px;
+    padding-bottom: 10px;
+    padding-left: 10px;
+
+    margin-bottom: 20px;
+
+
+    position: relative;
+    color: $uap-mine-shaft;
+    border: 1px solid #c9c4c4;
+    border-radius: 5px;
+    box-shadow: 0px 0px 3px #888888;
+
+
+    table {
+        width: 100%;
+    }
+
+    tr {
+        text-align: center;
+    }
+
+    th {
+        color: #808080;
+        font-size: 14px;
+        font-weight: 300;
+        text-align: left;
+
+    }
+
+    td {
+        font-size: 14px;
+        color: #333333;
+        font-weight: 500;
+        text-align: left;
+    }
+
+}
+
+.test-list {
+    width: 15%;
+    border: 1px solid;
+    border-color: #255488;
+    border-radius: 20px;
+    font-size: 12px;
+    text-align: center;
+
+    span {
+        color: #255488;
+        font-size: 12px;
+    }
+}
+
+.action-edit {
+    cursor: pointer;
+}
+
+.updated-time {
+    display: flex;
+    position: relative;
+    top: 4px;
+    font-size: 12px;
+    left: 7px;
+
+    .updated-time-icon {
+        font-size: 19px;
+    }
+}
+
+.visible-icon {
+    position: relative;
+    left: 10px;
+    color: #707070;
+    cursor: pointer;
+}
+
+.disablebtn {
+    color: #999999;
+}
+
+.mat-chip {
+    display: inline-block;
+    border: 1px solid #255488;
+    border-radius: 20px;
+    background-color: #fff;
+    color: #255488;
+    font-size: 13px;
+    padding: 1px 17px;
+    position: relative;
+    margin: 5px 5px 0px 5px;
+}

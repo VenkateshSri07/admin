@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: uapui
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: uapui
+  template:
+    metadata:
+      labels:
+        app: uapui
+    spec:
+      containers:
+        - name: uapui
+          image: uapdevqa.azurecr.io/uapuiqa:$tag
+          imagePullPolicy: Always
+          ports:
+          - containerPort: 80
+      imagePullSecrets:
+        - name: mysecret

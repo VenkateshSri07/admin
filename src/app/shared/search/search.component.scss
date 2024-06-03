@@ -1,0 +1,28 @@
+@import 'index';
+
+.input-width {
+    width: 94%;
+}
+
+
+.close-icon {
+    cursor: pointer;
+
+}
+
+.search-assess {
+    position: relative;
+    top: 11px;
+    padding-right: 45px;
+    font-size: 3px;
+    width: 109%;
+}
+
+.mat-mdc-form-field-has-icon-suffix .mat-mdc-text-field-wrapper {
+    background-color: #fff !important;
+}
+
+.input-search {
+    padding: 0px 9px !important;
+    font-size: 14px !important;
+}

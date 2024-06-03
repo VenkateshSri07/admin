@@ -1,0 +1,48 @@
+<div class="subparent-instruction">
+  <div class="parent-left">
+    <span class="heading">Add General Instructions</span>
+    <mat-icon mat-dialog-close type="submit">close</mat-icon>
+  </div>
+</div>
+
+<mat-dialog-content class="mat-typography">
+  <div class="parent-instruction">
+    <div class="instruction-note">
+      <div class="bg-instruction">
+        <mat-icon class="icon-color">error</mat-icon>
+        <span class="note-text">
+          Note : Instructions added here will be a common instructions for
+          that schedule, not specific to particular Test
+        </span>
+      </div>
+    </div>
+
+    <div class="instructions">Add your instructions <span> *</span></div>
+    <div [formGroup]="form">
+      <summernote id="summernote" (on-paste)="paste()" formControlName="instruction" (ngModelChange)="change($event)"
+        [ngxSummernoteDisabled]="editorDisabled" [ngxSummernote]="config1"></summernote>
+    </div>
+    <!-- <angular-editor [config]="config" [(ngModel)]="addhtmlValue"></angular-editor> -->
+  </div>
+  <!-- <pre>{{form.get('instruction').value}}</pre> -->
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <div class="intruc-bottom-btn">
+
+    <button *ngIf="!editBtnEnable" class="cancel" mat-raised-button (click)="cancel()" mat-dialog-close
+      type="submit">Cancel</button>
+
+    <button *ngIf="!editBtnEnable" class="submit" mat-raised-button type="submit" (click)="InstructionSubmitted()"
+      [disabled]="!form.get('instruction').value">Submit</button>
+
+    <button *ngIf="editBtnEnable" [disabled]="data?.status == 'InProgress'" class="submit edit" mat-raised-button
+      type="submit" (click)="edit()">Edit
+      Instructions</button>
+  </div>
+
+</mat-dialog-actions>
+
+<!-- <mat-dialog-actions align="end" *ngIf="isConfirmbtnchange">
+  <button class="submit" class="edit-btn" type="submit" (click)="editInstruction()">Edit Instructions</button>
+</mat-dialog-actions> -->

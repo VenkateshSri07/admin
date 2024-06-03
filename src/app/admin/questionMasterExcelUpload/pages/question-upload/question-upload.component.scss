@@ -1,0 +1,98 @@
+.reports-wrapper {
+    position: relative;
+    padding: 35px 1em;
+    margin-left: 1.25em;
+    box-sizing: border-box;
+    width: 97%;
+    display: flex;
+    justify-content: center;
+    background-color: #fafafa;
+    box-shadow: 2px 2px 5px #0000001A;
+    margin-right: 1.25em;
+
+    .upload {
+        cursor: pointer;
+        text-align: center;
+        vertical-align: middle;
+        margin-top: 35px;
+    }
+
+    .btn {
+        background: #be2020 !important;
+        color: #fff;
+        text-align: center;
+        width: 100px;
+        margin-left: 39%;
+        padding: 4px;
+    }
+
+    .front {
+        margin: 10px;
+        font-weight: 500;
+    }
+
+    .border-box {
+        border: 2px dotted #999999 !important;
+        border-radius: 5px !important;
+        height: 250px !important;
+        width: 500px !important;
+        margin: auto;
+    }
+
+    .uploaded-heading {
+        text-align: center;
+    }
+}
+
+::ng-deep .ngx-file-drop__drop-zone {
+    border: none !important;
+    height: 132px !important;
+    width: 100% !important;
+    background: transparent !important;
+}
+
+.delete-file-button__style {
+    background: #be2020;
+    color: #fff;
+    text-align: center;
+    width: 60px;
+    padding: 2px;
+    border: none;
+    cursor: pointer;
+}
+
+.submit {
+    height: 27px;
+    width: 125px;
+    border-radius: 5px;
+    background: #004c86;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+}
+
+.btn-align {
+    text-align: center;
+    padding: 30px;
+}
+
+.d-flex {
+    display: flex;
+}
+
+.downloadtemplate {
+    margin-left: 10px;
+    height: 28px;
+    background: #be2020;
+    border: none;
+    color: #fff;
+    border-radius: 5px;
+    padding: 6px;
+    cursor: pointer;
+}
+
+.noteErr {
+
+    color: #be2020;
+
+}

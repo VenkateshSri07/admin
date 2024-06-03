@@ -1,0 +1,232 @@
+<div class="create-form__overflow">
+  <div class="headlingSection">
+    <span class="heading">Candidate Profile Submission Status</span>
+    <span class="heading back-btn" (click)="backtolistpage()">Back to Schedule Assessment</span>
+  </div>
+  <div class="schedule-assessment-block">
+    <div class="schedule-assessment-block__align">
+      <ag-grid-angular style="width: 100%;height: calc(100vh - 160px);" class="ag-theme-alpine"
+        [columnDefs]="columnDefs" [defaultColDef]="defaultColDef" [rowData]="rowData" (gridReady)="onGridReady($event)"
+        [animateRows]="true" headerHeight="40" rowHeight="40" [pagination]="true" [paginationPageSize]="500"
+        (cellClicked)="onCellClicked($event , '')"></ag-grid-angular>
+    </div>
+  </div>
+</div>
+
+<ng-template #matDialog>
+  <div class="close" (click)="closeDialog()"> <mat-icon>close</mat-icon></div>
+  <div [ngClass]="updatedCandidateInfo ? 'mainSection' : ''">
+    <!-- Actual Profile / Profile Details -->
+    <div class="logout">
+      <mat-dialog-content class="mat-typography">
+        <div class="mainContent">
+          <div class="popupHead">{{!updatedCandidateInfo ? 'Profile Details' : 'Actual Profile'}}</div>
+          <div class="title">Basic Details:</div>
+          <div class="profileDetails">
+            <div class="left">
+              <div>Name:</div>
+              <div>{{candidateInfo && candidateInfo?.name ? candidateInfo?.name : '-'}}</div>
+            </div>
+
+            <div class="left" [ngClass]="updatedKeyObj != undefined && ( updatedKeyObj?.gender == undefined || updatedKeyObj?.gender == true) ? 'red' : ''">
+              <div>Gender:</div>
+              <div>{{candidateInfo && candidateInfo?.gender ? candidateInfo?.gender : '-'}}</div>
+            </div>
+
+            <div class="left">
+              <div>Email id:</div>
+              <div>{{candidateInfo && candidateInfo?.emailId ? candidateInfo?.emailId : '-'}}</div>
+            </div>
+
+            <div class="left" [ngClass]="updatedKeyObj != undefined && ( updatedKeyObj?.alternateEmailId == true )? 'red' : ''">
+              <div>Alternate Email id:</div>
+              <div>{{candidateInfo && candidateInfo?.alternateEmailId ? candidateInfo?.alternateEmailId : '-'}}</div>
+            </div>
+
+            <div class="left" [ngClass]="updatedKeyObj != undefined && ( updatedKeyObj?.phonenumber == undefined || updatedKeyObj?.phonenumber == true) ? 'red' : ''">
+              <div>Contact Number:</div>
+              <div>{{candidateInfo && candidateInfo?.phonenumber ? candidateInfo?.phonenumber : '-'}}</div>
+            </div>
+          </div>
+
+
+          <div class="title">Education Details:</div>
+          <div class="profileDetails">
+            <div class="left" [ngClass]="updatedKeyObj != undefined && ( updatedKeyObj?.degree == undefined ||updatedKeyObj?.degree == true) ? 'red' : ''">
+              <div>Degree:</div>
+              <div>{{candidateInfo && candidateInfo?.degree ? candidateInfo?.degree : '-'}}</div>
+
+            </div>
+            <div class="left" [ngClass]="updatedKeyObj != undefined && ( updatedKeyObj?.specialization == undefined ||updatedKeyObj?.specialization == true )? 'red' : ''">
+              <div>Specialization:</div>
+              <div>{{candidateInfo && candidateInfo?.specialization ? candidateInfo?.specialization : '-'}}</div>
+            </div>
+          </div>
+
+          <div class="title">College Details:</div>
+          <div class="profileDetails">
+            <div class="left" [ngClass]="updatedKeyObj != undefined && ( updatedKeyObj?.stateName == undefined || updatedKeyObj?.stateName == true )? 'red' : ''">
+              <div>State:</div>
+              <div>{{candidateInfo && candidateInfo?.stateName ? candidateInfo?.stateName : '-'}}</div>
+            </div>
+
+            <div class="left" [ngClass]="updatedKeyObj != undefined && ( updatedKeyObj?.districtName == undefined || updatedKeyObj?.districtName == true )? 'red' : ''">
+              <div>District:</div>
+              <div>{{candidateInfo && candidateInfo?.districtName ? candidateInfo?.districtName : '-'}}</div>
+            </div>
+
+            <div class="left" [ngClass]="updatedKeyObj != undefined && ( updatedKeyObj?.college == undefined || updatedKeyObj?.college == true )? 'red' : ''">
+              <div>College Name:</div>
+              <div>{{candidateInfo && candidateInfo?.college ? candidateInfo?.college : '-'}}</div>
+            </div>
+          </div>
+
+          <ng-container *ngFor="let education of candidateInfo?.educationDetails;let i = index">
+            <div class="title">{{education?.level == 'PhD' ? 'Ph.D.' : education?.level }} Details:</div>
+            <div class="profileDetails">
+              <div class="left" [ngClass]="updatedKeyObj != undefined && ( updatedKeyObj?.educationDetailsOld[i] == undefined || updatedKeyObj?.educationDetailsOld[i].gradeSystem == undefined || updatedKeyObj?.educationDetailsOld[i].gradeSystem == true )? 'red' : ''">
+                <div>Grading System:</div>
+                <div class="cap">{{education && education?.gradeSystem ? education?.gradeSystem : '-'}}</div>
+              </div>
+              <div class="left" [ngClass]="updatedKeyObj != undefined && ( updatedKeyObj?.educationDetailsOld[i] == undefined ||updatedKeyObj?.educationDetailsOld[i].percentage == undefined || updatedKeyObj?.educationDetailsOld[i].percentage == true )? 'red' : ''">
+                <div *ngIf="education?.level == 'SSLC'">10<sup>th</sup> Score</div>
+                <div *ngIf="education?.level == 'HSC'">12<sup>th</sup> Score</div>
+                <div *ngIf="education?.level == 'PhD'">Ph.D. CGPA</div>
+                <div class="capsLevel"
+                  *ngIf="education?.level != 'HSC' && education?.level != 'SSLC' && education?.level != 'PhD' ">
+                  {{education?.level}} {{education?.gradeSystem}} </div>
+
+                <div>{{education ? education?.percentage : '-'}} {{education?.gradeSystem == 'percentage' ? '%' : ''}}
+                </div>
+              </div>
+
+              <div class="left" [ngClass]="updatedKeyObj != undefined && ( updatedKeyObj?.educationDetailsOld[i] == undefined ||updatedKeyObj?.educationDetailsOld[i].year_of_passing == undefined || updatedKeyObj?.educationDetailsOld[i].year_of_passing == true) ? 'red' : ''">
+                <div>Year of Passing</div>
+                <div>{{education?.year_of_passing | date : 'YYYY'}}</div>
+              </div>
+            </div>
+          </ng-container>
+
+        </div>
+      </mat-dialog-content>
+    </div>
+
+
+    <!-- Edit Profile -->
+    <div class="logout" *ngIf="updatedCandidateInfo">
+      <mat-dialog-content class="mat-typography">
+        <div class="mainContent">
+          <div class="popupHead">Edited Profile</div>
+          <div class="title">Basic Details:</div>
+          <div class="profileDetails">
+            <div class="left">
+              <div>Name:</div>
+              <div>{{updatedCandidateInfo && updatedCandidateInfo?.name ? updatedCandidateInfo?.name : '-'}}</div>
+            </div>
+
+            <div class="left" [ngClass]="updatedKeyObj?.gender == undefined ||updatedKeyObj?.gender == true ? 'green' : ''">
+              <div>Gender:</div>
+              <div>{{updatedCandidateInfo && updatedCandidateInfo?.gender ? updatedCandidateInfo?.gender : '-'}}</div>
+            </div>
+
+            <div class="left">
+              <div>Email id:</div>
+              <div>{{updatedCandidateInfo && updatedCandidateInfo?.emailId ? updatedCandidateInfo?.emailId : '-'}}</div>
+            </div>
+
+            <div class="left" [ngClass]="updatedKeyObj?.alternateEmailId == true ? 'green' : ''">
+              <div>Alternate Email id:</div>
+              <div>{{updatedCandidateInfo && updatedCandidateInfo?.alternateEmailId ?
+                updatedCandidateInfo?.alternateEmailId : '-'}}</div>
+            </div>
+
+            <div class="left" [ngClass]="updatedKeyObj?.phonenumber == undefined || updatedKeyObj?.phonenumber == true ? 'green' : ''">
+              <div>Contact Number:</div>
+              <div>{{updatedCandidateInfo && updatedCandidateInfo?.phonenumber ? updatedCandidateInfo?.phonenumber :
+                '-'}}</div>
+            </div>
+          </div>
+
+
+          <div class="title">Education Details:</div>
+          <div class="profileDetails">
+            <div class="left" [ngClass]="updatedKeyObj?.degree == undefined || updatedKeyObj?.degree == true ? 'green' : ''">
+              <div>Degree:</div>
+              <div>{{updatedCandidateInfo && updatedCandidateInfo?.degree ? updatedCandidateInfo?.degree : '-'}}</div>
+
+            </div>
+            <div class="left" [ngClass]="updatedKeyObj?.specialization == undefined || updatedKeyObj?.specialization == true ? 'green' : ''">
+              <div>Specialization:</div>
+              <div>{{updatedCandidateInfo && updatedCandidateInfo?.specialization ? updatedCandidateInfo?.specialization
+                : '-'}}</div>
+            </div>
+          </div>
+
+          <div class="title">College Details:</div>
+          <div class="profileDetails">
+            <div class="left" [ngClass]="updatedKeyObj?.stateName == undefined || updatedKeyObj?.stateName == true ? 'green' : ''">
+              <div>State:</div>
+              <div>{{updatedCandidateInfo && updatedCandidateInfo?.stateName ? updatedCandidateInfo?.stateName : '-'}}
+              </div>
+            </div>
+
+            <div class="left" [ngClass]="updatedKeyObj?.districtName == undefined || updatedKeyObj?.districtName == true ? 'green' : ''">
+              <div>District:</div>
+              <div>{{updatedCandidateInfo && updatedCandidateInfo?.districtName ? updatedCandidateInfo?.districtName :
+                '-'}}</div>
+            </div>
+
+            <div class="left" [ngClass]="updatedKeyObj?.college == undefined || updatedKeyObj?.college == true ? 'green' : ''">
+              <div>College Name:</div>
+              <div>{{updatedCandidateInfo && updatedCandidateInfo?.college ? updatedCandidateInfo?.college : '-'}}</div>
+            </div>
+          </div>
+
+          <ng-container *ngFor="let education of updatedCandidateInfo?.educationDetails;let i = index">
+            <div class="title">{{education?.level == 'PhD' ? 'Ph.D.' : education?.level }} Details:</div>
+            <div class="profileDetails">
+              <div class="left" [ngClass]="updatedKeyObj?.educationDetailsUpdated[i] == undefined ||updatedKeyObj?.educationDetailsUpdated[i].gradeSystem == undefined || updatedKeyObj?.educationDetailsUpdated[i].gradeSystem == true ? 'green' : ''">
+                <div>Grading System:</div>
+                <div class="cap">{{education && education?.gradeSystem ? education?.gradeSystem : '-'}}</div>
+              </div>
+
+              <div class="left" [ngClass]="updatedKeyObj?.educationDetailsUpdated[i] == undefined ||updatedKeyObj?.educationDetailsUpdated[i].percentage == undefined || updatedKeyObj?.educationDetailsUpdated[i].percentage == true ? 'green' : ''">
+                <div *ngIf="education?.level == 'SSLC'">10<sup>th</sup> Score</div>
+                <div *ngIf="education?.level == 'HSC'">12<sup>th</sup> Score</div>
+                <div *ngIf="education?.level == 'PhD'">Ph.D. CGPA</div>
+                <div class="capsLevel"
+                  *ngIf="education?.level != 'HSC' && education?.level != 'SSLC' && education?.level != 'PhD'">
+                  {{education?.level}} {{education?.gradeSystem}}</div>
+                <div>{{education ? education?.percentage : '-'}} {{education?.gradeSystem == 'percentage' ? '%' : ''}}
+                </div>
+              </div>
+
+              <div class="left" [ngClass]="updatedKeyObj?.educationDetailsUpdated[i] == undefined ||updatedKeyObj?.educationDetailsUpdated[i].year_of_passing == undefined || updatedKeyObj?.educationDetailsUpdated[i].year_of_passing == true ? 'green' : ''">
+                <div>Year of Passing</div>
+                <div>{{education?.year_of_passing | date : 'YYYY'}}</div>
+              </div>
+            </div>
+          </ng-container>
+
+        </div>
+      </mat-dialog-content>
+    </div>
+  </div>
+
+</ng-template>
+
+<ng-template #matDialog1>
+  <div class="close" (click)="closeDialog()"> <mat-icon>close</mat-icon></div>
+  <div class="m-l m-t" mat-dialog-title>Remove from Shortlist</div>
+  <div class="content" mat-dialog-content>
+    <form [formGroup]="removeShortlist">
+      <span class="romoval-span">Reason for removal <span class="error">*</span></span>
+      <textarea #removal class="m-t-2" nz-input formControlName="remarks"
+        [nzAutosize]="{ minRows: 4, maxRows: 8 }"></textarea>
+    </form>
+  </div>
+  <div mat-dialog-actions class="action">
+    <button mat-button [disabled]="!removeShortlist.get('remarks').value" class="submit"
+      (click)="onRemove(removal.value)">SUBMIT</button>
+  </div>
+</ng-template>

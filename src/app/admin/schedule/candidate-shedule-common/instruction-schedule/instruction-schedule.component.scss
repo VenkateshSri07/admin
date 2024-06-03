@@ -1,0 +1,180 @@
+.parent-left {
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid #707070;
+  align-items: center;
+
+  .heading {
+    padding: 20px 10px 20px 10px;
+    font-size: 18px;
+    font-weight: 500;
+    color: black;
+  }
+}
+
+.parent-instruction {
+  padding: 10px;
+
+
+  .subparent-instruction {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .instruction-note {
+    width: 100%;
+
+    .bg-instruction {
+      background-color: #E3F0FF;
+      margin-bottom: 25px;
+      color: black;
+      height: 55px;
+      align-items: center;
+      display: flex;
+
+      .icon-color {
+        color: #255488;
+        margin: 0px 10px 0px 10px;
+      }
+
+      .note-text {
+        font-size: 14px;
+      }
+    }
+  }
+
+  .buttons-alignment {
+    position: relative;
+    top: 130px;
+    float: right;
+
+    :first-child {
+      font-size: 13px;
+      font-weight: 500;
+      margin: 5px;
+      color: #004684;
+      border: 1px solid #004684;
+    }
+
+    :last-child {
+      font-size: 13px;
+      font-weight: 500;
+      margin: 5px;
+      color: #fff;
+      background-color: #004684;
+      border: 1px solid #004684;
+    }
+  }
+}
+
+.instructions {
+  font-size: 14px;
+  font-weight: 500;
+  margin: 10px 0 10px 0;
+  color: black;
+
+  span {
+    color: red;
+  }
+}
+
+:host ::ng-deep .mat-mdc-dialog-content {
+  display: block;
+  margin: 0 -24px;
+  padding: 0 24px;
+  min-height: 76%;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+:host ::ng-deep .mat-mdc-dialog-actions {
+  border-top: 1px solid #707070;
+}
+
+.submit {
+  width: 109px;
+  color: #fff !important;
+  line-height: 2;
+  height: 32px;
+  background: #08558C 0% 0% no-repeat padding-box;
+  margin-right: 2%;
+  border: 1px solid #08558D;
+  opacity: 1;
+}
+
+.edit {
+  width: 161px !important;
+}
+
+.submit:disabled {
+  color: gray !important;
+  cursor: not-allowed !important;
+  pointer-events: fill;
+}
+
+.intruc-bottom-btn {
+  display: flex;
+  margin-top: 8px;
+}
+
+.cancel {
+  width: 109px;
+  color: #08558C;
+  line-height: 2;
+  height: 32px;
+  background: #fff 0% 0% no-repeat padding-box;
+  margin-right: 2%;
+  border: 1px solid #08558D;
+  opacity: 1;
+}
+
+.edit-btn {
+  color: #FFFFFF;
+  width: 117px;
+  height: 32px;
+  background: #08558C 0% 0% no-repeat padding-box;
+  border: 1px solid #08558D;
+  border-radius: 4px;
+  text-align: center;
+  cursor: pointer;
+  margin-right: 25px;
+}
+
+// ::ng-deep .angular-editor-textarea {
+//   height: 19rem !important;
+//   min-height: 5rem;
+//   overflow: auto;
+// }
+
+
+::ng-deep .note-editor.note-frame .note-editing-area .note-editable {
+  word-wrap: break-word;
+  overflow: auto;
+  padding-left: 25px !important;
+}
+
+::ng-deep .note-editor.note-frame .note-placeholder {
+  padding-left: 25px !important;
+}
+
+//Disable image button
+
+::ng-deep .note-insert.btn-group>.btn:not(:first-child):not(:last-child):not(.dropdown-toggle) {
+  display: none;
+}
+
+//Disable Video button
+
+::ng-deep .note-insert.btn-group>.btn:last-child:not(:first-child),
+.btn-group>.dropdown-toggle:not(:first-child) {
+  display: none;
+}
+
+::ng-deep .note-insert {
+  display: none
+}
+
+::ng-deep .note-btn-group>.note-btn:first-child {
+  margin-left: 20px !important;
+}

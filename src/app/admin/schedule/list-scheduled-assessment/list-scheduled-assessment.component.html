@@ -1,0 +1,129 @@
+<div class="container">
+  <main>
+    <div class="top-row">
+      <div class="left">
+        <div class="title">Scheduled Assessments</div>
+      </div>
+      <div class="right">
+
+        <div class="org-name">
+          <app-search [searchPlaceHolder]="'Search by Schedule Name'" (searchEvent)="onSearch($event)"></app-search>
+        </div>
+        <button class="schedulebth" mat-flat-button routerLink="/admin/schedule/create">
+          <div class="align-both">
+            <span class="material-icons">add
+            </span>
+            <span class="align">New Schedule</span>
+          </div>
+        </button>
+      </div>
+
+
+
+    </div>
+    <div class="sheduletable-table">
+      <div class="mainactions">
+        <div class="filter-field">
+          <div class="org-name">
+            <span>Organisation Name</span>
+            <mat-form-field class="orgName" appearance="outline">
+              <mat-select required [(ngModel)]="defaultOrg">
+                <!-- <mat-option *ngIf="roleCode == 'ADM'" (click)="orgChange(0)" [value]="defaultOrg">All</mat-option> -->
+                <mat-option (click)="orgChange(org)" *ngFor="let org of listOfOrg"
+                  [value]="org?.id ? org?.id : org?.orgId ">
+                  {{org?.name ? org?.name : org?.orgName}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <!-- Assessment Date -->
+
+          <div class="org-name">
+            <span>Assessment Date</span>
+            <mat-form-field class="orgName" appearance="outline">
+              <mat-date-range-input [rangePicker]="picker">
+                <input matStartDate placeholder="Start Date " (dateChange)="onStartChange($event)"
+                  [(ngModel)]="startDate">
+                <input matEndDate placeholder="End Date" (dateChange)="onStartChange($event)" [(ngModel)]="endDate">
+              </mat-date-range-input>
+              <mat-datepicker-toggle matSuffix [for]="picker">
+                <mat-icon matDatepickerToggleIcon *ngIf="!isshowdaterange">date_range</mat-icon>
+                <mat-icon class="closeIcons" matDatepickerToggleIcon (click)="clearDate($event)"
+                  *ngIf="isshowclose">close</mat-icon>
+              </mat-datepicker-toggle>
+              <mat-date-range-picker #picker>
+              </mat-date-range-picker>
+            </mat-form-field>
+          </div>
+
+          <!-- Assessment Date Picker End -->
+          <div class="org-name">
+            <span>Assessment Status</span>
+            <mat-form-field class="custom-width" appearance="outline">
+              <mat-select [(value)]="selectedFilterValue" (selectionChange)="onFilterValueChange(selectedFilterValue)">
+                <mat-option *ngFor="let filterValue of filterValues" [value]="filterValue.value">
+                  {{ filterValue.viewValue }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+          <div class="org-name">
+            <span>Assessment Flow</span>
+            <mat-form-field appearance="outline">
+              <mat-select [(value)]="assessmentFlowValue"
+                (selectionChange)="onAssessmentFlowValueChange(assessmentFlowValue)">
+                <mat-option *ngFor="let filterValue of assessmentFlow" [value]="filterValue.value">
+                  {{ filterValue.name }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+          <div class="org-name">
+            <span>Delivery Status</span>
+            <mat-form-field appearance="outline">
+              <mat-select [(value)]="selectedDeliveryValue"
+                (selectionChange)="onFilterDeliveryValueChange(selectedDeliveryValue)">
+                <mat-option *ngFor="let status of deliveryStatusArr" [value]="status.value">
+                  {{ status.name }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- <section class="main-actions">
+      <div class="search-field">
+        <app-search [searchPlaceHolder]="'Search'" (searchEvent)="onSearch($event)"></app-search>
+      </div>
+      <div class="filter-field">
+        <mat-form-field>
+          <mat-select
+            [(value)]="selectedFilterValue"
+            (selectionChange)="onFilterValueChange(selectedFilterValue)">
+            <mat-option *ngFor="let filterValue of filterValues" [value]="filterValue.value">
+              {{ filterValue.viewValue }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+    </section> -->
+      <section>
+        <div
+          *ngIf="scheduleAssessmentContent && scheduleAssessmentContent !=undefined && scheduleAssessmentContent?.data">
+          <app-scheduled-infinite-scroll-list [scheduledTemplates]="scheduleAssessmentContent?.data"
+            [pageMetadata]="scheduleAssessmentContent.meta" [searchString]="searchString"
+            [status]="selectedFilterValue?selectedFilterValue:''" [orgId]="orginfo?orginfo:''"
+            [startDateTime]="dateSendingToServer.start?dateSendingToServer.start:''"
+            [endDateTime]="dateSendingToServer.end?dateSendingToServer.end:''"
+            [deliveryStatus]="selectedDeliveryValue ? selectedDeliveryValue : ''" [showLazyLoading]="showLazyLoading"
+            (selectedIndexEvent)="selectedIndexEvent($event)" [selectedIndex]="selectedIndex">
+          </app-scheduled-infinite-scroll-list>
+        </div>
+      </section>
+    </div>
+  </main>
+</div>

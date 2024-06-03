@@ -1,0 +1,33 @@
+<div class="popupbox">
+  <div class="header-popup">
+    <div class="left">
+      <span>Contact Number Verification</span>
+    </div>
+    <div class="right">
+      <span><mat-icon matDialogClose="close">clear</mat-icon></span>
+    </div>
+  </div>
+  <div class="content">
+    <p>
+      We have sent a verification code to the given mobile number “9876543210” Please enter the code
+      here to verify.
+    </p>
+  </div>
+  <form [formGroup]="verifyForm">
+  <div class="verifyinput">
+    <div class="right-candidateinputs-half">
+      <span>Verification Code
+        <div class="error">*</div></span>
+      <mat-form-field appearance="outline">
+        <input matInput formControlName="alternateemail" />
+      </mat-form-field>
+      <small><u>Resend verification code in 30 seconds</u></small>
+    </div>
+  </div>
+  <div class="footer-popup">
+<button type="submit" >VERIFY</button>
+</div>
+</form>
+</div>
+
+

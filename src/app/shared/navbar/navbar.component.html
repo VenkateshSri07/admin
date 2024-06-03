@@ -1,0 +1,123 @@
+<div *ngIf="commonnavbar">
+  <div class="navbar">
+    <div class="navbar-block">
+      <a [ngClass]="this.role == 'AST'?'removeCursor':''">
+        <div class="logo-main-admin" *ngIf="this.ICMAILRole != 'HPCL' && this.ICMAILRole !== 'NSC - NSAT' && this.ICMAILRole !== 'TKMIT'">
+          <img [ngClass]="this.ICMAILRole == 'ICMAI' || this.ICMAILRole == 'Security HQ' || this.ICMAILRole == 'L&T Finance' ? 'navbar-img__resizeOne':'navbar-img__resize'" [src]="dynamicLogo" (click)="navigateLocation()"/>
+        </div>
+        <div class="logo-main-admin-HPCLogo" *ngIf="this.ICMAILRole == 'HPCL'">
+          <span>
+            <img class="HPCLLogo" [src]="dynamicLogo" (click)="navigateLocation()" />
+          </span>
+        </div>
+        <div class="logo-main-admin-TK" *ngIf="this.ICMAILRole == 'TKMIT'">
+          <span>
+             <img class="TKLogo" [src]="dynamicLogo" (click)="navigateLocation()" />
+           </span>
+        </div>
+        <div class="logo-main-admin-NSCNSAT" *ngIf="this.ICMAILRole == 'NSC - NSAT'">
+          <span>
+            <img class="NSCNSAT" [src]="dynamicLogo" (click)="navigateLocation()" />
+          </span>
+        </div>
+      </a>
+      <span class="user_info">Hello, {{ userDetails ? userDetails.attributes.firstName : '' }}
+        {{ userDetails ? userDetails.attributes.lastName : '' }}</span>
+      <span class="material-icons" [matMenuTriggerFor]="menu">account_circle</span>
+      <mat-menu #menu="matMenu">
+        <button *ngIf="!ASTProfileShow" mat-menu-item (click)="navigateToProfile()">My Profile</button>
+        <button *ngIf="ASTProfileShow" [disabled]="profileSync" mat-menu-item (click)="navigateToCandidateProfile()">My Profile</button>
+        <button (click)="matDialogOpen()" mat-menu-item>Logout</button>
+      </mat-menu>
+    </div>
+  </div>
+</div>
+
+
+
+
+<div *ngIf="oadmheader">
+  <mat-toolbar class="headerShadow">
+    <div class="header-cont">
+      <div class="logo-main">
+        <span class="img-wrapper">
+          <img [src]="dynamicLogo" alt="" ng-reflect-router-link="/">
+        </span>
+      </div>
+
+      <div class="rightlog">
+        <!-- <span  class="dropdown">
+          <span class="head">Organisation Name : </span>
+          <nz-select (ngModelChange)="orgChange($event)"  [(ngModel)]="defaultOrg"
+                class="input select" nzAllowClear nzShowSearch nzPlaceHolder="">
+                <nz-option *ngFor="let org of listOfOrg" [nzLabel]="org?.name"
+                  [nzValue]="org?.id"></nz-option>
+              </nz-select>
+        </span> -->
+        <div class="menuSection">
+          <div class="title">
+            {{username}}
+          </div>
+          <div class="logout" (click)="matDialogOpen()">
+            <img class="logout-image" src="/assets/images/logout-icon.svg" alt="">
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </mat-toolbar>
+
+
+
+  <!-- <div class="oadmnavbar">
+    <div class="oadmflex">
+      <div class="oadmleft">
+        <a routerLink="/">
+          <img alt="iGGnite Logo" class="navbar-img__resize" [src]="dynamicLogo" ng-reflect-router-link="/" />
+        </a>
+      </div>
+      <div class="oadmright">
+        <div class="oadmalignment">
+          <div class="oadmdropdown">
+            <span>Organisation Name :</span>
+            <mat-form-field appearance="outline" style="width: 250px;">
+              <mat-select required [(ngModel)]="defaultOrg" placeholder="All">
+                <mat-option (click)="orgChange(0)" [value]="defaultOrg">All</mat-option>
+                <mat-option (click)="orgChange(org)" *ngFor="let org of listOfOrg" [value]="org?.id">
+                  {{org?.name}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="oadmusername">
+
+            <span class="rightlog">
+              {{username}}
+            </span>
+            <div class="center-code">
+            </div>
+            <span class="admin-user">
+              Admin</span>
+            <span (click)="logout()" matTooltip="Logout">
+              <img class="logout-image" src="/assets/images/logout-icon.svg" alt="">
+            </span>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div> -->
+</div>
+
+<ng-template #matDialog>
+  <div class="logout">
+    <h1 class="popupHead" mat-dialog-title>Are you sure you want to logout?</h1>
+    <div class="action" mat-dialog-actions>
+      <button class="cancel" mat-button [mat-dialog-close]="true">Cancel </button>
+      <button class="confirm" mat-button (click)="closeDialog($event)">Confirm </button>
+    </div>
+  </div>
+
+</ng-template>

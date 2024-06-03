@@ -1,0 +1,149 @@
+<div class="assessments">
+    <div class="header">
+        <span>Test Name</span>
+        <h2 *ngIf="testname">{{testname}}</h2>
+    </div>
+    <!-- <div class="test">
+        TEST NAME
+    </div>
+    <div class="testname">
+        
+    </div> -->
+
+
+    <div class="testInfo">
+        <h3>Test Information</h3>
+        <div class="similarImg">
+            <div class="container">
+                <div class="wrapper">
+                    <div class="icon">
+                        <span class="box"></span>
+                    </div>
+                    <div class="content">
+                        <span class="userName">Sections</span>
+                        <span class="nickName">{{testInfo ? testInfo?.section : '-'}}</span>
+                    </div>
+                </div>
+
+                <div class="wrapper">
+                    <div class="icon">
+                        <span class="hand"></span>
+                    </div>
+                    <div class="content">
+                        <span class="userName">No. Attempts</span>
+                        <span class="nickName">{{testInfo ? testInfo?.noOfAttempt : '-'}}</span>
+                    </div>
+                </div>
+
+
+                <div class="wrapper">
+                    <div class="icon">
+                        <span class="flov"></span>
+                    </div>
+                    <div class="content">
+                        <span class="userName">Questions</span>
+                        <span class="nickName">{{testInfo ? testInfo?.totalNoquestions : '-'}}</span>
+                    </div>
+                </div>
+
+
+                <div class="wrapper">
+                    <div class="icon">
+                        <span class="round"></span>
+                    </div>
+                    <div class="content">
+                        <span class="userName">Proctoing</span>
+                        <span class="nickName">{{testInfo?.is_proctor == "1" ? 'Yes' : 'No'}}</span>
+                    </div>
+                </div>
+
+
+                <div class="wrapper">
+                    <div class="icon">
+                        <span class="clock"></span>
+                    </div>
+                    <div class="content">
+                        <span class="userName">Duration</span>
+                        <span class="nickName">{{testInfo ? testInfo?.totalDuration : '-'}} <span>min</span></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="tableContent">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Sections</th>
+                        <th>Questions</th>
+                        <th>Duration</th>
+                        <th>Marks</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>{{testInfo ? testInfo?.section : '-'}}</td>
+                        <td>{{testInfo ? testInfo?.totalNoquestions : '-'}}</td>
+                        <td>{{testInfo ? testInfo?.totalDuration : '-'}} mins</td>
+                        <td>{{testInfo ? testInfo?.totalMarks : '-'}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="testInstruction">
+        <h3>Test Instructions</h3>
+        <ul class="a">
+            <h2>Proctoring Guidelines to Ensure Integrity:</h2>
+            <li>Choose a quiet room or place to attempt this video interview.</li>
+            <li>Ensure that there is no background noise, or nobody is talking when you are taking the interview. </li>
+            <li>Ensure that the test-taking area is free from distractions, and nobody other than you is appearing on
+                your webcam during the interview.</li>
+            <li>Using of any phones, tablets, laptops, or any Bluetooth devices, that could potentially be used to
+                access information or communicate with others during the interview is not allowed. </li>
+            <li>Keep looking at the camera and ensure there is good lighting while the video interview recording is in
+                progress</li>
+            <li>Disabling camera or microphone is not allowed during the video interview.</li>
+            <li>Non-adherence to proctoring guidelines will impact your integrity score. Low integrity score with
+                multiple violations would lead to rejection of your candidature for the selection process.</li>
+            <h2>How to Navigate Questions:</h2>
+            <!-- <li>You need to spend minimum 1 minute on a question before navigating to another quest.</li> -->
+            <li>You will get only one attempt to provide the answer to a question. You cannot go back to the previous
+                questions during the interview. </li>
+            <!-- <li>Click the <strong>“Next”</strong> button to proceed to the next question only after you have completed
+                answering the
+                current question.</li> -->
+            <li>Each question is timed. Timer will indicate the time left for the current question.</li>
+            <li>The system will automatically navigate to the next question when the time is over.</li>
+            <li>Final submission will be done automatically once the last question duration is completed.</li>
+            <!-- <li>Click <strong>“Submit”</strong> after completing your video interview process and wait for the
+                confirmation screen</li> -->
+        </ul>
+        <div class="tacbox">
+            <input id="checkbox" type="checkbox" (change)="checkvalue($event)" />
+            <label for="checkbox"> I have read and Agree to the <a target="_blank"
+                    href="https://lntedutech.com/privacy-policy/">Privacy Policy</a> to proceed to video
+                interview.</label>
+        </div>
+        <div class="m-t-10" *ngIf="isresume == 'false'">
+            <button class="btn" [disabled]="isStartenable" mat-button (click)="NavToVideo()">Start Test</button>
+        </div>
+        <div class="m-t-10" *ngIf="isresume == 'ture'">
+            <button class="btn" [disabled]="isStartenable" mat-button (click)="NavToVideo()">Resume Test</button>
+        </div>
+        <div *ngIf="proctorScreen == 'true'">
+            <iframe class="frame _19Xk8-2HxtQ_csPgTiLjO9 smScreen" src="../../../assets/templates/smallVideo.html"
+                title="description"></iframe>
+        </div>
+    </div>
+    <!-- 
+    <div class="desc">
+        <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Nam nibh. Nunc varius facilisis eros. Sed erat. In in velit quis arcu ornare laoreet. Curabitur adipiscing luctus massa. Integer ut purus ac augue commodo commodo. Nunc nec mi eu justo
+            tempor consectetuer. Etiam vitae nisl. In dignissim lacus ut ante. Cras elit lectus,</p>
+    </div> -->
+
+    <!-- <div *ngIf="proctorScreen == 'false'">
+        <iframe class="frame big" src="../../../assets/templates/test.html" title="description"></iframe>
+    </div> -->
+
+</div>

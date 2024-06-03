@@ -1,0 +1,237 @@
+<div class="candidate-full">
+  <div class="candidate-flex candidate-title">
+    <div class="title">View Status</div>
+    <div class="material-icons close-ic" mat-button mat-dialog-close>close</div>
+  </div>
+  <div class="candidate-table">
+    <table>
+      <thead>
+        <tr>
+          <th style="width: 65%;">Schedule Name</th>
+          <th *ngIf="candidateEmailData"></th>
+          <th *ngIf="candidateEmailData"></th>
+          <th>Total Candidates</th>
+          <th *ngIf="totalemaildate">Delivered</th>
+          <th *ngIf="totalemaildate">Bounced</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>{{data.attributes.batchName}}</td>
+          <td *ngIf="candidateEmailData"></td>
+          <td *ngIf="candidateEmailData"></td>
+          <td *ngIf="candidateEmailData"><span class="t-candidateEmail">{{countObj?.totalcount}}</span></td>
+          <td *ngIf="totalemaildate"><span class="t-candidate">{{countObj?.totalcount}}</span></td>
+          <td *ngIf="totalemaildate"><span class="t-Delivered">{{countObj?.deliveredCount}}</span></td>
+          <td *ngIf="totalemaildate"><span class="t-Bounced">{{countObj?.bouncedCount}}</span></td>
+
+        </tr>
+        <div class="progress-status">
+          <span>Yet To Start :
+            <span class="yet-count"> {{yetToSatartCount}}</span>
+          </span>
+          <span>
+            In Progress : <span class="in-count">{{inProgressCount}}</span>
+          </span>
+          <span>
+            Completed :
+            <span class="com-count">{{completedCount}}</span>
+          </span>
+        </div>
+
+      </tbody>
+
+    </table>
+
+
+  </div>
+
+  <div class="candidate-flex candidate-align">
+    <span class="candidate-heading">Candidate Details</span>
+    <button class="isEmailSync" (click)="isEmailSync()" *ngIf="totalemaildate && isBulkButton">
+      Bulk resend
+    </button>
+    <mat-form-field appearance="outline" style="position: relative; top: 9px;">
+      <input (keyup)="emailSearch()" [(ngModel)]="searchData" matInput type="text" placeholder="Search by email">
+      <button matSuffix mat-icon-button aria-label="Clear">
+        <mat-icon *ngIf="searchData ==''">search</mat-icon>
+        <mat-icon class="closeClear" (click)="clearSearch()" *ngIf="searchData !=''">close</mat-icon>
+      </button>
+    </mat-form-field>
+
+  </div>
+
+  <!-- Candidate Details Table -->
+
+
+
+  <div class="table-align" id="style-3" *ngIf="totalemaildate">
+    <table mat-table [dataSource]="dataSource" class="scroll tablescroll">
+      <ng-container matColumnDef="CandidateName|EmailId">
+        <th class="commomheader" *matHeaderCellDef> Candidate Name | Email Id </th>
+        <td *matCellDef="let element">
+          <div class="tuserdetails">
+            <div class="first-child">{{element?.firstName}}&nbsp;{{element?.lastName}}</div>
+            <div class="email-last-child">{{element?.email}}</div>
+          </div>
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="EmailStatus">
+        <th class="commomheader" *matHeaderCellDef> Email Status </th>
+        <td *matCellDef="let element"> {{element?.email_status | titlecase}} </td>
+      </ng-container>
+      <ng-container matColumnDef="TestStatus">
+        <th class="commomheader" *matHeaderCellDef> Test Status </th>
+        <td *matCellDef="let element">
+          <div *ngIf="element?.status =='YetToStart'">
+            <div class="yettostart">
+              <div> Yet to Start</div>
+            </div>
+          </div>
+          <div *ngIf="element?.status =='InProgress'">
+            <div class="inprogress">
+              <div>In Progress</div>
+            </div>
+          </div>
+          <div *ngIf="element?.status =='Completed'">
+            <div class="completed">
+              <div>Completed</div>
+            </div>
+          </div>
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="TestCompletion">
+        <th class="commomheader" *matHeaderCellDef> Test Completion </th>
+        <td *matCellDef="let element"> {{element?.completedCount}}/{{element?.totalcount}}
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="Actions">
+        <th class="commomheader" *matHeaderCellDef> Actions </th>
+        <td *matCellDef="let element">
+          <div *ngIf="element?.status =='InProgress' || element?.status =='Completed'">
+            <div class="action">
+              <div class="disable">
+                <div class="material-icons ic">outgoing_mail</div>Resend Email
+              </div>
+            </div>
+          </div>
+          <div class="action" *ngIf="element?.status =='YetToStart'">
+            <!-- <div class="disable" *ngIf="element?.resendEmail == 1">
+              <div class="material-icons ic">outgoing_mail</div><u>Resend Email</u>
+            </div> -->
+            <div class="enable" (click)="openEmailDialog([element.email])">
+              <div class="material-icons ic">outgoing_mail</div><u>Resend Email</u>
+            </div>
+
+          </div>
+
+        </td>
+
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      <tr class="mat-row" *matNoDataRow>
+
+        <td class="mat-cell nodata" colspan="8">No Data Found</td>
+
+      </tr>
+    </table>
+
+    <div class="pagination">
+      <mat-paginator [length]="totalPartnerCount" [pageSize]="10" [pageSizeOptions]="[3,5,10,50,100,1000]"
+        aria-label="Select page">
+      </mat-paginator>
+    </div>
+
+  </div>
+
+
+  <div class="table-align" *ngIf="candidateEmailData">
+    <!-- <table mat-table [dataSource]="dataSource">
+      <ng-container matColumnDef="CandidateName">
+        <th mat-header-cell *matHeaderCellDef> Candidate Name </th>
+        <td *matCellDef="let element">
+          <div class="tuserdetails">
+            <div class="first-child">{{element?.firstName}}&nbsp;{{element?.lastName}}</div>
+          </div>
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="EmailId">
+        <th mat-header-cell *matHeaderCellDef> Email Id </th>
+        <td *matCellDef="let element">
+          <div class="tuserdetails">
+            <div class="email-first-child">{{element?.email}}</div>
+          </div>
+        </td>
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="candidatedisplayColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: candidatedisplayColumns;"></tr>
+      <tr class="mat-row" *matNoDataRow>
+
+        <td class="mat-cell nodata" colspan="8">No Data Found</td>
+
+      </tr>
+    </table> -->
+    <table mat-table [dataSource]="dataSource" class="scroll tablescroll">
+      <ng-container matColumnDef="CandidateName|EmailId">
+        <th class="commomheader" *matHeaderCellDef> Candidate Name | Email Id </th>
+        <td *matCellDef="let element">
+          <div class="tuserdetails">
+            <div class="first-child">{{element?.firstName}}&nbsp;{{element?.lastName}}</div>
+            <div class="email-last-child">{{element?.email}}</div>
+          </div>
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="EmailStatus">
+        <th class="commomheader" *matHeaderCellDef> Email Status </th>
+        <td *matCellDef="let element"> {{"not Delivered" | titlecase}} </td>
+      </ng-container>
+      <ng-container matColumnDef="TestStatus">
+        <th class="commomheader" *matHeaderCellDef> Test Status </th>
+        <td *matCellDef="let element">
+          <div *ngIf="element?.status =='YetToStart'">
+            <div class="yettostart">
+              <div> Yet to Start</div>
+            </div>
+          </div>
+          <div *ngIf="element?.status =='InProgress'">
+            <div class="inprogress">
+              <div>In Progress</div>
+            </div>
+          </div>
+          <div *ngIf="element?.status =='Completed'">
+            <div class="completed">
+              <div>Completed</div>
+            </div>
+          </div>
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="TestCompletion">
+        <th class="commomheader" *matHeaderCellDef> Test Completion </th>
+        <td *matCellDef="let element"> {{element?.completedCount}}/{{element?.totalcount}}
+        </td>
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="candidatedisplayColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: candidatedisplayColumns;"></tr>
+      <tr class="mat-row" *matNoDataRow>
+
+        <td class="mat-cell nodata" colspan="8">No Data Found</td>
+
+      </tr>
+    </table>
+    <mat-paginator [length]="totalPartnerCount" [pageSize]="10" [pageSizeOptions]="[3,5,10,50,100,1000]"
+      aria-label="Select page">
+
+      >
+
+    </mat-paginator>
+  </div>
+
+  <div class="exportdataBtn">
+    <button (click)="exportCsv(candidateEmailData)" type="button">
+      <mat-icon class="save-icon">save_alt</mat-icon>
+      Export Data</button>
+  </div>
+
+</div>

@@ -1,0 +1,1430 @@
+@import 'index';
+
+.create-form__overflow {
+  height: calc(100vh - 48px) !important;
+  background-color: #dfe2e3;
+  // height: fit-content;
+  padding: 8px 9px;
+
+  .headlingSection {
+    width: 100%;
+    height: 40px;
+    display: flex;
+    align-items: center;
+
+    .heading {
+      font-size: 21px;
+      color: #205081;
+      font-weight: 500;
+    }
+  }
+}
+
+%header-block__common-styles {
+  font-weight: 700;
+  font-style: normal;
+  font-family: $uap-roboto-condensed;
+
+}
+
+%no-outline {
+  border-top-style: hidden;
+  border-right-style: hidden;
+  border-left-style: hidden;
+  outline: none;
+}
+
+.header-block {
+  // max-width: 645px;
+  height: 10px;
+
+  &__title-font-size {
+    @extend %header-block__common-styles;
+
+  }
+
+  &__buttons-align {
+    display: flex;
+    justify-content: flex-start;
+    padding: 2% 21%;
+  }
+
+  &__button {
+    @extend %header-block__common-styles;
+    height: 34px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: 300;
+    margin-right: 20px;
+    border: 0px;
+    cursor: pointer !important;
+    background: #255488 0% 0% no-repeat padding-box;
+    border-radius: 4px;
+    padding: 0px 20px;
+  }
+
+  &__exit-button {
+    @extend %header-block__common-styles;
+    width: 112px;
+    height: 34px;
+    border: 2px solid #245487;
+    border-radius: 4px;
+    color: #245487;
+    cursor: pointer;
+    outline: none;
+    font-size: 15px;
+    font-weight: 500;
+    background-color: #ffffff;
+    margin-right: 6px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+.disbtn:disabled {
+  background-color: $uap-grey;
+  cursor: not-allowed !important;
+  color: #fff;
+}
+
+%custom-input-field-placeholder__text {
+  font-weight: 400;
+  font-style: normal;
+  font-size: 16px;
+  letter-spacing: normal;
+  color: $uap-light-black;
+  font-family: $uap-roboto-condensed;
+}
+
+%no-outline {
+  border-top-style: hidden;
+  border-right-style: hidden;
+  border-left-style: hidden;
+  outline: none;
+  border-bottom: 1px solid;
+}
+
+.create-form__overflow {
+  width: 100% !important;
+}
+
+
+.width-17 {
+  width: 20.5%;
+}
+
+.orgOne {
+  position: relative;
+  left: 101%;
+}
+
+.custom-label__font {
+  display: block;
+  width: 192px;
+  color: #000000;
+  font-weight: 500;
+  font-style: normal;
+  font-size: 14px;
+  margin-top: 33px;
+  font-family: $uap-roboto-condensed;
+  position: relative;
+}
+
+.custom-label__font2 {
+  display: block;
+  width: 192px;
+  color: #000000;
+  font-weight: 500;
+  font-style: normal;
+  font-size: 14px;
+  margin-top: 10px;
+  font-family: $uap-roboto-condensed;
+  position: relative;
+}
+
+.schedule-assessment-block {
+  width: 100%;
+  background-color: #fff;
+  border-radius: 4px;
+
+  &__align {
+    padding: 16px 16px;
+  }
+
+  &__text-area-width {
+    @extend %custom-input-field-placeholder__text;
+    width: 740px;
+    outline: none;
+    background: #e5e5e5 0% 0% no-repeat padding-box;
+    font-size: 14px;
+    padding: 13px 11px;
+    height: 41px;
+    border: 0.800000011920929px solid #bebebe !important;
+  }
+
+  &__custom-input-field {
+    @extend %custom-input-field-placeholder__text;
+    @extend %no-outline;
+    height: 41px;
+
+    padding: 5px 11px;
+    font-size: 14px;
+    width: 740px;
+    border: 0.800000011920929px solid #bebebe !important;
+    background: #e5e5e5 0% 0% no-repeat padding-box;
+  }
+
+  &__select-field__width {
+    @extend %custom-input-field-placeholder__text;
+    margin-top: 16px;
+    width: 651px;
+    height: 45px;
+  }
+}
+
+.datetime-block {
+  display: inline-block;
+}
+
+.date-block {
+  display: inline-block;
+  width: 394px;
+}
+
+.time-block {
+  display: inline-block;
+  background: #ffffff 0% 0% no-repeat padding-box;
+  border: 0.800000011920929px solid #bebebe;
+  opacity: 1;
+}
+
+/* TODO(mdc-migration): The following rule targets internal classes of form-field that may no longer apply for the MDC version.*/
+.mat-form-field-appearance-fill.mat-form-field-disabled .mat-form-field-flex {
+  background-color: $white;
+}
+
+/* TODO(mdc-migration): The following rule targets internal classes of form-field that may no longer apply for the MDC version.*/
+.mat-form-field-appearance-fill .mat-form-field-flex {
+  border-radius: 4px 4px 0 0;
+  padding: 0.75em 0.75em 0 0.75em;
+  border-bottom: 1px solid $uap-boulder;
+  width: 295px;
+}
+
+.ngx-timepicker-field-example {
+  width: 343px;
+}
+
+.period-control__button {
+  margin-left: 25px;
+}
+
+.ngx-material-timepicker-toggle {
+  margin-left: 15px;
+}
+
+.ngx-timepicker-control {
+  margin-left: 12px;
+  width: 66px !important;
+}
+
+.ngx-timepicker-control__input {
+  margin-right: 24px;
+}
+
+.example-form {
+  min-width: 450px;
+  max-width: 600px;
+}
+
+.example-full-width {
+  width: 538px;
+  margin-right: 58px;
+}
+
+.auto-complete-block__align {
+  display: flex;
+  position: relative;
+}
+
+.schedule-block__align {
+  display: inline-block;
+}
+
+.schedule-table,
+.schedule-table-tr {
+  width: 100%;
+  border-bottom: 1px solid $uap-boulder;
+  color: $uap-light-black;
+  border-collapse: collapse;
+  text-align: left;
+  border: 1px solid #707070;
+  margin-top: 1.5%;
+
+
+  th {
+    padding: 10px;
+    font-size: 14px;
+    color: #808080;
+    background: #efefef;
+    border-left: none;
+    border-right: none;
+    font-weight: 400;
+  }
+
+}
+
+
+.schedule-table-data {
+  font-family: $uap-roboto-condensed;
+  font-weight: 400 !important;
+  font-style: normal;
+  font-size: 16px;
+  color: $uap-venus;
+  border-bottom-style: hidden;
+  position: relative;
+  top: 8px;
+
+  span {
+    color: #c20000;
+    font-size: 26px;
+    position: relative;
+    top: 16px;
+    cursor: pointer;
+  }
+}
+
+.package-details-block {
+  &__add-candidate-button-align {
+    width: 120px;
+    height: 30px;
+    background-color: $uap-buddha-gold;
+    border: none;
+    border-radius: 20px;
+    font-family: $uap-roboto-condensed;
+    font-weight: 700;
+    font-style: normal;
+    font-size: 14px;
+    color: $white;
+    margin-top: 18px;
+    cursor: pointer;
+    outline: none;
+  }
+}
+
+.schedule-table-body {
+  margin-top: 12px;
+
+  td {
+    padding: 10px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #000000;
+
+    .type {
+      color: #808080;
+      font-weight: normal;
+    }
+  }
+
+  .addcriteria {
+    text-decoration: none !important;
+    color: #255488;
+    cursor: pointer;
+    white-space: nowrap;
+
+    .showcount {
+      color: #000000;
+      text-decoration: none;
+    }
+  }
+
+  .viewCriteria {
+    text-decoration: underline;
+    color: #6EB55E;
+    cursor: pointer;
+    white-space: nowrap;
+    // padding: 0px 22px;
+    position: relative;
+    bottom: 0px;
+  }
+
+}
+
+%add-delete-button__common-style {
+  border: none;
+  border-radius: 15px;
+  color: $white;
+  cursor: pointer;
+  outline: none;
+  width: 87px;
+  height: 29px;
+  outline: none;
+}
+
+.delete-candidate-button__align {
+  @extend %add-delete-button__common-style;
+  background-color: $uap-lapalma;
+}
+
+.custom-candidate-input {
+  width: 191px;
+  height: 32px;
+  margin-right: 18px;
+}
+
+.custom-date-time-input__border {
+  @extend %no-outline;
+  width: 184px;
+  height: 32px;
+  margin-bottom: 8px;
+}
+
+.drag-drop-zone__align {
+  margin-top: 25px;
+}
+
+.candidate-schedule-table,
+.candidate-schedule-table-th,
+.candidate-schedule-table-tr {
+  width: 745px;
+  color: $uap-light-black;
+  border-collapse: collapse;
+  text-align: left;
+  font-family: $uap-roboto-condensed;
+  position: relative;
+  top: 10px;
+
+  th {
+    font-size: 14px;
+    color: #000000;
+    border-left: none;
+    border-right: none;
+    font-weight: 400;
+  }
+}
+
+.ngx-file-drop__drop-zone {
+  border: none !important;
+  border-radius: 0px !important;
+  width: 156px;
+  height: 92px;
+  margin: initial !important;
+  background-color: $uap-alto;
+}
+
+.ngx-file-drop {
+  font-weight: 500;
+  font-style: normal;
+  font-size: 14px;
+  color: $uap-venus;
+  text-align: center;
+  position: relative;
+  top: 20px;
+}
+
+.add-candidate-heading__align {
+  font-family: $uap-roboto-condensed;
+  font-weight: 500;
+  font-style: normal;
+  font-size: 18px;
+  color: $uap-light-black;
+  position: relative;
+  top: 16px;
+}
+
+.upload-csv-button__align {
+  width: 94px;
+  height: 28px;
+  outline: none;
+  cursor: pointer;
+  background-color: $uap-nando;
+  border: none;
+  border-radius: 20px;
+  font-family: $uap-roboto-condensed;
+  font-weight: 700;
+  font-style: normal;
+  font-size: 14px;
+  color: $white;
+  margin-left: 12px;
+}
+
+.exit-upload-mode__align {
+  position: relative;
+  top: -60px;
+  left: 175px;
+  cursor: pointer;
+  background: $uap-nando;
+  padding: 4px;
+  color: $white;
+}
+
+.uploaded-heading {
+  font-family: $uap-roboto-condensed;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 16px;
+  color: $uap-venus;
+  position: relative;
+  top: 14px;
+}
+
+.candidate-info-block {
+  font-family: $uap-roboto-condensed;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 16px;
+  color: $uap-nando;
+  position: relative;
+  top: 12px;
+}
+
+.delete-file-button__style {
+  @extend .delete-candidate-button__align;
+  width: 58px;
+  height: 24px;
+  margin-left: 8px;
+}
+
+.total-invalid-email-count {
+  color: $uap-sunglo;
+}
+
+.total-valid-email-count {
+  color: $uap-sunglo;
+}
+
+.total-valid-email-count {
+  color: $uap-sunglo;
+}
+
+.total-duplicate-email-count {
+  color: $uap-sunglo;
+}
+
+/* TODO(mdc-migration): The following rule targets internal classes of form-field that may no longer apply for the MDC version.*/
+.mat-form-field-appearance-fill .mat-form-field-flex {
+  background-color: transparent;
+  border-bottom: none;
+}
+
+.ngx-timepicker {
+  border-bottom: 1px solid $uap-boulder !important;
+}
+
+/* TODO(mdc-migration): The following rule targets internal classes of input that may no longer apply for the MDC version.*/
+.input-field__error,
+.mat-input-field__error {
+  color: $uap-red;
+  font-size: 14px;
+  position: absolute;
+}
+
+/* TODO(mdc-migration): The following rule targets internal classes of input that may no longer apply for the MDC version.*/
+.mat-input-field__error {
+  top: 40px;
+}
+
+button:disabled {
+  color: $uap-grey !important;
+  text-align: center;
+  font-size: 13px;
+  font-weight: 500;
+  border: 1px solid $uap-grey !important;
+  border-radius: 4px;
+  background-color: $uap-white !important;
+  cursor: not-allowed;
+
+  .ic {
+    font-size: 15px;
+    position: relative;
+    right: 3px;
+    color: $uap-grey !important;
+  }
+}
+
+.level {
+  color: $silver-chalice;
+}
+
+.schedule-table-type {
+  width: 200px;
+  padding-right: 25px;
+}
+
+.width_150 {
+  width: 150px;
+}
+
+.head-span {
+  position: relative;
+  bottom: 9px;
+}
+
+.date-block__input {
+  width: 90%;
+  border-radius: 0px !important;
+  position: relative;
+  top: 2px;
+}
+
+/* TODO(mdc-migration): The following rule targets internal classes of checkbox that may no longer apply for the MDC version.*/
+::ng-deep .mat-checkbox-ripple .mat-ripple-element {
+  background-color: #255488 !important;
+}
+
+/* TODO(mdc-migration): The following rule targets internal classes of checkbox that may no longer apply for the MDC version.*/
+::ng-deep .mat-checkbox-checked.mat-accent .mat-checkbox-background {
+  background-color: #255488 !important;
+}
+
+.candidatedetailsbyidtable {
+  margin-top: 55px;
+  margin-bottom: 28px;
+
+  .align {
+    display: flex;
+    width: 61%;
+    justify-content: space-between;
+    position: relative;
+    bottom: 10px;
+
+    .testdetails {
+      text-align: left;
+      font-size: 16px;
+      font-weight: 500;
+      letter-spacing: 0px;
+      color: #000000;
+      opacity: 1;
+    }
+
+    .duration {
+      :first-child {
+        text-align: left;
+        font-size: 13px;
+        letter-spacing: 0px;
+        color: #808080;
+        opacity: 1;
+      }
+
+      :last-child {
+        font-size: 14px;
+        font-weight: 600;
+        letter-spacing: 0px;
+        color: #333333;
+        opacity: 1;
+      }
+    }
+  }
+
+
+
+  .schedule-table,
+  .schedule-table-th,
+  .schedule-table-tr {
+    width: 745px;
+    border-bottom: 1px solid $uap-boulder;
+    color: $uap-light-black;
+    border-collapse: collapse;
+    text-align: left;
+    font-family: $uap-roboto-condensed;
+    border: 1px solid #707070;
+
+    th {
+      padding: 10px;
+      font-size: 14px;
+      color: #808080;
+      background: #efefef;
+      border-left: none;
+      border-right: none;
+      font-weight: 400;
+    }
+  }
+
+  .schedule-table-body {
+    margin-top: 12px;
+
+    td {
+      padding: 10px;
+      font-size: 14px;
+      font-weight: 500;
+      color: #000000;
+    }
+  }
+}
+
+
+.align2 {
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+  top: 20px;
+  margin-bottom: 25px;
+
+
+  .duration {
+    text-align: left;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0px;
+    color: #000000;
+    opacity: 1;
+
+  }
+}
+
+.createandcacelbtn {
+  display: grid;
+  justify-content: space-around;
+  margin-top: 6%;
+
+  .align-btns {
+    display: flex;
+    align-items: baseline;
+
+    .fail {
+      background-color: #fff;
+      border: 1px solid #255488;
+      color: #255488;
+      font-size: 13px;
+      font-weight: 500;
+      padding: 10px;
+      width: 100px;
+      margin: 3px;
+      border-radius: 4px;
+    }
+
+    .proceed {
+      background-color: #255488;
+      color: #fff;
+      text-align: center;
+      font-size: 13px;
+      font-weight: 500;
+      padding: 10px;
+      margin: 3px;
+      border: #255488;
+      border-radius: 4px;
+      width: 135px;
+    }
+  }
+}
+
+.row-wrapper {
+  margin-top: .5em;
+  width: 90%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-start;
+
+  .width-70 {
+    width: 70%;
+  }
+
+  .width-45 {
+    width: 45%;
+  }
+
+  .width-85 {
+    width: 85%;
+  }
+
+  .width-15 {
+    width: 15%;
+  }
+
+  .width-30 {
+    width: 30%;
+  }
+
+  .width-22 {
+    width: 17.5%;
+  }
+
+  .width-32 {
+    width: 32%;
+  }
+
+  .width-80 {
+    width: 80% !important;
+  }
+
+  .width-100 {
+    width: 100%;
+  }
+
+  .width-60 {
+    width: 60% !important;
+  }
+
+  .width-18 {
+    width: 18%;
+    margin-top: 1.5%;
+  }
+
+  .width-28 {
+    width: 28%;
+  }
+
+  .overall-input-wrapper {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    margin-top: .5em;
+
+    .small-height-input {
+      max-height: 41px;
+      border-radius: 4px;
+    }
+
+    label {
+      color: #000000;
+      padding: 0 0 2px 0;
+      margin: 0;
+      font-size: 14px;
+      padding-bottom: 5px;
+      font-weight: 500;
+
+      span {
+        color: $primaryColor;
+      }
+    }
+
+    .timer {
+      height: 24px;
+    }
+
+    .radio-btn-alignment {
+      label {
+        span {
+          color: #000000ad;
+          font-weight: normal;
+        }
+      }
+    }
+
+    .marginTop-1 {
+      margin-top: 0.8%;
+    }
+
+
+
+
+    .input:disabled {
+      background: rgb(0 0 0 / 13%) !important;
+      cursor: not-allowed !important;
+    }
+
+
+    .select {
+      // display: flex;
+      align-items: center;
+      padding: 0px !important;
+      border: none !important;
+    }
+
+    .input:focus,
+    .input:hover {
+      border: 1px solid $primary-hover-color;
+    }
+
+    .form-error {
+      color: $primary-error-text;
+      font-size: 12px;
+    }
+
+    ::placeholder {
+      color: #A5A5A5 !important;
+      opacity: 1;
+      font-size: 13px;
+    }
+
+    .button-input {
+      display: flex;
+
+      .verify-btn {
+        margin-top: -1px;
+        font-size: 12px;
+        width: 130px;
+        border: solid 0.8px #BEBEBE !important;
+        background-color: #F2F3F5;
+        text-decoration: underline;
+        color: #1B4E9B;
+
+      }
+
+      :host ::ng-deep .verify-btn.disabled,
+      .verify-btn:disabled {
+        opacity: .35 !important;
+        background-color: #BEBEBE !important;
+        pointer-events: none !important;
+        color: gray !important;
+        margin-top: -1px;
+        font-size: 12px;
+        width: 130px;
+        border: solid 0.8px gray !important;
+      }
+    }
+
+    .align {
+      display: flex;
+      width: 100%;
+      justify-content: space-between;
+      position: relative;
+      margin-top: 1%;
+
+      .testdetails {
+        text-align: left;
+        font-size: 16px;
+        font-weight: 500;
+        letter-spacing: 0px;
+        color: #000000;
+        opacity: 1;
+      }
+
+      .duration {
+        :first-child {
+          text-align: left;
+          font-size: 13px;
+          letter-spacing: 0px;
+          color: #808080;
+          opacity: 1;
+        }
+
+        :last-child {
+          font-size: 14px;
+          font-weight: 600;
+          letter-spacing: 0px;
+          color: #333333;
+          opacity: 1;
+        }
+      }
+    }
+  }
+}
+
+.input {
+  cursor: not-allowed;
+  background: #ededed !important;
+  border: 0.800000011920929px solid #bebebe !important;
+  padding: 10px 10px;
+  font-size: 14px;
+  position: relative;
+  border-radius: 2px;
+  color: #6B6B6B;
+  box-sizing: border-box;
+  min-height: 41px !important;
+  max-height: 41px !important;
+  line-height: 35px !important;
+  padding: 4px 8px !important;
+  background-color: $white;
+  width: 100%;
+  font-size: 14px;
+}
+
+.inputLogin {
+  cursor: pointer;
+  border: 0.800000011920929px solid #bebebe !important;
+  padding: 10px 10px;
+  font-size: 14px;
+  position: relative;
+  border-radius: 2px;
+  color: #6B6B6B;
+  box-sizing: border-box;
+  min-height: 41px !important;
+  max-height: 41px !important;
+  line-height: 35px !important;
+  padding: 4px 8px !important;
+  background-color: $white;
+  width: 100%;
+  font-size: 14px;
+}
+
+.inputLogin:disabled {
+  cursor: not-allowed;
+  background: #ededed !important;
+  border: 0.800000011920929px solid #bebebe !important;
+  padding: 10px 10px;
+  font-size: 14px;
+  position: relative;
+  border-radius: 2px;
+  color: #6B6B6B;
+  box-sizing: border-box;
+  min-height: 41px !important;
+  max-height: 41px !important;
+  line-height: 35px !important;
+  padding: 4px 8px !important;
+  background-color: $white;
+  width: 100%;
+  font-size: 14px;
+}
+
+
+.edit {
+  background: transparent !important;
+  border: 0.800000011920929px solid #bebebe !important;
+  padding: 10px 10px;
+  cursor: text;
+  // color: #6B6B6B;
+}
+
+.inputProctor {
+  border: 0.800000011920929px solid #bebebe !important;
+  padding: 10px 10px;
+  font-size: 14px;
+  position: relative;
+  border-radius: 2px;
+  color: #6B6B6B;
+  box-sizing: border-box;
+  min-height: 41px !important;
+  max-height: 41px !important;
+  line-height: 35px !important;
+  padding: 4px 8px !important;
+  background-color: $white;
+  width: 100%;
+  cursor: pointer;
+}
+
+.numberInput {
+  cursor: pointer;
+  border: 0.800000011920929px solid #bebebe !important;
+  padding: 10px 10px;
+  font-size: 14px;
+  position: relative;
+  border-radius: 2px;
+  color: #6B6B6B;
+  box-sizing: border-box;
+  min-height: 41px !important;
+  max-height: 41px !important;
+  line-height: 35px !important;
+  padding: 4px 8px !important;
+  background-color: $white;
+  width: 100%;
+  font-size: 14px;
+}
+
+// Date picker end
+.date-relative {
+  display: flex;
+  align-items: center;
+  position: relative;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+
+  mat-datepicker-toggle {
+    height: 100%;
+    bottom: 0;
+    position: absolute;
+    right: 1px;
+    border: none;
+    border-left: solid 0.8px #bebebe;
+  }
+}
+
+
+// new css
+.form-error {
+  color: $primary-error-text;
+}
+
+.error-align {
+  position: absolute;
+  line-height: 14px;
+}
+
+.radio-btn-alignment {
+  position: relative;
+
+  .radioLeft {
+    margin-left: 3% !important;
+    color: #000000 !important;
+  }
+
+  .marginTop-1 {
+    margin-top: 1% !important;
+  }
+
+
+}
+
+.visibility-icon-view {
+  position: relative;
+  right: 6.3rem;
+  font-size: 19px;
+  top: 6px;
+}
+
+/* TODO(mdc-migration): The following rule targets internal classes of checkbox that may no longer apply for the MDC version.*/
+::ng-deep .mat-checkbox-indeterminate.mat-accent .mat-checkbox-background,
+.mat-checkbox-checked.mat-accent .mat-checkbox-background {
+  background-color: #255488 !important;
+}
+
+nz-date-picker {
+  width: 100%;
+
+  nz-picker {
+    width: 100%;
+    display: block !important;
+
+  }
+
+  .ant-calendar-picker {
+    width: 100% !important;
+  }
+
+}
+
+::ng-deep .ant-input-number-disabled {
+  cursor: not-allowed !important;
+  border: 0.8000000119px solid #bebebe !important;
+  padding: 10px 10px;
+  font-size: 14px;
+  position: relative;
+  border-radius: 2px;
+  color: #6B6B6B;
+  box-sizing: border-box;
+  min-height: 41px !important;
+  max-height: 41px !important;
+  line-height: 35px !important;
+  padding: 4px 8px !important;
+  background: #ededed !important;
+  width: 100%;
+  font-size: 14px;
+}
+
+
+.exit-buttonn {
+  border: 1px solid #245487;
+  color: #245487;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 0px 44px;
+  /* margin: 3px 0px; */
+  border-radius: 4px;
+  cursor: pointer;
+  background-color: #ffffff;
+  height: 35px;
+  margin-top: 8px;
+  margin-right: 15px;
+}
+
+.header-btn {
+  height: 34px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 300;
+  margin-right: 20px;
+  border: 0px;
+  cursor: pointer !important;
+  background: #255488 0% 0% no-repeat padding-box;
+  border-radius: 4px;
+  padding: 0px 20px;
+}
+
+.radio-btn-alignment {
+  position: relative;
+
+  .radioLeft {
+    margin-left: 3% !important;
+    color: #000000 !important;
+  }
+
+  .marginTop-1 {
+    margin-top: 1% !important;
+  }
+
+
+  .yesbutton {
+    cursor: not-allowed !important;
+    font-size: 13px;
+    font-weight: 700;
+    border-radius: 4px;
+    margin: 5px;
+    color: #004684;
+    background-color: #fff;
+    border: 1px solid #004684;
+    position: relative;
+    left: 6%;
+    padding: 6px 15px;
+
+    span {
+      position: relative;
+      left: 24px;
+      bottom: 1px;
+    }
+  }
+
+  .nobutton {
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 500;
+    border-radius: 4px;
+    margin: 5px;
+    opacity: 1;
+    color: #004684;
+    background-color: #fff;
+    border: 1px solid #004684;
+    position: relative;
+    left: 6%;
+    padding: 6px 15px;
+
+    span {
+      position: relative;
+      left: 24px;
+      bottom: 1px;
+    }
+  }
+
+}
+
+
+.test-btns {
+  width: 100%;
+  display: flex;
+  align-items: center;
+
+  button:disabled {
+    color: #898989 !important;
+    text-align: center;
+    font-size: 13px;
+    font-weight: 500;
+    border: 1px solid #898989 !important;
+    border-radius: 4px;
+    background-color: $uap-white !important;
+    cursor: not-allowed;
+    width: 170px !important;
+    height: 35px;
+    margin: 5px;
+  }
+
+  .exit-button {
+    width: 112px;
+    height: 34px;
+    border: 2px solid #245487;
+    border-radius: 4px;
+    color: #245487;
+    cursor: pointer;
+    outline: none;
+    font-size: 15px;
+    font-weight: 500;
+    background-color: #ffffff;
+    margin-right: 6px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .exit-button:disabled {
+    width: 112px !important;
+    height: 34px !important;
+    border: 2px solid #245487;
+    border-radius: 4px !important;
+    color: #245487;
+    cursor: not-allowed !important;
+    outline: none;
+    font-size: 15px;
+    font-weight: 500;
+    background-color: #ffffff;
+    margin-right: 6px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+}
+
+
+.checkIcon {
+  margin-left: 13% !important;
+}
+
+.successone {
+  width: 170px !important;
+  color: $white;
+  background-color: #15b125db;
+  border: 1px solid #15b125db;
+  opacity: 1;
+  font-size: 14px;
+  white-space: nowrap;
+}
+
+.align-right {
+  justify-content: right !important;
+  margin-top: 2% !important;
+}
+
+.width-170 {
+  width: 185px !important;
+}
+
+.visibility-btn {
+  border: 1px solid #245487;
+  color: #245487;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 1px 15px;
+  border-radius: 4px;
+  cursor: pointer;
+  background-color: #ffffff;
+  height: 39px;
+  margin-top: 8px;
+  margin-left: 7%;
+
+
+  .visibility-icon {
+    position: relative;
+    top: 2px;
+    width: 32px;
+  }
+
+  span {
+    position: relative;
+    bottom: 5px;
+  }
+}
+
+.minsBtn {
+  .ant-btn {
+    padding: 0 5px !important;
+    border-radius: 0px !important;
+  }
+
+  .ant-btn:focus,
+  .ant-btn:hover {
+    color: rgba(0, 0, 0, .65) !important;
+    background-color: $uap-white;
+    border-color: #d9d9d9 !important;
+  }
+}
+
+
+/* TODO(mdc-migration): The following rule targets internal classes of radio that may no longer apply for the MDC version.*/
+::ng-deep .mat-mdc-radio-button.mat-accent .mat-radio-inner-circle {
+  background-color: #1B4E9B !important;
+}
+
+/* TODO(mdc-migration): The following rule targets internal classes of radio that may no longer apply for the MDC version.*/
+::ng-deep .mat-mdc-radio-button.mat-accent.mat-radio-checked .mat-radio-outer-circle {
+  border-color: #1B4E9B !important;
+}
+
+::ng-deep .mat-mdc-dialog-container {
+  overflow: hidden !important;
+  padding: 0px !important;
+}
+
+.candidateFount {
+  color: #039111;
+  position: relative;
+  top: 11px;
+}
+
+.candidatecount-img {
+  margin-right: 4px;
+  margin-bottom: 2px;
+}
+
+::ng-deep :host .anticon {
+  cursor: pointer !important;
+}
+
+.ant-calendar-picker-clear,
+.ant-calendar-picker-icon {
+  cursor: pointer !important;
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+.clearvalue {
+  color: transparent !important;
+
+  ::ng-deep .ant-input-disabled,
+  .ant-input[disabled] {
+    color: transparent !important;
+    background-color: #f5f5f5;
+    cursor: not-allowed;
+    opacity: 1;
+  }
+
+  .clearvalue2 {
+    color: transparent !important;
+
+    ::ng-deep .ant-input-disabled,
+    .ant-input[disabled] {
+      color: transparent !important;
+      background-color: #8f8c8c;
+      cursor: not-allowed;
+      opacity: 1;
+    }
+  }
+}
+
+.btn-sub {
+  cursor: pointer !important;
+  font-size: 13px;
+  font-weight: 700;
+  border-radius: 4px;
+  margin: 5px;
+  color: #004684;
+  background-color: #fff;
+  border: 1px solid #004684;
+  position: relative;
+  left: 6%;
+  padding: 4px 22px;
+  top: 4px;
+
+  span {
+    position: relative;
+    left: 24px;
+    bottom: 4px;
+  }
+
+
+}
+
+.btn-sub:disabled {
+  cursor: not-allowed !important;
+  font-size: 13px;
+  font-weight: 700;
+  border-radius: 4px;
+  margin: 5px;
+  color: #333333;
+  background-color: #fff;
+  border: 1px solid #004684;
+  position: relative;
+  left: 6%;
+  padding: 4px 22px;
+  top: 4px;
+
+  span {
+    position: relative;
+    left: 24px;
+    bottom: 4px;
+  }
+}
+
+.disabledMins {
+  background-color: #f5f5f5;
+  cursor: not-allowed !important;
+  color: rgba(0, 0, 0, 0.25);
+  opacity: 1 !important;
+}

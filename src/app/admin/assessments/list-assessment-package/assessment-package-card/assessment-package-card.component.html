@@ -1,0 +1,143 @@
+<div class="bigcard">
+  <table>
+    <thead>
+      <tr>
+        <th style="width: 18%;">Assessment Name</th>
+        <th style="   width: 19%;">Test List</th>
+        <th>Invites Sent</th>
+        <th>Level</th>
+        <th>Test Duration</th>
+        <th style="width: 20%;">Status</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td valign="top">{{ packageContent.attributes.name }}</td>
+        <td valign="top">
+          <span class="mat-chip" *ngFor="let task of tasks">
+            {{task.type}}
+          </span>
+        </td>
+        <td valign="top">
+          <div>
+            {{ packageContent.attributes.usageCount}}
+          </div>
+          <!-- <app-level-indicator [level]="packageContent.attributes.level"></app-level-indicator>
+          {{ assesmentsUtil.getDuration(packageContent.attributes.duration) }} -->
+        </td>
+        <td valign="top">
+          {{ packageContent.attributes.level }}
+        </td>
+        <td valign="top">
+          {{ assesmentsUtil.getDuration(packageContent.attributes.duration) }}
+        </td>
+        <td valign="top">
+          <div class="stausbtn" [ngClass]="packageContent.attributes.status.toLowerCase() === 'published'? 'package__actions-status-published'
+          : 'package__actions-status-draft'
+          ">
+            {{ packageContent.attributes.status }}
+
+          </div>
+          <div class="updated-time">
+            <mat-icon class="updated-time-icon">query_builder</mat-icon>
+            {{
+            assesmentsUtil.getUpdateTime(
+            packageContent.attributes.updatedTime,
+            packageContent.attributes.status
+            )
+            }}
+          </div>
+
+        </td>
+
+        <td valign="top">
+          <span class="material-icons disablebtn"
+            *ngIf="packageContent.attributes.status =='Published'|| packageContent.attributes.status =='Archived'">
+            <img src="/assets/edit-ic2.svg">
+          </span>
+          <span class="material-icons action-edit" (click)="onEditDeatils(packageContent.id)"
+            *ngIf="packageContent.attributes.status =='Draft'" matTooltip="Edit">
+            <img src="/assets/edit-ic.svg">
+          </span>
+          <span routerLink="/admin/assessments/view/{{ packageContent.id }}" class="material-icons visible-icon">
+            <img src="/assets/images/Icon feather-eye.svg" matTooltip="View">
+          </span>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+
+</div>
+<!-- <div class="package">
+  <div class="package__info">
+    <span class="header-block__title-font-size">Schedule/Create</span>
+    <div class="package__info-name">{{ packageContent.attributes.name }}</div>
+    <div class="package__info-contains">
+      <span>{{ createSubHeaderText() }}</span>
+    </div>
+  </div>
+  <div class="package__duration">
+    <div class="package__duration-level">
+      <app-level-indicator [level]="packageContent.attributes.level"></app-level-indicator>
+      <span>{{ packageContent.attributes.level }}</span>
+    </div>
+    <div class="package__duration-time">
+      <img src="/assets/clock.svg" />
+      <span>{{ assesmentsUtil.getDuration(packageContent.attributes.duration) }}</span>
+    </div>
+  </div>
+  <div class="package__actions">
+    <div
+      class="package__actions-status-published"
+      [ngClass]="
+        packageContent.attributes.status.toLowerCase() === 'published'
+          ? 'package__actions-status-published'
+          : 'package__actions-status-draft'
+      "
+    >
+      {{ packageContent.attributes.status }},
+      {{
+        assesmentsUtil.getUpdateTime(
+          packageContent.attributes.updatedTime,
+          packageContent.attributes.status
+        )
+      }}
+    </div>
+    <div class="package__actions-buttons">
+      <button
+        mat-flat-button
+        class="view"
+        [disabled]="canViewPackage"
+        routerLink="/admin/assessments/view/{{ packageContent.id }}">
+        View
+      </button>
+      <mat-icon [matMenuTriggerFor]="menu">more_vert</mat-icon>
+      <mat-menu #menu="matMenu">
+        <button
+          mat-menu-item
+          *ngIf="packageContent.attributes.status.toLowerCase() === 'published'"
+          (click)="archiveAssessmentPackage()"
+        >
+          Archive
+        </button>
+
+        <button mat-menu-item *ngIf="packageContent.attributes.status.toLowerCase() === 'draft'">
+          Edit
+        </button>
+
+        <button
+          mat-menu-item
+          *ngIf="packageContent.attributes.status.toLowerCase() === 'draft'"
+          (click)="deleteAssessmentPackage()"
+        >
+          Delete
+        </button>
+      </mat-menu>
+    </div>
+  </div>
+  <div *ngIf="packageContent.attributes.usageCount && packageContent.attributes.status.toLowerCase() === 'published'" class="package__invite-status">
+    {{ packageContent.attributes.usageCount }} invites sent
+  </div>
+</div> -->

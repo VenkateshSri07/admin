@@ -1,0 +1,680 @@
+.candidate-alert {
+  display: flex;
+  background-color: #dce4f0;
+  font-size: 14px;
+  font-weight: 400;
+  color: #164160;
+  position: relative;
+  top: 89px;
+  padding: 10px;
+  width: 96%;
+  left: 25px;
+  align-items: center;
+
+  .info {
+    margin-right: 10px;
+  }
+}
+
+.candidate-form {
+  width: 100%;
+  position: relative;
+  top: 91px;
+  //   display: flex;
+  padding: 25px;
+  background-color: #fff;
+
+  //   align-items: flex-start;
+  .B-details {
+    width: 100%;
+    display: flex;
+
+    .center {
+      text-align: center;
+    }
+
+    .left-candidatelabels {
+      width: 15%;
+      position: relative;
+      top: 1px;
+
+      span {
+        top: 5px;
+        position: relative;
+        color: #666666;
+        font-size: 16px;
+        font-weight: 400;
+        opacity: 1;
+      }
+    }
+
+    .right-full {
+      width: 100%;
+
+      button {
+        background-color: #004684;
+        color: #ffffff;
+      }
+
+      .right-candidateinputs {
+        width: 99.2%;
+        margin-left: 5px;
+
+        span {
+          font-size: 14px;
+          font-weight: 400;
+          color: #666666;
+          display: flex;
+
+          .error {
+            color: #c20000;
+            position: relative;
+            left: 4px;
+          }
+        }
+      }
+
+      .right-candidateinputs-full {
+        //   width: 85%;
+        display: flex;
+
+        /* Chrome, Safari, Edge, Opera */
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+          -webkit-appearance: none;
+          margin: 0;
+        }
+
+        /* Firefox */
+        input[type='number'] {
+          -moz-appearance: textfield;
+        }
+
+        .example-section {
+          padding: 10px 0px;
+
+          span {
+            position: relative;
+            left: 4px;
+            top: 1px;
+          }
+        }
+
+        .right-candidateinputs-half {
+          width: 50%;
+          margin: 5px;
+
+          span {
+            font-size: 14px;
+            font-weight: 400;
+            color: #666666;
+            display: flex;
+
+            .error {
+              color: #c20000;
+              position: relative;
+              left: 4px;
+            }
+          }
+
+          .insideverificationcode {
+            cursor: pointer;
+            background-color: #f2f3f5;
+            border: #666666;
+            // height: 30px;
+            color: #1b4e9b;
+            text-align: center;
+            float: right;
+            position: relative;
+            // bottom: 6px;
+            font-size: 11px;
+            // left: 3px;
+            // margin: -5px;
+            right: 7px;
+
+            p {
+              cursor: pointer;
+              position: relative;
+              top: 8px;
+              padding: 9px;
+              background-color: #f2f3f5;
+
+              u {
+                position: relative;
+                top: -4px;
+              }
+            }
+          }
+
+          .verifysuccess {
+            float: right;
+            position: relative;
+            border: none;
+            // top: -3px;
+            right: 6px;
+            background-color: #fff;
+          }
+        }
+
+        .right-candidateinputs-semi-half {
+          width: 33%;
+          margin: 5px;
+
+          span {
+            font-size: 14px;
+            font-weight: 400;
+            color: #666666;
+            display: flex;
+
+            .error {
+              color: #c20000;
+              position: relative;
+              left: 4px;
+            }
+          }
+        }
+
+        .right-candidateinputs-small-semi-halfdegree {
+          width: 24.2%;
+          margin: 5px;
+
+          span {
+            font-size: 14px;
+            font-weight: 400;
+            color: #666666;
+            display: flex;
+
+            .error {
+              color: #c20000;
+              position: relative;
+              left: 4px;
+            }
+          }
+        }
+
+        .right-candidateinputs-small-semi-half {
+          // width: 24.6%;
+          margin: 5px;
+
+          span {
+            font-size: 14px;
+            font-weight: 400;
+            color: #666666;
+            display: flex;
+
+            .error {
+              color: #c20000;
+              position: relative;
+              left: 4px;
+            }
+          }
+
+          .right-candidateradibtns {
+            position: relative;
+            top: 10px;
+
+            .alignment {
+              margin: 8px;
+              position: relative;
+              /* left: -12px; */
+              right: 12px;
+              top: 0px;
+            }
+
+            small {
+              position: relative;
+              top: -20px;
+            }
+          }
+
+          .cutomized-right-inputfile {
+            padding: 5px;
+            position: relative;
+            display: grid;
+            position: relative;
+
+            .alignment {
+              .inputcls {
+                width: 101.3%;
+                padding: 13px;
+                margin-left: -4px;
+                color: #848484;
+                border: 1px solid #e0e0e0;
+              }
+            }
+          }
+
+
+          .right-inputfile {
+            padding: 10px;
+            position: relative;
+            display: grid;
+            top: 10px;
+            color: #848484;
+            border: 1px solid #e0e0e0;
+            cursor: pointer;
+
+            .image-upload>input {
+              display: none;
+            }
+
+            .upload-res {
+              display: flex;
+              align-items: center;
+              cursor: pointer;
+            }
+
+            span {
+              color: #848484;
+            }
+
+            .cont-icon {
+              color: #000000 !important;
+              margin-right: 8px;
+            }
+
+            .close-icon {
+              color: #000000;
+              cursor: pointer;
+              position: relative;
+              left: 10px;
+            }
+
+            .cancel-sec {
+              display: flex;
+              justify-content: flex-start;
+              align-items: center;
+            }
+
+            .alignment {
+              margin: 8px;
+              position: relative;
+              /* left: -12px; */
+              right: 12px;
+              top: 0px;
+            }
+          }
+
+          small {
+            position: relative;
+            top: 20px;
+          }
+        }
+      }
+    }
+  }
+}
+
+.resumealign {
+  display: grid;
+
+  .file-extension {
+    display: flex;
+    font-size: 12px;
+    position: relative;
+    top: 18px;
+
+    .ext-span {
+      color: #cb0000;
+      font-size: 16px;
+      position: relative;
+      bottom: 3px;
+      padding-right: 4px;
+    }
+  }
+
+  .form-errorresume {
+    color: red;
+    font-size: 12px;
+    position: relative;
+    bottom: 15px;
+
+  }
+}
+
+// ::ng-deep .mat-mdc-form-field-flex {
+//   background: #e3e3e3 !important;
+//   cursor: not-allowed !important;
+// }
+
+// .mat-form-field-appearance-outline.mat-form-field-disabled .mat-form-field-outline {
+//   background: #e3e3e3 !important;
+//   cursor: not-allowed !important;
+// }
+
+// angular matrial override css
+
+::ng-deep .mat-mdc-form-field {
+  width: 100%;
+  height: 40px;
+  margin-bottom: 28px;
+}
+
+::ng-deep .mdc-text-field--disabled .mdc-text-field__input {
+  cursor: not-allowed !important;
+}
+
+
+::ng-deep .mdc-text-field--disabled {
+  pointer-events: auto !important; 
+ cursor: not-allowed !important;
+ background: rgb(227 227 227);
+}
+
+/*   TODO(mdc-migration): The following rule targets internal classes of form-field that may no longer apply for the MDC version.*/
+::ng-deep .mat-form-field-appearance-outline .mat-form-field-infix {
+  padding: 10px;
+}
+
+/*   TODO(mdc-migration): The following rule targets internal classes of form-field that may no longer apply for the MDC version.*/
+::ng-deep .mat-form-field-outline-start {
+  border-radius: 2px !important;
+  min-width: 28px !important;
+}
+
+/*   TODO(mdc-migration): The following rule targets internal classes of form-field that may no longer apply for the MDC version.*/
+::ng-deep .mat-form-field-outline-end {
+  border-radius: 2px !important;
+}
+
+::ng-deep mat-datepicker-toggle.mat-datepicker-toggle button.mat-focus-indicator.mat-mdc-icon-button.mat-mdc-button-base {
+  display: inherit;
+}
+
+
+::ng-deep .mat-mdc-dialog-container {
+  padding: 0px !important;
+  overflow: hidden !important;
+}
+
+/*   TODO(mdc-migration): The following rule targets internal classes of checkbox that may no longer apply for the MDC version.*/
+/*   TODO(mdc-migration): The following rule targets internal classes of checkbox that may no longer apply for the MDC version.*/
+::ng-deep .mat-checkbox-checked.mat-accent {
+
+  /*   TODO(mdc-migration): The following rule targets internal classes of checkbox that may no longer apply for the MDC version.*/
+  .mat-checkbox-ripple .mat-ripple-element {
+    background-color: #004684 !important;
+  }
+
+  /*   TODO(mdc-migration): The following rule targets internal classes of checkbox that may no longer apply for the MDC version.*/
+  .mat-checkbox-background,
+  .mat-checkbox-indeterminate.mat-accent .mat-checkbox-background {
+    background-color: #004684;
+  }
+}
+
+
+
+
+
+.confirmbox {
+  text-align: center;
+
+  img {
+    text-align: center;
+    position: relative;
+    top: 60px;
+  }
+
+  .paragraph {
+    display: grid;
+    color: #000;
+    position: relative;
+    top: 104px;
+
+    :first-child {
+      font-size: 18px;
+      font-weight: 500;
+      padding-bottom: 10px;
+    }
+
+    :last-child {
+      font-size: 16px;
+      font-weight: 300;
+      padding-bottom: 10px;
+    }
+    .withpadding{
+      padding: 14px;
+    }
+  }
+
+  // .buttons-alignment {
+  //   position: relative;
+  //   top: 130px;
+
+  //   :first-child {
+  //     font-size: 13px;
+  //     font-weight: 500;
+  //     margin: 5px;
+  //     color: #004684;
+  //     background-color: #ffffff !important;
+  //     border: 1px solid #004684;
+  //   }
+
+  //   :last-child {
+  //     font-size: 13px;
+  //     font-weight: 500;
+  //     margin: 5px;
+  //     color: #fff;
+  //     background-color: #004684;
+  //     border: 1px solid #004684;
+  //   }
+  // }
+  .buttons-alignment {
+    position: relative;
+    top: 130px;
+
+    .common-btn {
+      font-size: 13px;
+      font-weight: 500;
+      color: #004684;
+      background-color: #ffffff !important;
+      border: 1px solid #004684;
+      padding: 8px 36px;
+      border-radius: 4px;
+      margin-right: 26px;
+      cursor: pointer;
+    }
+
+    .common-btn-yes {
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 500;
+      color: #ffffff;
+      background-color: #004684 !important;
+      border: 1px solid #004684;
+      padding: 8px 17px;
+      border-radius: 4px;
+    }
+  }
+}
+
+// .after-startPopup {
+//   text-align: center;
+
+//   .after-startPopup-img img {
+//     text-align: center;
+//     position: relative;
+//     top: 50px;
+//     height: 66px;
+//   }
+
+//   .after-startPopup-text {
+//     font-size: 18px;
+//     position: relative;
+//     top: 95px;
+//     line-height: 25px;
+//   }
+
+//   .after-startPopup-btn {
+//     button {
+//       width: 74px;
+//       height: 30px;
+//       color: #fff;
+//       background: #004684 0% 0% no-repeat padding-box;
+//       border-radius: 4px;
+//       border: none;
+//       position: relative;
+//       top: 140px;
+//       cursor: pointer;
+//     }
+//   }
+// }
+
+.form-error {
+  color: red;
+  font-size: 12px;
+  position: relative;
+  right: 15px;
+  bottom: 19px;
+  margin: -3px -2px;
+}
+
+.form-errorCheckbox {
+  color: red;
+  font-size: 12px;
+  position: relative;
+  bottom: 22px;
+}
+
+.form-errorNumber {
+  color: red;
+  font-size: 12px;
+  position: relative;
+  right: 15px;
+  bottom: 19px;
+}
+
+// Mobile Number verify Popup
+.verify-err {
+  color: red;
+  font-size: 12px;
+  position: relative;
+  right: 4px;
+  bottom: 16px;
+  left: 2px;
+}
+
+.resend {
+  .resend-verify {
+    text-align: end;
+    font-size: 13px;
+    color: #707070;
+    text-decoration: underline;
+    position: relative;
+    bottom: 10px;
+  }
+
+  .cusor {
+    cursor: pointer;
+    text-align: end;
+    font-size: 13px;
+    color: #707070;
+    text-decoration: underline;
+    position: relative;
+    bottom: 10px;
+  }
+}
+
+.popupbox {
+  .header-popup {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 15px;
+    border-bottom: 1px solid #aaaaaa;
+
+    .left {
+      span {
+        color: black;
+        font-weight: 500;
+        font-size: 16px;
+      }
+    }
+
+    .right {
+      cursor: pointer;
+      color: black;
+    }
+  }
+
+  .content {
+    padding: 11px 31px 0px 30px;
+    text-align: center;
+    font-size: 16px;
+    margin-top: 5%;
+    color: #707070;
+  }
+
+  .verifyinput {
+    // width: 100%;
+    // margin-top: 5%;
+    // margin-bottom: 10%;
+    width: 100%;
+    height: 170px;
+    padding: 22px 6px;
+    font-size: 18px;
+
+    .enterverifycode {
+      position: relative;
+      bottom: 4px;
+      font-size: 16px;
+    }
+
+    .right-candidateinputs-half {
+      width: 94%;
+      margin: 0px 20px 0px 20px;
+
+      span {
+        font-size: 14px;
+        font-weight: 400;
+        color: #000;
+        display: flex;
+
+        .error {
+          color: #c20000;
+          position: relative;
+          left: 4px;
+        }
+      }
+
+      small {
+        position: relative;
+        top: -15px;
+        float: right;
+        color: #707070;
+        font-size: 13px;
+      }
+    }
+  }
+
+  .footer-popup {
+    border-top: 1px solid #aaaaaa;
+
+    button {
+      cursor: pointer;
+      background-color: #004684;
+      color: #fff;
+      font-size: 14px;
+      float: right;
+      right: 15px;
+      top: 15px;
+      border-radius: 5px;
+      position: relative;
+      padding: 10px;
+      border: 1px solid #004684;
+    }
+  }
+}
+
+
+::ng-deep .jp-year-picker {
+  .mat-calendar-period-button {
+    pointer-events: none !important;
+  }
+}
+
+.submitDisable{
+  opacity: 0.5;
+  cursor: not-allowed !important;
+}

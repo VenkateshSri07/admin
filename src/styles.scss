@@ -1,0 +1,434 @@
+/* You can add global styles to this file, and also import other style files */
+
+@import 'app/scss/index';
+@import "../node_modules/ag-grid-community/dist/styles/ag-grid.css";
+@import "../node_modules/ag-grid-community/dist/styles/ag-theme-alpine.css";
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  min-height: 100%;
+}
+
+body {
+  height: 100vh;
+}
+
+body {
+  background-color: $uap-boulder;
+  // background-color: #ffffff;
+  font-family: $uap-roboto-condensed;
+  box-sizing: border-box;
+}
+
+.mat-mdc-dialog-container {
+  border-radius: 0px !important;
+  // padding: 0px !important;
+}
+
+.mat-drawer-container {
+  background-color: white;
+}
+
+// Loadershow
+.loading-container {
+  display: flex;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  // background-color: rgba(255, 255, 255, 0.83);
+  background: rgb(0, 0, 0, 0.2);
+  z-index: 9005;
+  justify-content: center;
+  align-items: center;
+}
+
+.lds-spinner {
+  color: official;
+  display: inline-block;
+  position: relative;
+  width: 80px;
+  height: 80px;
+}
+
+.lds-spinner div {
+  transform-origin: 40px 40px;
+  animation: lds-spinner 1.2s linear infinite;
+}
+
+.lds-spinner div:after {
+  content: " ";
+  display: block;
+  position: absolute;
+  top: 3px;
+  left: 37px;
+  width: 6px;
+  height: 18px;
+  border-radius: 20%;
+  background: rgb(0, 0, 0, 0.6);
+  // background: #fff;
+}
+
+.lds-spinner div:nth-child(1) {
+  transform: rotate(0deg);
+  animation-delay: -1.1s;
+}
+
+.lds-spinner div:nth-child(2) {
+  transform: rotate(30deg);
+  animation-delay: -1s;
+}
+
+.lds-spinner div:nth-child(3) {
+  transform: rotate(60deg);
+  animation-delay: -0.9s;
+}
+
+.lds-spinner div:nth-child(4) {
+  transform: rotate(90deg);
+  animation-delay: -0.8s;
+}
+
+.lds-spinner div:nth-child(5) {
+  transform: rotate(120deg);
+  animation-delay: -0.7s;
+}
+
+.lds-spinner div:nth-child(6) {
+  transform: rotate(150deg);
+  animation-delay: -0.6s;
+}
+
+.lds-spinner div:nth-child(7) {
+  transform: rotate(180deg);
+  animation-delay: -0.5s;
+}
+
+.lds-spinner div:nth-child(8) {
+  transform: rotate(210deg);
+  animation-delay: -0.4s;
+}
+
+.lds-spinner div:nth-child(9) {
+  transform: rotate(240deg);
+  animation-delay: -0.3s;
+}
+
+.lds-spinner div:nth-child(10) {
+  transform: rotate(270deg);
+  animation-delay: -0.2s;
+}
+
+.lds-spinner div:nth-child(11) {
+  transform: rotate(300deg);
+  animation-delay: -0.1s;
+}
+
+.lds-spinner div:nth-child(12) {
+  transform: rotate(330deg);
+  animation-delay: 0s;
+}
+
+@keyframes lds-spinner {
+  0% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+// Loader end
+.snackbar {
+  width: 692px;
+  height: 40px;
+  background-color: $uap-caper;
+  border-width: 1px;
+  border-style: solid;
+  border-color: $uap-nando;
+  font-family: $uap-roboto-condensed;
+  font-weight: 400;
+  font-size: 18px;
+  color: $uap-nando;
+  text-align: center;
+}
+
+.create-form__overflow {
+  height: calc(100vh - 130px);
+  // overflow: auto;
+  width: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.create-form__overflow::-webkit-scrollbar {
+  display: none;
+}
+
+.mat-mdc-checkbox {
+  font-family: $uap-roboto-condensed;
+}
+
+uap-login-page {
+  display: block;
+  height: 100%;
+}
+
+button.toast-close-button {
+  padding: 0;
+  cursor: pointer;
+  background: transparent;
+  border: 0;
+  line-height: 0;
+  display: flex;
+  align-items: center;
+  padding-top: 6px;
+}
+
+.toast-container * {
+  box-sizing: border-box;
+  font-size: 17px !important;
+  line-height: normal;
+}
+
+.toast-message {
+  word-wrap: break-word;
+  font-size: 17px !important;
+}
+
+
+
+
+// nz-select
+
+// Nz selet css
+.ant-select-selection {
+  width: 100% !important;
+  display: flex;
+  height: 100%;
+  align-items: center;
+}
+
+.ant-select-open {
+  .ant-select-selection {
+    border: solid 1px #000 !important;
+  }
+}
+
+.ant-select-open .ant-select-selection {
+  box-shadow: none;
+}
+
+.ant-select-selection__rendered {
+  overflow: hidden !important;
+  width: 100%;
+}
+
+.ant-select-selection-selected-value {
+  padding-right: 10px !important;
+}
+
+.anticon.ant-select-close-icon {
+  font-size: 16px;
+  margin-left: -0.25em;
+  color: $primary;
+}
+
+.ant-select-arrow {
+  position: absolute;
+}
+
+.anticon.ant-select-arrow-icon::after {
+  // .dropdown-toggle::after {
+  display: inline-block;
+  margin-left: 0.255em;
+  vertical-align: 0.255em;
+  content: "";
+  margin-top: 0.25em;
+  border-top: 0.5em solid;
+  border-right: 0.4em solid transparent;
+  border-bottom: 0;
+  border-left: 0.4em solid transparent;
+  color: $primary;
+  opacity: 0.9;
+}
+
+.ant-select-arrow-icon {
+  svg {
+    display: none !important;
+    visibility: hidden !important;
+  }
+}
+
+.ant-select-selection {
+  border: solid 0.8px #bebebe !important;
+  height: 41px !important;
+  padding: 4px 8px;
+  border-radius: 4px !important;
+}
+
+.ant-select-selection:hover,
+.ant-select-selection:focus,
+.ant-select-selection:active {
+  border: solid $primary-hover-color 1px !important;
+  border-radius: 0px !important;
+  z-index: 0 !important;
+  box-shadow: none !important;
+}
+
+nz-select.ng-invalid.ng-touched {
+  border: solid $primary-error-color 1px !important;
+
+  .ant-select-selection {
+    border: solid $primary-error-color 1px !important;
+  }
+}
+
+.ant-select-selection__placeholder,
+.ant-select-search__field__placeholder {
+  color: #a5a5a5 !important;
+  opacity: 0.9 !important;
+  font-size: 13px !important;
+  margin-top: -5px !important;
+}
+
+.ant-select-selection__rendered {
+  position: relative;
+  display: block;
+  margin-right: 0 !important;
+  margin-left: 0 !important;
+  line-height: 25px !important;
+}
+
+.ant-select-arrow {
+  right: 0 !important;
+  padding: 0 8px !important;
+}
+
+.ant-select-selection__clear {
+  right: 18px !important;
+  margin-top: -7px !important;
+}
+
+.anticon.ant-select-arrow-icon::after {
+  display: inline-block;
+  margin-left: 0.255em;
+  vertical-align: 0.255em;
+  content: "";
+  margin-top: 0.25em;
+  border-top: 0.5em solid;
+  border-right: 0.4em solid transparent;
+  border-bottom: 0;
+  border-left: 0.4em solid transparent;
+  color: #666666;
+  opacity: 0.9;
+  border: solid #a5a5a5 !important;
+  border-width: 0 1px 1px 0 !important;
+  display: inline-block !important;
+  padding: 3px !important;
+  transform: rotate(45deg) !important;
+  -webkit-transform: rotate(45deg) !important;
+  margin-top: 1px !important;
+}
+
+.ant-select-dropdown-menu-item:first-child,
+.ant-select-dropdown-menu-item:last-child {
+  border: none !important;
+  border-radius: 0px !important;
+}
+
+.ant-select-dropdown-menu-item:hover:not(.ant-select-dropdown-menu-item-disabled) {
+  background-color: #eaeaea !important;
+}
+
+.ant-select-dropdown-menu-item-active:not(.ant-select-dropdown-menu-item-disabled) {
+  background-color: rgb(211, 211, 211, 0.7) !important;
+}
+
+.ant-select-dropdown {
+  border: 1px solid #bebebe !important;
+}
+
+.ant-select-selection-selected-value {
+  padding-right: 16px !important;
+}
+
+
+
+// Angular v15 CSS 
+
+
+//common css for input , datepicker,dropdown,radio button
+.mat-mdc-text-field-wrapper {
+  height: 42px;
+}
+
+.mat-mdc-form-field-flex {
+  width: 100%;
+  height: 40px;
+}
+
+.mat-mdc-text-field-wrapper.mdc-text-field--outlined .mat-mdc-form-field-infix {
+  padding-top: 9px;
+  padding-bottom: 10px;
+  font-size: 13px;
+}
+
+.mat-mdc-select {
+  font-size: 13px;
+}
+
+.mat-mdc-select-value {
+  font-size: 13px;
+}
+
+.mat-mdc-option.mdc-list-item {
+  font-size: 13px;
+}
+
+.mdc-radio {
+  width: 17px;
+  height: 26px;
+}
+
+.mat-mdc-radio-button .mdc-radio .mdc-radio__native-control:enabled:checked+.mdc-radio__background .mdc-radio__outer-circle {
+  border-color: #205081 !important;
+}
+
+.mat-mdc-radio-button .mdc-radio .mdc-radio__native-control:enabled+.mdc-radio__background .mdc-radio__inner-circle {
+  border-color: #205081 !important;
+}
+
+.mdc-text-field--outlined .mdc-notched-outline .mdc-notched-outline__leading {
+  border-color: rgb(0 0 0 / 13%);
+}
+
+.mdc-text-field--outlined .mdc-notched-outline .mdc-notched-outline__trailing {
+  border-color: rgb(0 0 0 / 13%);
+}
+
+.mdc-text-field--outlined:not(.mdc-text-field--disabled) .mdc-notched-outline__notch {
+  border-color: rgb(0 0 0 / 13%);
+}
+
+.mat-mdc-dialog-container .mdc-dialog__surface {
+  overflow-x: hidden;
+}
+
+.mat-pseudo-checkbox-checked.mat-pseudo-checkbox-minimal::after,
+.mat-pseudo-checkbox-indeterminate.mat-pseudo-checkbox-minimal::after {
+  color: #255488 !important;
+}
+
+
+
+.mat-mdc-button[disabled] {
+  pointer-events: fill !important;
+}

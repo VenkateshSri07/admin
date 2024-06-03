@@ -1,0 +1,46 @@
+<div class="reports-wrapper">
+    <div class="">
+        <div class="d-flex">
+            <h2>
+                Questions Master For Video Assesments
+            </h2>
+            <button class="downloadtemplate" (click)="downloadTemplate()">Download template</button>
+        </div>
+        <div class="d-flex">
+
+            <h4 class="noteErr">** Note Difficulty level must be low, medium or high</h4>
+
+        </div>
+        <div class="border-box">
+            <ngx-file-drop dropZoneLabel="Drop files here" (onFileDrop)="fileDropped($event)" accept=".csv"
+                contentClassName="ngx-file-drop" [multiple]="false">
+                <ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector">
+                    <div class="upload" style="cursor: pointer;" (click)="openFileSelector()">
+                        <div class="btn"> Click to Browse </div>
+                        <div class="front"> Or </div>
+                        <div class="front"> Drag & Drop CSV File </div>
+                    </div>
+                </ng-template>
+            </ngx-file-drop>
+
+            <!-- <input type="file" accept=".csv" (change)="handleFileSelect($event)"> -->
+            <!-- <span class="exit-upload-mode__align" (click)="exitUploadMode()">Cancel</span> -->
+            <div *ngIf="showCsvFileInformation">
+                <p class="uploaded-heading">
+                    <b>Uploaded : </b> {{csvFileName}}
+                    <span><button class="delete-file-button__style" (click)="deleteCsvFile()">
+                            Delete
+                        </button></span>
+                </p>
+            </div>
+        </div>
+
+        <div class="btn-align" *ngIf="csvFileName">
+            <button class="submit" (click)="questionbulkUpload()">
+                Submit
+            </button>
+        </div>
+    </div>
+
+
+</div>

@@ -1,0 +1,599 @@
+<div class="create-form__overflow" *ngIf="batchDetails">
+  <div class="headlingSection">
+    <span class="heading">Schedule / Edit</span>
+  </div>
+  <div class="schedule-assessment-block">
+    <div class="schedule-assessment-block__align">
+      <!-- ************* Organization row **************** -->
+      <div class="row-wrapper">
+        <div class="overall-input-wrapper width-45">
+          <label>Organization
+          </label>
+          <input readonly class="input" [(ngModel)]="batchDetails?.attributes.orgName" type="text" />
+        </div>
+        <div class="overall-input-wrapper width-45">
+          <label>Assessment Code</label>
+          <input readonly class="input" [(ngModel)]="batchDetails?.attributes.assessmentCode" type="text" />
+        </div>
+        <ng-container [formGroup]="Edit_form_Validation">
+          <!-- <div class="overall-input-wrapper width-17"> -->
+            <!-- <label>Browser Tolerance Count <span> *</span></label>
+            <input [disabled]="batchDetails.attributes.status=='InProgress'" required class="input edit"
+              placeholder="Enter the browser tolerance" formControlName="browserTolerance"> -->
+            <div class="form-error" *ngIf="BrowserTolerance?.invalid && BrowserTolerance?.touched">
+              <div *ngIf="BrowserTolerance?.errors?.required">Browser Tolerance is Required</div>
+              <div *ngIf="BrowserTolerance?.errors?.numberOnly">Numericals only allowed
+              </div>
+              <div *ngIf="BrowserTolerance?.errors?.twoDigit">Enter between 1 to 99
+              </div>
+            </div>
+          <!-- </div> -->
+        </ng-container>
+      </div>
+      <!-- **************** Batch Id row ********************* -->
+      <div class="row-wrapper">
+        <div class="overall-input-wrapper width-45">
+          <label>Schedule Name</label>
+          <input class="input" [(ngModel)]="batchDetails?.attributes.batchName" readonly>
+        </div>
+        <ng-container [formGroup]="Edit_form_Validation">
+
+          <!-- <div class="overall-input-wrapper width-17"> -->
+            <!-- <label>Ideal Time Capture (Mins) <span> *</span></label>
+            <input [disabled]="true" required class="input edit" formControlName="idealTimeCapture"
+              placeholder="Enter the ideal time capture"> -->
+            <div class="form-error" *ngIf="IdealTimeCapture?.invalid && IdealTimeCapture?.touched">
+              <div *ngIf="IdealTimeCapture?.errors?.required">Ideal Time Capture is Required</div>
+              <!-- <div *ngIf="batchname?.errors?.alphaWithDots">Schedule name not valid</div> -->
+              <div *ngIf="IdealTimeCapture?.errors?.numberOnly">Numericals only allowed
+              </div>
+              <div *ngIf="IdealTimeCapture?.errors?.twoDigit">Enter between 1 to 99
+              </div>
+
+            </div>
+          <!-- </div> -->
+          <!-- <div class="overall-input-wrapper width-17"> -->
+            <!-- <label>Popup Duration (Sec)<span> *</span></label> -->
+            <!-- <input [nzDisabled]="batchDetails.attributes.status=='InProgress'" matInput class="input edit"
+              formControlName="idealTimePopupDuration" type="text" placeholder="Enter the Popup Duration" /> -->
+            <div class="form-error" *ngIf="idealTimePopupDuration?.invalid && idealTimePopupDuration?.touched">
+              <div *ngIf="idealTimePopupDuration?.errors?.required">Popup Duration is Required</div>
+              <div *ngIf="idealTimePopupDuration?.errors?.numberOnly">Numericals only allowed
+              </div>
+              <div *ngIf="idealTimePopupDuration?.errors?.threeDigit">Enter between 1 to 999
+              </div>
+            </div>
+          <!-- </div> -->
+        </ng-container>
+      </div>
+
+      <!-- ************** Assessment name ******************* -->
+      <div class="row-wrapper">
+        <div class="overall-input-wrapper width-100">
+          <label>Description</label>
+          <input class="input" readonly cols="62" rows="4" [(ngModel)]="batchDetails?.attributes.description">
+        </div>
+      </div>
+
+      <!-- ********************* Display General Instructions ************************* -->
+
+      <div class="row-wrapper">
+        <div class="overall-input-wrapper width-100">
+          <label>Display General Instructions </label>
+          <div class="radio-btn-alignment">
+            <mat-radio-group [disabled]="batchDetails.attributes.status=='InProgress'" class="radiogroup"
+              aria-label="Select an option"
+              [(ngModel)]="instructionsValue ? instructionsValue : batchDetails?.attributes.instructionFlag"
+              (change)="displayGeneral($event)">
+              <mat-radio-button [value]="1">Yes</mat-radio-button>
+              <mat-radio-button class="radioLeft" [value]="0">No</mat-radio-button>
+            </mat-radio-group>
+
+            <button
+              *ngIf="checkValidationforbutton == 1 && showEditButton == true && batchDetails.attributes.status !='InProgress'"
+              class="btn-sub" type="submit" mat-button (click)="addDisplayInstructionsvisible()"
+              [disabled]="instructionsValue != 1 ? true : false ">
+              <span> Edit Instructions</span> <mat-icon class="visibility-icon-view">assignment</mat-icon> </button>
+
+            <button
+              *ngIf="checkValidationforbutton == 0 && showEditButton == false && batchDetails.attributes.status !='InProgress'"
+              class="btn-sub" type="submit" mat-button (click)="addDisplayInstructions()"
+              [disabled]="instructionsValue != 1 ? true : false">
+              <span> Add Instructions</span> <mat-icon class="visibility-icon-view">assignment</mat-icon> </button>
+
+            <button *ngIf="batchDetails.attributes.status=='InProgress'" class="btn-sub" type="submit" mat-button
+              (click)="addDisplayInstructions()" [disabled]="checkValidationforbutton != 1 ? true : false ">
+              <span> View Instructions</span> <mat-icon class="visibility-icon-view">assignment</mat-icon> </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ************ Prfile form to use ********************** -->
+      <div class="row-wrapper">
+        <div class="overall-input-wrapper width-45">
+          <label>Profile / Form to use </label>
+          <input class="input" [(ngModel)]="candidateFormname==null? 'None' : candidateFormname" readonly>
+        </div>
+      </div>
+
+
+      <!-- *************** Assessment name ******************** -->
+      <div class="row-wrapper">
+        <div class="overall-input-wrapper width-100">
+          <label>Assessment Name
+          </label>
+          <input readonly class="input" [(ngModel)]="batchDetails?.attributes.packageTemplateName" type="text" />
+        </div>
+      </div>
+
+
+      <!-- *************** Assessment flow ******************** -->
+      <div class="row-wrapper">
+        <div class="overall-input-wrapper width-100">
+          <label>Assessment Flow
+          </label>
+          <div class="radio-btn-alignment marginTop-1">
+            <mat-radio-group class="radiogroup" [(ngModel)]="batchDetails?.attributes.assessmentFlow"
+              aria-label="Select an option">
+              <mat-radio-button value="parallel" [disabled]="true">Parallel Flow</mat-radio-button> &nbsp; &nbsp; &nbsp;
+              <mat-radio-button class="radioLeft" value="sequential" [disabled]="true">Sequential
+                Flow</mat-radio-button>
+            </mat-radio-group>
+          </div>
+        </div>
+      </div>
+
+      <!-- ********************* Test Details Parallel Flow ************************ -->
+      <div class="row-wrapper" *ngIf="assessmentFlow == 'parallel'">
+        <div class="overall-input-wrapper width-100">
+          <div class="align">
+            <div class="testdetails">Test Details</div>
+            <div class="duration">
+              <span>Total Duration &nbsp;</span>
+              <span>:&nbsp;{{getDuration(candidatedetailsbyid?.totalDuration)}}</span>
+            </div>
+          </div>
+          <table class="schedule-table">
+            <tr class="schedule-table-tr">
+              <th class="width-5">S.NO</th>
+              <th class="schedule-table-th">Test Name</th>
+              <th class="schedule-table-duration">Duration</th>
+              <th class="schedule-table-duration">Schedule On</th>
+              <th class="schedule-table-duration">Schedule End</th>
+            </tr>
+            <tbody>
+              <tr class="schedule-table-body" *ngFor="let item of candidatelistbyid;let i= index">
+                <td>{{i+1}}</td>
+                <td>{{item.name}}
+                  <div class="type">{{item.type}}</div>
+                </td>
+                <td>{{getDuration(item.duration)}}</td>
+
+                <td><nz-date-picker [nzDisabledDate]="disabledDate" [(ngModel)]="scheduleStartDate"
+                    [nzDisabled]="batchDetails.attributes.status=='InProgress' || i > 0"
+                    [nzShowTime]="{ nzFormat: 'HH:mm'}" nzFormat="dd-MM-yyyy HH:mm"
+                    (ngModelChange)="onDateChanged($event)" (nzOnOk)="onOkStartDateAndTime($event)"></nz-date-picker>
+                </td>
+                <td><nz-date-picker [nzDisabledDate]="disabledDate" [(ngModel)]="scheduleEndDate" [nzDisabled]="i > 0"
+                    [nzShowTime]="{ nzFormat: 'HH:mm'}" nzFormat="dd-MM-yyyy HH:mm"
+                    (ngModelChange)="onEndDateChanged($event)" (nzOnOk)="onOkEndDateAndTime($event)"></nz-date-picker>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- *********************** Test Details Sequention Flow ******************** -->
+      <div class="row-wrapper" *ngIf="assessmentFlowSequen == 'sequential' ">
+        <div class="overall-input-wrapper width-100">
+          <div class="align">
+            <div class="testdetails">Test Details</div>
+            <div class="duration">
+              <span>Total Duration &nbsp;</span>
+              <span>:&nbsp;{{getDuration(candidatedetailsbyid?.totalDuration)}}</span>
+            </div>
+          </div>
+
+          <table class="schedule-table">
+            <tr class="schedule-table-tr">
+              <th class="width-5">S.No</th>
+              <th class="schedule-table-th">Test Name</th>
+              <th class="schedule-table-duration">Duration</th>
+              <th class="schedule-table-duration width-24">Schedule Starts On</th>
+              <th class="schedule-table-duration">Start Duration</th>
+              <th class="schedule-table-duration">Break Time After Test</th>
+              <th class="width-10"
+                *ngIf="batchDetails?.attributes?.status == 'YetToStart' || batchDetails?.attributes?.status === 'InProgress'">
+                Action</th>
+            </tr>
+
+            <ng-container [formGroup]="criteriaForm">
+
+              <ng-container [formArrayName]="form_criteriaArray">
+
+                <tr *ngFor="let item of candidatelistbyid;let i= index;" class="schedule-table-body">
+                  <td class="width-5">{{i+1}}</td>
+                  <td>{{item.taskName}}
+                    <div class="type">{{item.type}}</div>
+                  </td>
+                  <td>{{getDuration(item.duration)}}</td>
+
+                  <ng-container [formGroupName]="i">
+                    <td>
+                      <!-- <nz-date-picker name="Time"  *ngIf="disabledatepicker1"
+                        (ngModelChange)="onSequentialStartDateChange($event,i)" [nzShowTime]="{ nzFormat: 'HH:mm'}"
+                        [formControlName]="form_cri_startTime" nzPlaceHolder="Select date & time"
+                        [ngClass]="i != 0 && candidatelistbyid && candidatelistbyid[i - 1].breakTime >= 0  ? 'clearvalue' : '' "
+                        nzFormat="dd-MM-yyyy HH:mm">
+                      </nz-date-picker>
+
+                      <nz-date-picker name="Time" [nzDisabledDate]="disabledDate" *ngIf="disabledatepicker2"
+                        [nzDisabled]="(!testTimeCheck)? true: (status == 'InProgress' && i==0 ) ? true :  getsequentialArr?.controls[i - 1]?.get('breakTime').value"
+                        (ngModelChange)="onSequentialStartDateChange($event,i)" [nzShowTime]="{ nzFormat: 'HH:mm'}"
+                        [formControlName]="form_cri_startTime" nzPlaceHolder="Select date & time"
+                        nzFormat="dd-MM-yyyy HH:mm">
+                      </nz-date-picker> -->
+                      <!-- View -->
+
+                      <!-- <nz-date-picker *ngIf="disabledatepicker2" name="Time"
+                [formControlName]="form_cri_startTime" nzPlaceHolder="Select date & time"
+                [nzDisabled]="i" nzFormat="dd-MM-yyyy HH:mm" [nzShowTime]="{ nzFormat: 'HH:mm'}"
+                [ngClass]="i != 0 && candidatelistbyid && candidatelistbyid[i - 1].breakTime != null  ? 'clearvalue' : ''">
+              </nz-date-picker> -->
+
+                      <!-- Edit -->
+                      <nz-date-picker name="Time" [nzDisabledDate]="disabledDate" *ngIf="!disabledCss"
+                        [nzDisabled]="(!testTimeCheck)? true: (status == 'InProgress' && i==0 ) ? true : getsequentialArr?.controls[i - 1]?.get('breakTime').value?true:false"
+                        (ngModelChange)="onSequentialStartDateChange($event,i)" [nzShowTime]="{ nzFormat: 'HH:mm'}"
+                        [formControlName]="form_cri_startTime" nzPlaceHolder="Select date & time"
+                        [ngClass]="i != 0 && getsequentialArr?.controls[i - 1]?.get('breakTime').value > 0 ? 'clearvalue' : '' "
+                        nzFormat="dd-MM-yyyy HH:mm">
+                      </nz-date-picker>
+
+                      <nz-date-picker name="Time" *ngIf="disabledCss"
+                        [nzDisabled]="i != 0 && getsequentialArr?.controls[i - 1]?.get('breakTime').value"
+                        [formControlName]="form_cri_startTime" nzPlaceHolder="Select date & time"
+                        [ngClass]="i != 0 && getsequentialArr?.controls[i - 1]?.get('breakTime').value >= 0 ? 'clearvalue' : '' "
+                        nzFormat="dd-MM-yyyy HH:mm">
+                      </nz-date-picker>
+
+
+                      <!-- <nz-date-picker *ngIf="(status == 'InProgress') != disabledatepicker1" name="Time" [formControlName]="form_cri_startTime" nzPlaceHolder="Select date & time"
+                 [nzDisabled]="!testTimeCheck" [nzDisabledDate]="disabledDate"
+                [nzDisabled]="i==0 && getsequentialArr?.controls[i - 1]?.get('breakTime').value" nzFormat="dd-MM-yyyy HH:mm" [nzShowTime]="{ nzFormat: 'HH:mm'}"
+                [ngClass]="getsequentialArr?.controls[i - 1]?.get('breakTime').value > 0  ? 'clearvalue' : '' ">
+              </nz-date-picker> -->
+
+
+
+                      <!-- inporgress -->
+                      <!-- <nz-date-picker name="Time"  *ngIf="(status == 'InProgress') == disableinprogressdatepicker"
+              [nzDisabled]="(!testTimeCheck)? true: (status == 'InProgress' && i==0 ) ? true :  getsequentialArr?.controls[i - 1]?.get('breakTime').value"
+              (ngModelChange)="onSequentialStartDateChange($event,i)" [nzShowTime]="{ nzFormat: 'HH:mm'}"
+              [formControlName]="form_cri_startTime" nzPlaceHolder="Select date & time"
+              nzFormat="dd-MM-yyyy HH:mm"
+              [ngClass]="i != 0 && candidatelistbyid && candidatelistbyid[i - 1].breakTime > 0  ? 'clearvalue' : '' ">
+            </nz-date-picker> -->
+
+                      <div class="error-align">
+                        <div class="form-error"
+                          *ngIf="getsequentialArr?.controls[i]?.get(form_cri_startTime)?.invalid && getsequentialArr?.controls[i]?.get(form_cri_startTime)?.touched">
+                          <div *ngIf="getsequentialArr?.controls[i]?.get(form_cri_startTime)?.errors?.required">
+                            Schedule
+                            Starts on is required</div>
+                        </div>
+                      </div>
+                    </td>
+
+                    <!-- 	Start Duration -->
+                    <td class="minsBtn">
+                      <nz-input-group nzSearch [nzAddOnAfter]="suffixButton">
+                        <input [ngClass]="!testTimeCheck ? 'disabledMins' : ''" [disabled]="!testTimeCheck"
+                          [disabled]="!testTimeCheck" [readOnly]="!testTimeCheck" name="Duration" type="text" nz-input
+                          placeholder="Enter duration" [formControlName]="form_cri_startDuration"
+                          (keyup)="startDuration($event,i,getsequentialArr?.controls?.length,!testTimeCheck)">
+                      </nz-input-group>
+                      <ng-template #suffixButton>
+                        <button nz-button>Mins</button>
+                      </ng-template>
+                      <div class="error-align">
+                        <div class="form-error"
+                          *ngIf="getsequentialArr?.controls[i]?.get(form_cri_startDuration)?.invalid && getsequentialArr?.controls[i]?.get(form_cri_startDuration)?.touched">
+                          <div *ngIf="getsequentialArr?.controls[i]?.get(form_cri_startDuration)?.errors?.required">
+                            Start
+                            Duration is required</div>
+                          <div *ngIf="getsequentialArr.controls[i].get(form_cri_startDuration).errors?.numberOnly">
+                            Numericals only allowed</div>
+                          <div *ngIf="getsequentialArr.controls[i].get(form_cri_startDuration).errors?.maxlength">
+                            Maximum 6 digits values allowed</div>
+                        </div>
+                      </div>
+                    </td>
+                    <!-- Break Time After Test -->
+
+                    <td class="minsBtn">
+                      <nz-input-group nzSearch [nzAddOnAfter]="suffixButton">
+                        <input [ngClass]="!testTimeCheck ? 'disabledMins' : ''" [disabled]="!testTimeCheck"
+                          [readOnly]="!testTimeCheck" name="break" type="number" nz-input placeholder="Enter duration"
+                          [formControlName]="form_cri_breakTime" (keyup)="breakTime($event,i,!testTimeCheck)" />
+                      </nz-input-group>
+                      <ng-template #suffixButton>
+                        <button nz-button>Mins</button>
+                      </ng-template>
+                      <div class="error-align">
+                        <div class="form-error"
+                          *ngIf="getsequentialArr?.controls[i]?.get(form_cri_breakTime)?.invalid && getsequentialArr?.controls[i]?.get(form_cri_startDuration)?.touched">
+                          <div *ngIf="getsequentialArr.controls[i].get(form_cri_breakTime).errors?.numberOnly">
+                            Numericals only allowed</div>
+                          <div *ngIf="getsequentialArr.controls[i].get(form_cri_breakTime).errors?.maxlength">
+                            Maximum 3 digits values allowed</div>
+                        </div>
+                      </div>
+                    </td>
+                  </ng-container>
+
+                  <td *ngIf="batchDetails?.attributes?.status == 'YetToStart' " class="addcriteria">
+                    <span (click)="editCriteria(item,i,getsequentialArr.controls,'edits')"
+                      *ngIf="!getsequentialArr?.controls[i]?.value?.criteriaDet[getsequentialArr?.controls[i]?.value?.criteriaDet?.length - 1]?.criteriaDet?.length > 0">
+                      <u>Edit Criteria</u>
+                    </span>
+
+                    <div (click)="editCriteria(item,i,getsequentialArr.controls,'editView')"
+                      *ngIf="getsequentialArr?.controls[i]?.value?.criteriaDet[getsequentialArr?.controls[i]?.value?.criteriaDet?.length - 1]?.criteriaDet?.length > 0">
+                      <div class="showcount">
+                        {{getsequentialArr?.controls[i]?.value?.criteriaDet[getsequentialArr?.controls[i]?.value?.criteriaDet?.length
+                        - 1]?.criteriaDet?.length}} Criteria added
+                      </div>
+                      <div class="viewCriteria">View Criteria</div>
+                    </div>
+                  </td>
+                  <td class="addcriteria" *ngIf="batchDetails?.attributes?.status === 'InProgress' "
+                    (click)="editCriteria(item,i,getsequentialArr.controls,'editViewInProgress')">
+                    View Criteria
+                  </td>
+                </tr>
+              </ng-container>
+            </ng-container>
+          </table>
+          <div class="createandcacelbtn align-right">
+            <div class="test-btns">
+              <button class="exit-button" [disabled]="batchDetails?.attributes?.editable == false"
+                (click)="clearScheduleDetails()">
+                Edit
+              </button>
+              <button *ngIf="testTimeCheck" [disabled]="!getsequentialArr.valid" (click)="checkFinalDateTime()"
+                class="header-block__button width-170">
+                <span>Check</span>
+              </button>
+              <button class="header-block__button width-170 successone" *ngIf="!testTimeCheck">
+                <span>Check Complete</span> <mat-icon class=" checkIcon"
+                  *ngIf="testTimeCheck == false">verified</mat-icon>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- ***************** Assessment Feedback Form *************************** -->
+      <div class="row-wrapper margintop2">
+        <div class="overall-input-wrapper width-45">
+          <label>Assessment Feedback Form</label>
+          <input [(ngModel)]="getFeedbackname==null? 'None' : getFeedbackname" readonly class="input" type="text" />
+        </div>
+      </div>
+
+      <!-- ******************** Campus Drive Name *********************** -->
+      <div class="row-wrapper">
+        <div class="overall-input-wrapper width-45">
+          <label>Campus Drive Name</label>
+          <input [(ngModel)]="campusDriveName==null? 'None' : campusDriveName" readonly class="input" type="text" />
+        </div>
+
+        <div class="overall-input-wrapper width-45 margin-10">
+          <label>Campus Drive Id <span></span></label>
+          <input readonly
+            [(ngModel)]="batchDetails?.attributes.campusDriveId==null?  'None': batchDetails?.attributes.campusDriveId"
+            type="text" class="input" />
+        </div>
+      </div>
+      <!-- ********************** Upload Candidate Details ************************* -->
+      <div class="row-wrapper margintop2">
+        <div class="overall-input-wrapper width-45">
+          <div class="align">
+            <div class="testdetails">Upload Candidates Details</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- *********************** Bulk Upload ********************* -->
+      <div class="row-wrapper">
+        <div class="overall-input-wrapper width-100">
+          <div class="d-grid">
+            <div class="width-28">
+              <label>Choose the Template </label>
+              <input class="mat-dropdown" readonly class="input" [value]="chooseName" />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!--  ************** Candidate Upload Counts  ***********************-->
+      <div>
+        <p class="candidateFount">
+          <img src="/assets/images/upload-users.svg" alt="" class="candidatecount-img">
+          {{batchDetails?.attributes.candidatesCount}} Candidates uploaded
+        </p>
+      </div>
+
+      <!-- ***************** Result Notification for Successs ************************* -->
+      <ng-container [formGroup]="Edit_form_Validation" *ngIf="assessmentFlow == 'sequential'">
+        <!-- <div class="row-wrapper" *ngIf="reultShowValue">
+          <div class="overall-input-wrapper width-45">
+            <label>Email Notification For Success Candidate<span> *</span></label>
+            <div class="radio-btn-alignment marginTop-1">
+              <mat-radio-group (change)="resultNotifySuccessChange($event)" formControlName="resultNotifySuccess"
+                aria-label="Select an option" class="alignment">
+                <mat-radio-button [value]="1">Yes</mat-radio-button>
+                <mat-radio-button class="radioLeft" [value]="0">No</mat-radio-button>
+              </mat-radio-group>
+            </div>
+          </div>
+          <div class="overall-input-wrapper width-45"
+            *ngIf="Edit_form_Validation.get('resultNotifySuccess')?.value == '1'">
+            <label>Choose Template<span *ngIf="Edit_form_Validation.get('resultNotifySuccess')?.value == '1'">
+                *</span></label>
+            <nz-select formControlName="resultNotifySuccessTemplate" nzSize="large" [id]="'resultNotifySuccessTemplate'"
+              class="input select" nzShowSearch >
+              <nz-option *ngFor="let successTemp of resultData?.successCandidates" [nzLabel]="successTemp.name"
+                [nzValue]="successTemp.value">
+              </nz-option>
+            </nz-select>
+            <div class="form-error"
+              *ngIf="resultNotifySuccessTemplate?.invalid && resultNotifySuccessTemplate?.touched">
+              <div *ngIf="resultNotifySuccessTemplate?.errors?.required">Choose template is required</div>
+            </div>
+          </div>
+        </div> -->
+
+        <!-- ***************** Result Notification for Failure ************************* -->
+        <div class="row-wrapper" *ngIf="reultShowValue">
+          <div class="overall-input-wrapper width-45">
+            <label>Email Notification For Failure Candidate<span> *</span></label>
+            <div class="radio-btn-alignment marginTop-1">
+              <mat-radio-group (change)="resultNotifyFailureChange($event)" formControlName="resultNotifyFailure"
+                aria-label="Select an option" class="alignment">
+                <mat-radio-button [value]="1">Yes</mat-radio-button>
+                <mat-radio-button class="radioLeft" [value]="0">No</mat-radio-button>
+              </mat-radio-group>
+            </div>
+          </div>
+
+          <div class="overall-input-wrapper width-45"
+            *ngIf="Edit_form_Validation.get('resultNotifyFailure')?.value == '1'">
+            <label>Choose Template<span *ngIf="Edit_form_Validation.get('resultNotifyFailure')?.value == '1'">
+                *</span></label>
+            <nz-select formControlName="resultNotifyFailureTemplate" nzSize="large" class="input select" nzShowSearch
+              [id]="'resultNotifyFailureTemplate'" nzShowSearch nzPlaceHolder="<--Select-->">
+              <nz-option *ngFor="let resultfailures of resultData?.failureCandidates" [nzLabel]="resultfailures.name"
+                [nzValue]="resultfailures.value"></nz-option>
+            </nz-select>
+            <div class="form-error"
+              *ngIf="resultNotifyFailureTemplate?.invalid && resultNotifyFailureTemplate?.touched">
+              <div *ngIf="resultNotifyFailureTemplate?.errors?.required">Choose template is required</div>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+
+      <!-- ****************** Is proctor check *********************** -->
+      <div class="row-wrapper">
+        <div class="overall-input-wrapper width-45">
+          <label>Proctor Check</label>
+          <div class="radio-btn-alignment marginTop-1">
+            <mat-radio-group (change)="isproctorChange($event)" [(ngModel)]="batchDetails?.attributes.is_proctor"
+              aria-label="Select an option">
+              <mat-radio-button [value]="1">Yes</mat-radio-button>
+              <mat-radio-button class="radioLeft" [value]="0">No</mat-radio-button>
+            </mat-radio-group>
+          </div>
+        </div>
+
+        <div class="overall-input-wrapper width-45"
+          *ngIf="batchDetails?.attributes.is_proctor == '1' && batchDetails?.attributes.is_proctor == 1">
+          <label>Choose Template</label>
+          <nz-select nzSize="large" [id]="'templateId'" [(ngModel)]="proctor_tempName"
+            (ngModelChange)="selectTemplate($event, proctorTemplateList)" nzAllowClear nzShowSearch
+            nzPlaceHolder="<--Select-->">
+            <nz-option *ngFor="let template of proctorTemplateList" [nzLabel]="template.tempname"
+              [nzValue]="template.tempname"></nz-option>
+          </nz-select>
+        </div>
+      </div>
+      <!-- ****************** Is Public check *********************** -->
+      <div class="row-wrapper">
+        <div class="overall-input-wrapper width-45">
+          <label>Publish Result</label>
+          <div class="radio-btn-alignment marginTop-1">
+            <mat-radio-group [(ngModel)]="batchDetails?.attributes.is_published" (change)="ispublishChange($event)"
+              aria-label=" Select an option" class="alignment">
+              <mat-radio-button [value]="1">Yes</mat-radio-button>
+              <mat-radio-button class="radioLeft" [value]="0">No</mat-radio-button>
+            </mat-radio-group>
+          </div>
+        </div>
+        <div class="overall-input-wrapper  width-45" *ngIf="is_published">
+          <label>Publish On</label>
+          <div class="date-relative">
+            <nz-date-picker nzSize="large" [nzShowTime]="{ nzFormat: 'HH:mm'}" [(ngModel)]="publishDate" nzShowTime
+              nzFormat="dd-MM-yyyy HH:mm" (dateChange)="onpublishDateChanged($event)"></nz-date-picker>
+          </div>
+        </div>
+      </div>
+      <!-- ******************** Attempt Restrict ********************* -->
+      <!-- <ng-container [formGroup]="Edit_form_Validation">
+        <div class="row-wrapper">
+          <div class="overall-input-wrapper width-45">
+            <label>Attempt Restrict<span> *</span></label>
+            <div class="radio-btn-alignment marginTop-1">
+              <mat-radio-group formControlName="attemptRestrict" (change)="attemptRestructChange($event)"
+                aria-label="Select an option" class="alignment">
+                <mat-radio-button [value]="1">Yes</mat-radio-button>
+                <mat-radio-button class="radioLeft" [value]="0">No</mat-radio-button>
+              </mat-radio-group>
+            </div>
+          </div>
+          <div class="overall-input-wrapper width-45" *ngIf="Edit_form_Validation.get('attemptRestrict')?.value == '1'">
+            <label>Number of attempt<span *ngIf="Edit_form_Validation.get('attemptRestrict')?.value == '1'">
+                *</span></label>
+            <nz-input-number [nzDisabled]="batchDetails.attributes.status=='InProgress'"
+              formControlName="numberOfattempt" class="inputLogin" [nzMin]="1" [nzStep]="1"></nz-input-number>
+            <div class="form-error" *ngIf="numberOfattempt?.invalid && numberOfattempt?.touched">
+              <div *ngIf="numberOfattempt?.errors?.required">Number of attempt is required</div>
+              <div *ngIf="numberOfattempt?.errors?.twoDigit">Enter between 1 to 99</div>
+            </div>
+          </div>
+        </div> -->
+
+
+        <!-- *********************** Activity Time Restrict ********************* -->
+        <!-- <div class="row-wrapper">
+          <div class="overall-input-wrapper width-45">
+            <label>Activity Time Restrict<span> *</span></label>
+            <div class="radio-btn-alignment marginTop-1">
+              <mat-radio-group [disabled]="batchDetails.attributes.status=='InProgress'"
+                formControlName="activityTimeRestrict" (change)="activityTimeChange($event)"
+                aria-label="Select an option" class="alignment">
+                <mat-radio-button [value]="1">Yes</mat-radio-button>
+                <mat-radio-button class="radioLeft" [value]="0">No</mat-radio-button>
+              </mat-radio-group>
+            </div>
+          </div>
+          <div class="overall-input-wrapper width-45"
+            *ngIf="Edit_form_Validation.get('activityTimeRestrict')?.value == '1'">
+            <label>Duration (Mins)<span *ngIf="Edit_form_Validation.get('activityTimeRestrict')?.value == '1'">
+                *</span></label>
+            <nz-input-number [nzDisabled]="batchDetails.attributes.status=='InProgress'"
+              formControlName="activityTimeDuration" class="inputLogin" [nzMin]="1" [nzStep]="1"></nz-input-number>
+            <div class="form-error" *ngIf="activityTimeDuration?.invalid && activityTimeDuration?.touched">
+              <div *ngIf="activityTimeDuration?.errors?.required">Duration is required</div>
+              <div *ngIf="activityTimeDuration?.errors?.twoDigit">Enter between 1 to 99</div>
+            </div>
+          </div>
+        </div>
+      </ng-container> -->
+
+
+      <!-- **************** Edit Schedule Button ********************* -->
+      <div class="createandcacelbtn">
+        <div class="align-btns">
+          <button class="exit-buttonn" routerLink="/admin/schedule/list">
+            Cancel
+          </button>
+          <button class="header-btn disbtn" [disabled]="isUpdateEnable" (click)="checkValidation()">
+            Update Schedule
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

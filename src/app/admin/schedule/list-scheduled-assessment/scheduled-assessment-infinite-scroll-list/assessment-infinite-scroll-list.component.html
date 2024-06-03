@@ -1,0 +1,203 @@
+<div class="main-panel-schedule-assessment" id="scroll">
+    <div infinite-scroll [infiniteScrollDistance]="1" [infiniteScrollThrottle]="50" (scrolled)="onScroll()"
+        [infiniteScrollContainer]="selector" [fromRoot]="true">
+        <ng-container *ngIf="scheduledTemplates && scheduledTemplates.length > 0; else nodata"></ng-container>
+        <ng-container *ngFor="let scheduledTemplate of scheduledTemplates; let index = index">
+            <div matTooltip="Parallel Flow" *ngIf="scheduledTemplate?.attributes?.assessmentFlow == 'parallel'"
+                class="flowbag">
+                <img alt="" src="../../../../../assets/images/parelle.svg" />
+            </div>
+            <div matTooltip="Sequential Flow" *ngIf="scheduledTemplate?.attributes?.assessmentFlow == 'sequential'"
+                class="flowbag">
+                <img alt="" src="../../../../../assets/images/Sequential.svg" />
+            </div>
+
+            <div class="sheduletable">
+                <table>
+                    <thead>
+                        <th style="width:17%;">Organisation Name</th>
+                        <th style="width: 17%;">Schedule Name</th>
+                        <th style="width:16%">Assessment Name</th>
+                        <th>Assessment Code</th>
+                        <th>Assessment Date</th>
+                        <th>Is Email Sent?</th>
+                        <th>Assessment Status</th>
+                    </thead>
+                    <tbody>
+                        <td valign="top">
+                            <div class="batch-id">
+                                <span class="first-child">
+                                    {{ scheduledTemplate.attributes.orgName }}
+                                </span>
+                                <span class="last-child"
+                                    *ngIf="scheduledTemplate.attributes.isTao === 1 && scheduledTemplate.attributes.deliverySyncStatus =='pending' "
+                                    (click)="deliverableStatus(scheduledTemplate,index)"><mat-icon
+                                        class="ic">refresh</mat-icon><u>Create
+                                        Delivery</u> </span>
+                                <div class="inprogresgrid"
+                                    *ngIf="scheduledTemplate.attributes.isTao === 1 && scheduledTemplate.attributes.deliverySyncStatus =='inprogress'">
+                                    <div class="inprogress">
+                                    </div>
+                                    <span class="small-text2">Inprogress</span>
+                                    <nz-progress [nzPercent]="progressBarvalue" nzType="circle" nzSize="small"
+                                        [nzWidth]="35" [nzStrokeWidth]="13"> </nz-progress>
+                                    <span (click)="syncStatus(scheduledTemplate)"><u><mat-icon
+                                                class="syncInfoinProgress"
+                                                matTooltip="Delivery Details">error</mat-icon></u></span>
+                                </div>
+
+                                <div class="checksuccess"
+                                    *ngIf="scheduledTemplate.attributes.isTao === 1 && scheduledTemplate.attributes.deliverySyncStatus =='completed' ">
+                                    <mat-icon class="checkic">check_circle</mat-icon>Created
+                                    <span (click)="syncStatus(scheduledTemplate)"><u><mat-icon class="syncInfo"
+                                                matTooltip="Delivery Details">error</mat-icon></u></span>
+                                </div>
+                                <div class="checksuccess"
+                                    *ngIf="scheduledTemplate.attributes.isTao === 1 && (scheduledTemplate.attributes.deliverySyncStatus =='terminated' || scheduledTemplate.attributes.deliverySyncStatus == 'failed') ">
+                                    <mat-icon class="checkerror">warning</mat-icon><span
+                                        style="color: #b56b5e;">{{scheduledTemplate.attributes.deliverySyncStatus ==
+                                        'terminated' ?
+                                        'Terminated' : 'Failed'}} </span>
+                                    <span (click)="syncStatus(scheduledTemplate)"><u><mat-icon class="syncInfo"
+                                                matTooltip="Delivery Details">error</mat-icon></u></span>
+                                </div>
+
+                            </div>
+                        </td>
+                        <td valign="top">
+                            <div class="assessment">
+                                <span> {{ scheduledTemplate.attributes.batchName }}</span>
+                            </div>
+                        </td>
+                        <td valign="top">
+                            <div class="assessmentcode">
+                                <span> {{ scheduledTemplate.attributes.packageTemplateName }}</span>
+                            </div>
+                        </td>
+                        <td valign="top">{{ scheduledTemplate.attributes.assessmentCode }}</td>
+                        <td valign="top" style="display: flex;">
+                            <span style="position: relative;right: 5px;"><img alt=""
+                                    src="../../../../../assets/calendar-ic.svg"></span>
+                            <div class="scheduled">
+                                <span>
+                                    {{scheduleUtil.getScheduledOn(scheduledTemplate.attributes.startDateTime)}}&nbsp;
+                                    -&nbsp;</span>
+                                <span> {{scheduleUtil.getScheduledOn(scheduledTemplate.attributes.endDateTime)}}</span>
+                            </div>
+                        </td>
+
+                        <td valign="top">
+                            <span
+                                *ngIf="scheduledTemplate.attributes.send_Notification == 1 && scheduledTemplate.attributes.reSendNotification==0">
+                                <div class="align">
+                                    <span> Yes</span>
+                                    <span class="material-icons" matTooltip="Candidate Information"
+                                        (click)=" candidateInformation(scheduledTemplate)">error</span>
+                                </div>
+                                <span
+                                    *ngIf="scheduledTemplate.attributes.status !='Completed' && scheduledTemplate.attributes.status !='InProgress' && scheduledTemplate.attributes.status !='InProgress'"
+                                    class="resendnotification"
+                                    (click)="openEmailDialog(scheduledTemplate)"><u>Resend</u></span>
+                            </span>
+                            <span
+                                *ngIf="scheduledTemplate.attributes.status !='Completed' && scheduledTemplate.attributes.status !='InProgress'  && scheduledTemplate.attributes.send_Notification == 0 && scheduledTemplate.attributes.reSendNotification == 0">
+                                <div class="align2">
+                                    <span
+                                        *ngIf="scheduledTemplate.attributes.deliverySyncStatus =='completed' || scheduledTemplate.attributes.isTao == 0"
+                                        class="text" (click)="openEmailDialog(scheduledTemplate)"> Send
+                                        Email</span>
+                                    <span
+                                        *ngIf="scheduledTemplate.attributes.deliverySyncStatus !='completed' && scheduledTemplate.attributes.isTao == 1"
+                                        class="disableText"> Send Email</span>
+                                </div>
+                            </span>
+                            <span
+                                *ngIf="(scheduledTemplate.attributes.status =='Completed' && scheduledTemplate.attributes.send_Notification == 0 && scheduledTemplate.attributes.reSendNotification == 0) || (scheduledTemplate.attributes.status =='InProgress' && scheduledTemplate.attributes.send_Notification == 0 && scheduledTemplate.attributes.reSendNotification == 0)">
+                                <div class="align">
+                                    <span> No</span>
+                                    <span class="material-icons" matTooltip="Candidate Information"
+                                        (click)="candidateInformation(scheduledTemplate)">error</span>
+                                </div>
+                            </span>
+                            <span
+                                *ngIf="scheduledTemplate.attributes.send_Notification == 0 && scheduledTemplate.attributes.reSendNotification == 0 && scheduledTemplate.attributes.status =='YetToStart'">
+                                <div class="align2">
+                                    <span class="text2" (click)="candidateInformation(scheduledTemplate)">Candidate
+                                        List</span>
+                                </div>
+                            </span>
+
+
+                            <span
+                                *ngIf="scheduledTemplate.attributes.send_Notification == 1 && scheduledTemplate.attributes.reSendNotification == 1">
+                                <div class="align">
+                                    <span> Yes</span>
+                                    <span class="material-icons" matTooltip="Candidate Information"
+                                        (click)="candidateInformation(scheduledTemplate)">error</span>
+                                </div>
+                                <span
+                                    *ngIf="scheduledTemplate.attributes.status !='Completed' && scheduledTemplate.attributes.status !='InProgress'"
+                                    [disable]="isNotificationDisabled" class="disablenotification">Resend</span>
+                            </span>
+                        </td>
+                        <td valign="top">
+                            <div class="status">
+                                <span *ngIf="scheduledTemplate.attributes.status =='YetToStart'">
+                                    <div class="yettostart">
+                                        <span> Yet to Start</span>
+                                    </div>
+                                </span>
+                                <span *ngIf="scheduledTemplate.attributes.status =='InProgress'">
+                                    <div class="inprogress">
+                                        <span>In Progress</span>
+                                    </div>
+                                </span>
+                                <span *ngIf="scheduledTemplate.attributes.status =='Completed'">
+                                    <div class="completed">
+                                        <span>Completed</span>
+                                    </div>
+                                </span>
+                            </div>
+                        </td>
+                        <td valign="top">
+                            <div class="action-btn">
+                                <span class=" disablebtn" *ngIf="scheduledTemplate.attributes.status =='Completed'">
+                                    <img src="../../../../../assets/edit-ic2.svg">
+                                </span>
+                                <span class="enablebtn"
+                                    *ngIf="scheduledTemplate.attributes.status =='YetToStart' || scheduledTemplate.attributes.status =='InProgress'"
+                                    (click)="onEditDeatils(index,scheduledTemplate)">
+                                    <img alt="" src="../../../../../assets/edit-ic.svg" matTooltip="Edit">
+                                </span>
+                                <span (click)="onViewDialog(scheduledTemplate)">
+                                    <img alt="" class="img" src="../../../../../assets/view-eye.svg" matTooltip="View">
+                                </span>
+
+                                <span
+                                    *ngIf="(scheduledTemplate.attributes.status ==  'InProgress' && scheduledTemplate.attributes.formTemplateId != 0) ||  (scheduledTemplate.attributes.status ==  'Completed' && scheduledTemplate.attributes.formTemplateId != 0) "
+                                    (click)="candidateProfileSubmission(scheduledTemplate)">
+                                    <img alt="" class="img" [src]="'../../../../../assets/images/report.svg'"
+                                        matTooltip="Profile">
+                                </span>
+
+                                <span
+                                    *ngIf=" (scheduledTemplate.attributes.status == 'YetToStart')  || (scheduledTemplate.attributes.status =='InProgress' &&  scheduledTemplate.attributes.formTemplateId == 0 ) ||  (scheduledTemplate.attributes.status =='Completed' &&   scheduledTemplate.attributes.formTemplateId == 0)">
+                                    <img alt="" class="img" [src]="'../../../../../assets/images/report1.svg'">
+                                </span>
+                            </div>
+                        </td>
+                    </tbody>
+                </table>
+            </div>
+        </ng-container>
+        <div class="loader-row">
+            <app-lazy-loader *ngIf="showLazyLoading"></app-lazy-loader>
+        </div>
+    </div>
+</div>
+
+<ng-template #nodata>
+    <div *ngIf="scheduledTemplates == undefined" class="norecord">
+        <div class="inside"> No records found </div>
+    </div>
+</ng-template>

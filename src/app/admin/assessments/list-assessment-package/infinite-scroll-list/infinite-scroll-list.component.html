@@ -1,0 +1,22 @@
+<app-infinite-scroll-container (scrolled)="onScroll()" [showLoading]="showLazyLoading">
+  <!-- <div class="container"> -->
+    <ng-container *ngIf="packageTemplates && packageTemplates.length > 0; else nodata"></ng-container>
+    <ng-container *ngFor="let packageTemplate of packageTemplates">
+      <div class="align-content">
+        <div class="col-xs-6 gutter">
+          <app-assessment-package-card
+            [packageContent]="packageTemplate"
+            [tasks]="packageTemplate.attributes.tasks"
+            [canViewPackage]="canViewPackage"
+          ></app-assessment-package-card>
+        </div>
+      </div>
+    </ng-container>
+  <!-- </div> -->
+</app-infinite-scroll-container>
+
+<ng-template #nodata>
+  <div class="norecord" *ngIf="packageTemplates == undefined">
+      <div class="inside"> No records found </div>
+  </div>
+</ng-template>
